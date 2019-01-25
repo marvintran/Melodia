@@ -1,4 +1,4 @@
-# Melodia
+# Melodia Vision Statement
 
 ## Vision Summary
 
