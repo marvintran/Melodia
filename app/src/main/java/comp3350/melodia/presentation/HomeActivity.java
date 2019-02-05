@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import comp3350.melodia.R;
+
 public class HomeActivity extends Activity {
 
     @Override
@@ -14,7 +16,7 @@ public class HomeActivity extends Activity {
     }
 
     public void buttonSongOnClick(View v){
-        Intent songIntent = new Intent(HomeActivity.this, SongActivity.this);
+        Intent songIntent = new Intent( HomeActivity.this, SongActivity.class);
         HomeActivity.this.startActivity(songIntent);
     }
 }
