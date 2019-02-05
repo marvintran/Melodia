@@ -8,7 +8,7 @@ public class Song {
     public Song(String newSongName, String newArtistName, int newSongTime){
         this.songName = newSongName;
         this.artistName = newArtistName;
-        this.songTime = newSongTime
+        this.songTime = newSongTime;
     }
 
     public String getSongName() { return songName; }
@@ -18,6 +18,6 @@ public class Song {
     public int getSongTime() { return songTime; }
 
     public String toString(){
-        return String(songName + " by: " + artistName + " is " + )
+        return (songName + " by: " + artistName + " is " + songTime + "s");
     }
 }
