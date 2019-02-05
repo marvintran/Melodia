@@ -1,4 +1,4 @@
-package objects;
+package comp3350.melodia.objects;
 
 public class Song {
     private String songName;
