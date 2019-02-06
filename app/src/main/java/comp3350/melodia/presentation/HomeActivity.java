@@ -19,4 +19,9 @@ public class HomeActivity extends Activity {
         Intent songIntent = new Intent( HomeActivity.this, SongActivity.class);
         HomeActivity.this.startActivity(songIntent);
     }
+
+    public void buttonLibraryOnClick(View v){
+        Intent libraryIntent = new Intent( this, LibraryActivity.class);
+        startActivity(libraryIntent);
+    }
 }
