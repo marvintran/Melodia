@@ -23,10 +23,6 @@ public class Artist {
     public void setAlbums(Collection<Album> albums){
         this.albums = albums;
     }
-    /*
-    public String toString(){
-        return ("The artist name is " +artistName);
-    }
-    */
+
 }
 

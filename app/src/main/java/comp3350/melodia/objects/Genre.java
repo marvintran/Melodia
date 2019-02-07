@@ -12,9 +12,4 @@ public class Genre {
     public void setGenreName(String genreName){
         this.genreName = genreName;
     }
-    /*
-    public String toString(){
-        return ("The name of the genre is" + genreName );
-    }
-    */
 }
