@@ -15,7 +15,7 @@ import comp3350.melodia.R;
 public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
-
+    //tutorial for NavigationBar found at https://code.tutsplus.com/tutorials/how-to-code-a-bottom-navigation-bar-for-an-android-app--cms-30305
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 

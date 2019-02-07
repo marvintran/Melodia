@@ -12,9 +12,7 @@
         <activity
             android:name=".presentation.MainActivity"
             android:label="@string/app_name"></activity>
-        <activity android:name=".presentation.ShareActivity" />
-        <activity android:name=".presentation.PlaylistActivity" />
-        <activity android:name=".presentation.Splash">
+        <activity android:name=".presentation.Splash" android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
