@@ -31,22 +31,22 @@ public class Services
 
     public static synchronized ArtistPersistence getArtistPersistence()
     {
-        if (songPersistence == null)
+        if (artistPersistence == null)
         {
-            songPersistence = new ArtistPersistenceStub();
+            artistPersistence = new ArtistPersistenceStub();
         }
 
-        return songPersistence;
+        return artistPersistence;
     }
 
     public static synchronized AlbumPersistence getAlbumPersistence()
     {
-        if (songPersistence == null)
+        if (albumPersistence == null)
         {
-            songPersistence = new AlbumPersistenceStub();
+            albumPersistence = new AlbumPersistenceStub();
         }
 
-        return songPersistence;
+        return albumPersistence;
     }
 
     public static synchronized AccountPersistence getAccountPersistence()
