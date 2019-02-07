@@ -1,4 +1,4 @@
-package com.example.melodia;
+package com.example.melodia.Objects;
 
 import org.junit.Test;
 
