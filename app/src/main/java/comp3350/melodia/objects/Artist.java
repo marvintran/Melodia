@@ -23,6 +23,5 @@ public class Artist {
     public void setAlbums(Collection<Album> albums){
         this.albums = albums;
     }
-
 }
 

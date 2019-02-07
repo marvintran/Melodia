@@ -59,8 +59,6 @@ public class ArtistPersistenceStub implements ArtistPersistence {
         if (index >= 0) {
             artists.remove(index);
         }
-
     }
-
 }
 

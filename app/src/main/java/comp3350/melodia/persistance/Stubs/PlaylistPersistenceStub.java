@@ -69,7 +69,5 @@ public class PlaylistPersistenceStub implements PlaylistPersistence {
         if (index >= 0) {
             playlists.remove(index);
         }
-
     }
-
 }

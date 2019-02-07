@@ -17,7 +17,6 @@ public class GenreTest
 
         genre = new Genre("Pop");
         assertNotNull(genre);
-        assertEquals("Pop", (genre.getGenreName()));
 
         System.out.println("Finished GenreTest");
     }

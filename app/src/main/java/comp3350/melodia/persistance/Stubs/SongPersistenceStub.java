@@ -25,7 +25,7 @@ public class SongPersistenceStub implements SongPersistence {
                 new Album(
                         "130 mood: TRBL",
                         new ArrayList<Song>(),
-                        new Genre("JPOP")),
+                        new Genre("R&B")),
                 5,
                 ""));
         songs.add(1, new Song(

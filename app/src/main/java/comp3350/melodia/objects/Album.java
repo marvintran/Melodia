@@ -2,12 +2,10 @@ package comp3350.melodia.objects;
 
 import java.util.Collection;
 
-
 public class Album{
     private String albumName;
     private Collection<Song> songs;
     private Genre genreName = null;
-
 
     public Album(String albumName, Collection<Song> songs) {
         this.albumName = albumName;
@@ -37,5 +35,4 @@ public class Album{
     public void setAlbumGenre(Genre genreName){
         this.genreName = genreName;
     }
-
 }

@@ -60,7 +60,5 @@ public class AlbumPersistenceStub implements AlbumPersistence {
         if (index >= 0) {
             albums.remove(index);
         }
-
     }
-
 }
