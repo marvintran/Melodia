@@ -7,12 +7,12 @@ public class Album{
     private Collection<Song> songs;
     private Genre genreName = null;
 
-    public Album(String albumName, Collection<Song> songs) {
+    public Album(String albumName, Collection<Song> songs){
         this.albumName = albumName;
         this.songs = songs;
     }
 
-    public Album(String albumName, Collection<Song> songs, Genre genreName) {
+    public Album(String albumName, Collection<Song> songs, Genre genreName){
         this(albumName, songs);
         this.genreName = genreName;
     }

@@ -1,6 +1,5 @@
 package comp3350.melodia.presentation;
 import comp3350.melodia.R;
-import comp3350.melodia.objects.Song;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,10 +7,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Collection;
+
+import comp3350.melodia.objects.Song;
+import comp3350.melodia.objects.Artist;
+import comp3350.melodia.objects.Album;
 
 public class LibraryActivity extends AppCompatActivity {
 
-    ArrayList<Song> songLibrary = new ArrayList<Song>();
+    ArrayList<Song> songLibrary;
 
     RecyclerView myRecyclerView;
     private RecyclerView.Adapter myAdapter;
@@ -23,37 +27,45 @@ public class LibraryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_library);
 
         // hardcode some songs to display for now
-        Song song1 = new Song( "Nice For What", "Drake",180);
-        Song song2 = new Song( "no tears left to cry", "Ariana Grande", 181);
-        Song song3 = new Song( "Honey", "Drake", 183);
-        Song song4 = new Song( "Honey", "Robyn", 190);
-        Song song5 = new Song( "Sicko Mode", "Travis Scott", 188);
-        Song song6 = new Song( "Make Me Feel", "Janelle Monáe", 187);
-        Song song7 = new Song( "Shallow", "Lady Gaga and Bradley Cooper", 186);
-        Song song8 = new Song( "This Is America", "Childish Gambino", 186);
-        Song song9 = new Song( "I Like It", "Cardi B", 189);
-        Song song10 = new Song( "Love It If We Made It", "The 1975", 187);
+        Song[] songs = new Song[]{
+                new Song(
+                        "Nice For What", 180,
+                        new Artist("Drake", new ArrayList<Album>()),
+                        new Album("Name", new ArrayList<Song>()), 1, " "),
+                new Song( "no tears left to cry", 181,
+                        new Artist( "Ariana Grande", new ArrayList<Album>()),
+                        new Album("SomeName", new ArrayList<Song>()), 2, " "),
+                new Song( "Honey", 183,
+                        new Artist("Drake", new ArrayList<Album>()),
+                        new Album("nifivn", new ArrayList<Song>()), 3, ""),
+                new Song( "Honey", 183,
+                        new Artist("Drake", new ArrayList<Album>()),
+                        new Album("ngirjvn", new ArrayList<Song>()), 4, ""),
+                new Song( "Honey", 190,
+                        new Artist("Robyn", new ArrayList<Album>()),
+                        new Album(" fecnuic", new ArrayList<Song>()), 5, ""),
+                new Song( "Sicko Mode", 183,
+                        new Artist("Travis Scott", new ArrayList<Album>()),
+                        new Album(" nfcic", new ArrayList<Song>()), 6, ""),
+                new Song( "Make Me Feel", 187,
+                        new Artist("Janelle Monáe", new ArrayList<Album>()),
+                        new Album("Name", new ArrayList<Song>()), 7, ""),
+                new Song( "Shallow", 186,
+                        new Artist("Lady Gaga and Bradley Cooper", new ArrayList<Album>()),
+                        new Album("Born to be a star...", new ArrayList<Song>()), 8, ""),
+                new Song( "This Is America",186,
+                        new Artist("Childish Gambino", new ArrayList<Album>()),
+                        new Album("nfjciuvf", new ArrayList<Song>()), 9, ""),
+                new Song( "I Like It", 189,
+                        new Artist("Cardi B", new ArrayList<Album>()),
+                        new Album("nevoenv", new ArrayList<Song>()), 10, ""),
+                new Song( "Love It If We Made It", 187,
+                        new Artist("The 1975", new ArrayList<Album>()),
+                        new Album("necionnv", new ArrayList<Song>()), 11, "")
+        };
 
-        songLibrary.add(song1);
-        songLibrary.add(song2);
-        songLibrary.add(song3);
-        songLibrary.add(song4);
-        songLibrary.add(song5);
-        songLibrary.add(song6);
-        songLibrary.add(song7);
-        songLibrary.add(song8);
-        songLibrary.add(song9);
-        songLibrary.add(song10);
-        songLibrary.add(song1);
-        songLibrary.add(song2);
-        songLibrary.add(song3);
-        songLibrary.add(song4);
-        songLibrary.add(song5);
-        songLibrary.add(song6);
-        songLibrary.add(song7);
-        songLibrary.add(song8);
-        songLibrary.add(song9);
-        songLibrary.add(song10);
+        songLibrary = new ArrayList<Song>(songLibrary);
+
 
         // obtain a handle to the recyclerView
         myRecyclerView = (RecyclerView)findViewById(R.id.my_recycler_view);

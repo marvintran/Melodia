@@ -3,7 +3,7 @@ package comp3350.melodia.objects;
 public class Genre {
     private String genreName;
 
-    public Genre(String genreName) {
+    public Genre(String genreName){
         this.genreName = genreName;
     }
     public String getGenreName(){

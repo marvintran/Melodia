@@ -59,7 +59,7 @@ public class Song {
         return trackNumber;
     }
 
-    public void setTrackNumber(int trackNumber) {
+    public void setTrackNumber(int trackNumber){
         this.trackNumber = trackNumber;
     }
 }
