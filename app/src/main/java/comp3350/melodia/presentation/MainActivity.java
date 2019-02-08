@@ -23,7 +23,8 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.homeNav:
-                    mTextMessage.setText(R.string.home_button);
+                    Fragment homeFragment = HomeFragment.newInstance();
+                    openFragment(homeFragment);mTextMessage.setText(R.string.home_button);
                     return true;
                 case R.id.playlistNav:
                     Fragment playlistFragment = PlaylistFragment.newInstance();
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         mTextMessage = findViewById(R.id.message);
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setSelectedItemId(R.id.homeNav);
     }
 
     private void openFragment (Fragment fragment) {
