@@ -34,7 +34,7 @@ public class Playlist{
         return playlistTime;
     }
 
-    public void setPlaylistDuration(int playlistTime){
+    public void setPlaylistTime(int playlistTime){
         this.playlistTime = playlistTime;
     }
 
