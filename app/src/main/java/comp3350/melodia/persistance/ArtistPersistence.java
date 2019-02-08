@@ -5,9 +5,7 @@ import comp3350.melodia.objects.Artist;
 
 public interface ArtistPersistence {
 
-    List<Artist> getArtistSequential();
-
-    List<Artist> getArtistRandom(Artist currentPlaylist);
+    List<Artist> getAllArtists();
 
     Artist insertArtist(Artist currentPlaylist);
 

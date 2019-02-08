@@ -30,11 +30,14 @@ public class SongTest
                 3,
                 "");
 
+        //Assert Tests - testing to see if it there
         assertNotNull(song);
         assertEquals("1234", (song.getSongName()));
         assertEquals(222, song.getSongTime());
         assertNotNull(song.getArtist());
+        assertEquals("asdf", song.getArtist().getArtistName());
         assertNotNull(song.getAlbum());
+        assertEquals("adfs", song.getAlbum().getAlbumName());
         assertEquals(3,  song.getTrackNumber());
 
         System.out.println("Finished SongTest");

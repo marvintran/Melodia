@@ -12,6 +12,7 @@ public class Album{
         this.songs = songs;
     }
 
+    //added second constructor if the album has a genre
     public Album(String albumName, Collection<Song> songs, Genre genreName){
         this(albumName, songs);
         this.genreName = genreName;

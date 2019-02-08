@@ -26,24 +26,17 @@ public class PlaylistPersistenceStub implements PlaylistPersistence {
                 2,
                 new ArrayList<Song>(),
                 ""));
+        playlists.add(2, new Playlist(
+                "Playlist Test",
+                1200,
+                5,
+                new ArrayList<Song>(),
+                ""));
     }
 
     @Override
-    public List<Playlist> getPlaylistSequential() {
+    public List<Playlist> getAllPlaylists() {
         return Collections.unmodifiableList(playlists);
-    }
-
-    @Override
-    public List<Playlist> getPlaylistRandom(Playlist currentPlaylist) {
-        List<Playlist> newPlaylists = new ArrayList<>();
-        int index;
-
-        index = playlists.indexOf(currentPlaylist);
-        if (index >= 0)
-        {
-            newPlaylists.add(playlists.get(index));
-        }
-        return newPlaylists;
     }
 
     @Override

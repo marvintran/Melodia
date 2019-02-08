@@ -5,9 +5,7 @@ import comp3350.melodia.objects.Playlist;
 
 public interface PlaylistPersistence {
 
-    List<Playlist> getPlaylistSequential();
-
-    List<Playlist> getPlaylistRandom(Playlist currentPlaylist);
+    List<Playlist> getAllPlaylists();
 
     Playlist insertPlaylist(Playlist currentPlaylist);
 

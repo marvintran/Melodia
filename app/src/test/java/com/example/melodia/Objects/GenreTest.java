@@ -15,8 +15,12 @@ public class GenreTest
 
         System.out.println("\nStarting GenreTest");
 
+        //added a genre for tests
         genre = new Genre("Pop");
+
+        //asserts
         assertNotNull(genre);
+        assertEquals("Pop", genre.getGenreName());
 
         System.out.println("Finished GenreTest");
     }

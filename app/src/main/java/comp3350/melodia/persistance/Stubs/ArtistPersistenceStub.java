@@ -16,24 +16,12 @@ public class ArtistPersistenceStub implements ArtistPersistence {
 
         artists.add(0, new Artist("Dean", new ArrayList<Album>()));
         artists.add(1, new Artist("Nico Touches the Wall", new ArrayList<Album>()));
+        artists.add(2, new Artist("epik high", new ArrayList<Album>()));
     }
 
     @Override
-    public List<Artist> getArtistSequential() {
+    public List<Artist> getAllArtists() {
         return Collections.unmodifiableList(artists);
-    }
-
-    @Override
-    public List<Artist> getArtistRandom(Artist currentArtist) {
-        List<Artist> newArtists = new ArrayList<>();
-        int index;
-
-        index = artists.indexOf(currentArtist);
-        if (index >= 0)
-        {
-            newArtists.add(artists.get(index));
-        }
-        return newArtists;
     }
 
     @Override

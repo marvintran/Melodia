@@ -5,7 +5,7 @@ import comp3350.melodia.objects.Account;
 
 public interface AccountPersistence {
 
-    List<Account> getAccountSequential();
+    List<Account> getAllAccounts();
 
     List<Account> getAccountRandom(Account currentAccount);
 

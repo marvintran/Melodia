@@ -26,10 +26,17 @@ public class AccountPersistenceStub implements AccountPersistence {
             "unknownEMAIL@myumanitoba.ca",
             "blahprofile",
             new ArrayList<Song>()));
+        accounts.add(2, new Account(
+                "Some Unknown User",
+                "nameofsomeUser",
+                "blahdsb@gmail.com",
+                "profileTest",
+                new ArrayList<Song>()
+                ));
     }
 
     @Override
-    public List<Account> getAccountSequential() {
+    public List<Account> getAllAccounts() {
         return Collections.unmodifiableList(accounts);
     }
 

@@ -18,7 +18,10 @@ public class PlaylistTest
 
         System.out.println("\nStarting PlaylistTest");
 
+        //hardcoded a playlist for testing
         playlist = new Playlist("Playlist5", 2000, 8, new ArrayList<Song>(),"");
+
+        //asserts
         assertNotNull(playlist);
         assertEquals("Playlist5", (playlist.getPlaylistName()));
         assertEquals(2000, playlist.getPlaylistTime());

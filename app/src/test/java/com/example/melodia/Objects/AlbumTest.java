@@ -18,7 +18,10 @@ public class AlbumTest
 
         System.out.println("\nStarting AlbumTest");
 
+        //hardcoded album for tests
         album = new Album("AlbumName", new ArrayList<Song>(), new Genre("Pop"));
+
+        //
         assertNotNull(album);
         assertEquals("AlbumName", (album.getAlbumName()));
         assertNotNull(album.getAlbumGenre());

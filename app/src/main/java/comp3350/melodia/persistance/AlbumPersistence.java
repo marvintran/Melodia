@@ -5,9 +5,7 @@ import comp3350.melodia.objects.Album;
 
 public interface AlbumPersistence {
 
-    List<Album> getAlbumSequential();
-
-    List<Album> getAlbumRandom(Album currentAlbum);
+    List<Album> getAllAlbums();
 
     Album insertAlbum(Album currentAlbum);
 

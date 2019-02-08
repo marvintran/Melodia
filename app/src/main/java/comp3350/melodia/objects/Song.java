@@ -8,7 +8,7 @@ public class Song {
     private Artist artist;
     private Album album;
     private int trackNumber;
-    private File songData;
+    private File songData; //data for the song
 
     public Song(String songName, int songTime, Artist artist, Album album, int trackNumber, File songData) {
         this.songName = songName;

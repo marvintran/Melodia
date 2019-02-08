@@ -8,7 +8,7 @@ public class Playlist{
     private int playlistTime;
     private int numberOfSongs;
     private Collection<Song> songs;
-    private File playlistData;
+    private File playlistData; // get the data for the playlist
 
     public Playlist(String playlistName, int playlistTime, int numberOfSongs, Collection<Song> songs, File playlistData) {
         this.playlistName = playlistName;

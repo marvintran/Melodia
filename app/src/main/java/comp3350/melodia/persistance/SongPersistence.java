@@ -5,9 +5,7 @@ import comp3350.melodia.objects.Song;
 
 public interface SongPersistence {
 
-    List<Song> getSongSequential();
-
-    List<Song> getSongRandom(Song currentSong);
+    List<Song> getAllSongs();
 
     Song insertSong(Song currentSong);
 

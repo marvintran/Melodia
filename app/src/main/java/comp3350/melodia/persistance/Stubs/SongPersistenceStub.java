@@ -40,24 +40,22 @@ public class SongPersistenceStub implements SongPersistence {
                         new Genre("JPOP")),
                 1,
                 ""));
+        songs.add(2, new Song(
+                "fan",
+                225,
+                new Artist(
+                        "epik high",
+                        new ArrayList<Album>()),
+                new Album(
+                        "remapping the soul",
+                        new ArrayList<Song>()),
+                2,
+                ""));
     }
 
     @Override
-    public List<Song> getSongSequential() {
+    public List<Song> getAllSongs() {
         return Collections.unmodifiableList(songs);
-    }
-
-    @Override
-    public List<Song> getSongRandom(Song currentSong) {
-        List<Song> newSongs = new ArrayList<>();
-        int index;
-
-        index = songs.indexOf(currentSong);
-        if (index >= 0)
-        {
-            newSongs.add(songs.get(index));
-        }
-        return newSongs;
     }
 
     @Override
