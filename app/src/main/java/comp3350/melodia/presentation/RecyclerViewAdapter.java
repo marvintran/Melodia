@@ -68,7 +68,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(SongViewHolder songViewHolder, int i) {
         songViewHolder.songName.setText( songs.get(i).getSongName() );
-        songViewHolder.artistName.setText( songs.get(i).getArtistName() );
+        songViewHolder.artistName.setText(songs.get(i).getArtist().getArtistName());
         songViewHolder.trackDuration.setText( Integer.toString(songs.get(i).getSongTime()) );
     }
 }
