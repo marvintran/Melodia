@@ -84,6 +84,12 @@ public class HomeFragment extends Fragment{
             songLibrary.add(songs[i]);
         }
 
+        // add the songs again to have more items and see more scrolling
+        for(int i = 0; i<songs.length; i++)
+        {
+            songLibrary.add(songs[i]);
+        }
+
         // obtain a handle to the recyclerView
         myRecyclerView = (RecyclerView)getView().findViewById(R.id.my_recycler_view);
         // make sure the size does not change for improved performance
