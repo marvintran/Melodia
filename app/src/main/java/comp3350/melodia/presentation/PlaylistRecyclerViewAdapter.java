@@ -63,8 +63,14 @@ public class PlaylistRecyclerViewAdapter extends RecyclerView.Adapter<PlaylistRe
     // populates the views contained in this PlaylistViewHolder
     @Override
     public void onBindViewHolder(PlaylistViewHolder playlistViewHolder, int viewType) {
+
+        String numberOfSongs = Integer.toString(playlists.get(viewType).getNumberOfSongs());
+        if(numberOfSongs.equals("1") )
+            playlistViewHolder.numberOfSongs.setText(numberOfSongs + " Song");
+        else
+            playlistViewHolder.numberOfSongs.setText(numberOfSongs + " Songs");
+
         playlistViewHolder.playlistTitle.setText(playlists.get(viewType).getPlaylistName());
-        playlistViewHolder.numberOfSongs.setText(Integer.toString(playlists.get(viewType).getNumberOfSongs()));
         playlistViewHolder.playlistDuration.setText(Integer.toString(playlists.get(viewType).getPlaylistTime()));
     }
 }
