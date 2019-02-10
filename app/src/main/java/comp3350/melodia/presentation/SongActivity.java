@@ -14,7 +14,7 @@ import comp3350.melodia.objects.Song;
 
 public class SongActivity extends Activity {
 
-    List<Song> Songs;
+    List<Song> SongList;
     Song currSong;
     AccessSong accessSong;
 
@@ -22,16 +22,18 @@ public class SongActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_song);
+        accessSong = new AccessSong();
+        SongList = accessSong.getSongs();
     }
 
     protected void buttonPlayOnClick(){
-        TextView t1 = (TextView)findViewById(R.id.textSong);
+        TextView t1 = findViewById(R.id.textSong);
         t1.setText(currSong.getSongName());
 
-        TextView t2 = (TextView)findViewById(R.id.textSongTime);
+        TextView t2 = findViewById(R.id.textSongTime);
         t2.setText(currSong.getSongTime());
 
-        TextView t3 = (TextView)findViewById(R.id.textArtist);
+        TextView t3 = findViewById(R.id.textArtist);
         t3.setText(currSong.getArtist().getArtistName());
     }
 
