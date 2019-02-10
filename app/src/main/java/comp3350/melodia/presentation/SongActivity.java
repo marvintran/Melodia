@@ -53,7 +53,7 @@ public class SongActivity extends Activity {
 
 
     public void buttonMenuOnClick(View v){
-        Intent songIntent = new Intent( SongActivity.this, HomeActivity.class);
+        Intent songIntent = new Intent( SongActivity.this, HomeFragment.class);
         SongActivity.this.startActivity(songIntent);
     }
     @Override

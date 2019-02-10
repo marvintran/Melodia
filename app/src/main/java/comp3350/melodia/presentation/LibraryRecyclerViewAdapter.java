@@ -1,6 +1,5 @@
 package comp3350.melodia.presentation;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,14 +12,17 @@ import comp3350.melodia.R;
 import comp3350.melodia.objects.Song;
 
 
-// lots of inspiration from the following:
+// THIS IS THE ADAPTER FOR HomeFragment
+
+// inspiration was taken from the following:
 // https://developer.android.com/guide/topics/ui/layout/recyclerview
 // https://code.tutsplus.com/tutorials/android-from-scratch-understanding-adapters-and-adapter-views--cms-26646
 // https://guides.codepath.com/android/using-the-recyclerview
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.SongViewHolder>{
+public class LibraryRecyclerViewAdapter extends RecyclerView.Adapter<LibraryRecyclerViewAdapter.SongViewHolder>{
 
     ArrayList<Song> songs;
 
+    // creates a SongViewHolder which contains references to all the views in this view row
     public static class SongViewHolder extends RecyclerView.ViewHolder {
         TextView songName;
         TextView artistName;
@@ -35,7 +37,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     // constructor
-    public RecyclerViewAdapter(ArrayList<Song> songs){
+    public LibraryRecyclerViewAdapter(ArrayList<Song> songs){
         this.songs = songs;
     }
 
@@ -49,26 +51,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return songs.size();
     }
 
-    // creates an one item in our list (SongViewHolder) which will be displayed in the RecycleView
-    // does not give the SongViewHolder any data, just creates an instance of the object
+    // creates a view row for an library_item where views contained in the view row are stored in a SongViewHolder
+    // does not give the views in the SongViewHolder any data,
     @Override
-    public SongViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        Context context = viewGroup.getContext();
-        LayoutInflater inflater = LayoutInflater.from(context);
-
-        // Inflate the custom layout
-        View contactView = inflater.inflate(R.layout.item, viewGroup, false);
-
-        // Return a new holder instance
-        SongViewHolder songViewHolder = new SongViewHolder(contactView);
+    public SongViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        // create a view row as defined by our library_item.xml file
+        View songView = LayoutInflater.from(parent.getContext()).inflate(R.layout.library_item, parent, false);
+        // create a songViewHolder which contains references to the views for this row
+        SongViewHolder songViewHolder = new SongViewHolder(songView);
         return songViewHolder;
     }
 
-    // gives each SongViewHolder the data that it will display
+    // populates the views contained in this SongViewHolder
     @Override
-    public void onBindViewHolder(SongViewHolder songViewHolder, int i) {
-        songViewHolder.songName.setText( songs.get(i).getSongName() );
-        songViewHolder.artistName.setText(songs.get(i).getArtist().getArtistName());
-        songViewHolder.trackDuration.setText( Integer.toString(songs.get(i).getSongTime()) );
+    public void onBindViewHolder(SongViewHolder songViewHolder, int viewType) {
+        songViewHolder.songName.setText(songs.get(viewType).getSongName());
+        songViewHolder.artistName.setText(songs.get(viewType).getArtist().getArtistName());
+        songViewHolder.trackDuration.setText(Integer.toString(songs.get(viewType).getSongTime()));
     }
 }

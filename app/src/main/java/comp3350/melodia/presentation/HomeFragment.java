@@ -1,19 +1,22 @@
 package comp3350.melodia.presentation;
-import comp3350.melodia.R;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
-import comp3350.melodia.objects.Song;
-import comp3350.melodia.objects.Artist;
+import comp3350.melodia.R;
 import comp3350.melodia.objects.Album;
+import comp3350.melodia.objects.Artist;
+import comp3350.melodia.objects.Song;
 
-public class LibraryActivity extends AppCompatActivity {
+// this is the song library screen for now
+public class HomeFragment extends Fragment{
 
     ArrayList<Song> songLibrary;
 
@@ -22,9 +25,19 @@ public class LibraryActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager myLinearLayout;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_library);
+    public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        return inflater.inflate(R.layout.fragment_home, container, false);
+    }
+
+    public static HomeFragment newInstance() {
+        HomeFragment fragment = new HomeFragment();
+        return fragment;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
         // hardcode some songs to display for now
         Song[] songs = new Song[]{
@@ -64,22 +77,30 @@ public class LibraryActivity extends AppCompatActivity {
                         new Album("necionnv", new ArrayList<Song>()), 11, "")
         };
 
-        songLibrary = new ArrayList<Song>(songLibrary);
+        songLibrary = new ArrayList<Song>();
 
+        for(int i = 0; i<songs.length; i++)
+        {
+            songLibrary.add(songs[i]);
+        }
+
+        // add the songs again to have more items and see more scrolling
+        for(int i = 0; i<songs.length; i++)
+        {
+            songLibrary.add(songs[i]);
+        }
 
         // obtain a handle to the recyclerView
-        myRecyclerView = (RecyclerView)findViewById(R.id.my_recycler_view);
+        myRecyclerView = (RecyclerView)getView().findViewById(R.id.my_recycler_view);
         // make sure the size does not change for improved performance
         myRecyclerView.setHasFixedSize(true);
 
         // making the RecyclerView look like a ListView
-        myLinearLayout = new LinearLayoutManager(this);
+        myLinearLayout = new LinearLayoutManager(getActivity());
         myRecyclerView.setLayoutManager(myLinearLayout);
 
         // define the adapter that will communicate between the dataset and the RecycleView
-        myAdapter = new RecyclerViewAdapter(songLibrary);
+        myAdapter = new LibraryRecyclerViewAdapter(songLibrary);
         myRecyclerView.setAdapter(myAdapter);
     }
-
 }
-
