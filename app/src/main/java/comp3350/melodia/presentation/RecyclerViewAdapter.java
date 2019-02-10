@@ -62,9 +62,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     // populates the views contained in this SongViewHolder
     @Override
+
     public void onBindViewHolder(SongViewHolder songViewHolder, int viewType) {
-        songViewHolder.songName.setText( songs.get(viewType).getSongName() );
-        songViewHolder.artistName.setText( songs.get(viewType).getArtistName() );
-        songViewHolder.trackDuration.setText( Integer.toString(songs.get(viewType).getSongTime()) );
+        songViewHolder.songName.setText(songs.get(viewType).getSongName());
+        songViewHolder.artistName.setText(songs.get(viewType).getArtist().getArtistName());
+        songViewHolder.trackDuration.setText(Integer.toString(songs.get(viewType).getSongTime()));
     }
 }
