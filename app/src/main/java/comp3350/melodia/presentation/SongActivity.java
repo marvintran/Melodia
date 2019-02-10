@@ -1,7 +1,9 @@
 package comp3350.melodia.presentation;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import java.util.List;
@@ -33,6 +35,10 @@ public class SongActivity extends Activity {
         t3.setText(currSong.getArtist().getArtistName());
     }
 
+    public void buttonMenuOnClick(View v){
+        Intent songIntent = new Intent( SongActivity.this, HomeActivity.class);
+        SongActivity.this.startActivity(songIntent);
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
