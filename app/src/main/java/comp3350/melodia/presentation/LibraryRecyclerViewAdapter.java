@@ -12,11 +12,13 @@ import comp3350.melodia.R;
 import comp3350.melodia.objects.Song;
 
 
+// THIS IS THE ADAPTER FOR HomeFragment
+
 // inspiration was taken from the following:
 // https://developer.android.com/guide/topics/ui/layout/recyclerview
 // https://code.tutsplus.com/tutorials/android-from-scratch-understanding-adapters-and-adapter-views--cms-26646
 // https://guides.codepath.com/android/using-the-recyclerview
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.SongViewHolder>{
+public class LibraryRecyclerViewAdapter extends RecyclerView.Adapter<LibraryRecyclerViewAdapter.SongViewHolder>{
 
     ArrayList<Song> songs;
 
@@ -35,7 +37,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     // constructor
-    public RecyclerViewAdapter(ArrayList<Song> songs){
+    public LibraryRecyclerViewAdapter(ArrayList<Song> songs){
         this.songs = songs;
     }
 
@@ -49,12 +51,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return songs.size();
     }
 
-    // creates a view row for an item where views contained in the view row are stored in a SongViewHolder
+    // creates a view row for an library_item where views contained in the view row are stored in a SongViewHolder
     // does not give the views in the SongViewHolder any data,
     @Override
     public SongViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        // create a view row as defined by our item.xml file
-        View songView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
+        // create a view row as defined by our library_item.xml file
+        View songView = LayoutInflater.from(parent.getContext()).inflate(R.layout.library_item, parent, false);
         // create a songViewHolder which contains references to the views for this row
         SongViewHolder songViewHolder = new SongViewHolder(songView);
         return songViewHolder;
@@ -62,7 +64,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     // populates the views contained in this SongViewHolder
     @Override
-
     public void onBindViewHolder(SongViewHolder songViewHolder, int viewType) {
         songViewHolder.songName.setText(songs.get(viewType).getSongName());
         songViewHolder.artistName.setText(songs.get(viewType).getArtist().getArtistName());
