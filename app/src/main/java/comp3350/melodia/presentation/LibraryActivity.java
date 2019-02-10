@@ -64,8 +64,12 @@ public class LibraryActivity extends AppCompatActivity {
                         new Album("necionnv", new ArrayList<Song>()), 11, "")
         };
 
-        songLibrary = new ArrayList<Song>(songLibrary);
+        songLibrary = new ArrayList<Song>();
 
+        for(int i = 0; i<songs.length; i++)
+        {
+            songLibrary.add(songs[i]);
+        }
 
         // obtain a handle to the recyclerView
         myRecyclerView = (RecyclerView)findViewById(R.id.my_recycler_view);
