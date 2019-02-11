@@ -6,11 +6,9 @@ import comp3350.melodia.objects.Genre;
 
 import static org.junit.Assert.*;
 
-public class GenreTest
-{
+public class GenreTest {
     @Test
-    public void GenreTest1()
-    {
+    public void GenreTest1() {
         Genre genre;
 
         System.out.println("\nStarting GenreTest");

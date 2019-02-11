@@ -9,11 +9,9 @@ import comp3350.melodia.objects.Artist;
 import comp3350.melodia.objects.Song;
 import static org.junit.Assert.*;
 
-public class SongTest
-{
+public class SongTest {
     @Test
-    public void SongTest1()
-    {
+    public void SongTest1() {
         Song song;
 
         System.out.println("\nStarting SongTest");
