@@ -24,6 +24,16 @@ public class Account{
         //userAccess = null;
     }
 
+    public Account(String fullName, String userName, String email, String profile, Collection<Song> favoriteList){
+        this.fullName = fullName;
+        this.userName = userName;
+        this.email = email;
+        this.profile = profile;
+        this.favoriteList = favoriteList;
+        //userAccess = null;
+    }
+
+
     public String getFullName(){
         return fullName;
     }
