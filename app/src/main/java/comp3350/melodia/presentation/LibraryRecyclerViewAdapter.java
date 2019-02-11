@@ -68,6 +68,6 @@ public class LibraryRecyclerViewAdapter extends RecyclerView.Adapter<LibraryRecy
     public void onBindViewHolder(SongViewHolder songViewHolder, int viewType) {
         songViewHolder.songName.setText(songs.get(viewType).getSongName());
         songViewHolder.artistName.setText(songs.get(viewType).getArtist().getArtistName());
-        songViewHolder.trackDuration.setText(Integer.toString(songs.get(viewType).getSongTime()));
+        songViewHolder.trackDuration.setText(songs.get(viewType).getSongTimeString());
     }
 }
