@@ -6,7 +6,7 @@ Melodia is a music player which has a unique feature of sharing playlists.
 
 ## Description
 
-By using the device's local storage, people will be able to manage their libraries of songs. With Melodia, music listeners will be able to play local content, browse their music libraries to find songs and create playlists to listen to. A special feature of Melodia will be the ability to create an account and add playlists to their profile to share with others. 
+With Melodia, people will be able to manage their libraries of songs. Music listeners will be able to play local content, browse their music libraries to find songs and create playlists to listen to. A special feature of Melodia will be the ability to create an account and add playlists to their profile to share with others. 
 
 ## Audience
 
