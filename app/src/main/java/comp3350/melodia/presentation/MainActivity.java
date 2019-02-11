@@ -24,7 +24,8 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.homeNav:
                     Fragment homeFragment = HomeFragment.newInstance();
-                    openFragment(homeFragment);mTextMessage.setText(R.string.home_button);
+                    openFragment(homeFragment);
+                    mTextMessage.setText(R.string.home_button);
                     return true;
                 case R.id.playlistNav:
                     Fragment playlistFragment = PlaylistFragment.newInstance();
@@ -35,6 +36,11 @@ public class MainActivity extends AppCompatActivity {
                     Fragment shareFragment = ShareFragment.newInstance();
                     openFragment(shareFragment);
                    // mTextMessage.setText(R.string.share_button);
+                    return true;
+
+                case R.id.songNav:
+                    Fragment songFragment = SongFragment.newInstance();
+                    openFragment(songFragment);
                     return true;
             }
             return false;
