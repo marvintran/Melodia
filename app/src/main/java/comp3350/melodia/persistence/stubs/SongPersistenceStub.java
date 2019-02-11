@@ -51,6 +51,162 @@ public class SongPersistenceStub implements SongPersistence {
                         new ArrayList<Song>()),
                 2,
                 ""));
+        songs.add(3, new Song(
+                "God's plan",
+                239,
+                new Artist(
+                        "Drake",
+                        new ArrayList<Album>()),
+                new Album(
+                        "Scorpion",
+                        new ArrayList<Song>(),
+                        new Genre("Rap")),
+                5,
+                ""));
+        songs.add(4, new Song(
+                "Nice For What",
+                220,
+                new Artist(
+                        "Drake",
+                        new ArrayList<Album>()),
+                new Album(
+                        "Scorpion",
+                        new ArrayList<Song>(),
+                        new Genre("Rap")),
+                4,
+                ""));
+        songs.add(5, new Song(
+                "24K Magic",
+                226,
+                new Artist(
+                        "Bruno Mars",
+                        new ArrayList<Album>()),
+                new Album(
+                        "24k Magic",
+                        new ArrayList<Song>(),
+                        new Genre("Pop")),
+                1,
+                ""));
+        songs.add(6, new Song(
+                "That's What I Like",
+                207,
+                new Artist(
+                        "Bruno Mars",
+                        new ArrayList<Album>()),
+                new Album(
+                        "24k Magic",
+                        new ArrayList<Song>(),
+                        new Genre("Pop")),
+                4,
+                ""));
+        songs.add(7, new Song(
+                "Finesse",
+                191,
+                new Artist(
+                        "Bruno Mars",
+                        new ArrayList<Album>()),
+                new Album(
+                        "24k Magic",
+                        new ArrayList<Song>(),
+                        new Genre("Pop")),
+                8,
+                ""));
+        songs.add(8, new Song(
+                "Chunky",
+                187,
+                new Artist(
+                        "Bruno Mars",
+                        new ArrayList<Album>()),
+                new Album(
+                        "24k Magic",
+                        new ArrayList<Song>(),
+                        new Genre("Pop")),
+                2,
+                ""));
+        songs.add(9, new Song(
+                "Often",
+                249,
+                new Artist(
+                        "The Weeknd",
+                        new ArrayList<Album>()),
+                new Album(
+                        "Beauty Behind The Madness",
+                        new ArrayList<Song>(),
+                        new Genre("Pop")),
+                4,
+                ""));
+        songs.add(10, new Song(
+                "Earned It",
+                246,
+                new Artist(
+                        "The Weeknd",
+                        new ArrayList<Album>()),
+                new Album(
+                        "Beauty Behind The Madness",
+                        new ArrayList<Song>(),
+                        new Genre("Pop")),
+                9,
+                ""));
+        songs.add(10, new Song(
+                "Can't Feel My Face",
+                209,
+                new Artist(
+                        "The Weeknd",
+                        new ArrayList<Album>()),
+                new Album(
+                        "Beauty Behind The Madness",
+                        new ArrayList<Song>(),
+                        new Genre("Pop")),
+                7,
+                ""));
+        songs.add(11, new Song(
+                "The Hills",
+                242,
+                new Artist(
+                        "The Weeknd",
+                        new ArrayList<Album>()),
+                new Album(
+                        "Beauty Behind The Madness",
+                        new ArrayList<Song>(),
+                        new Genre("Pop")),
+                5,
+                ""));
+        songs.add(12, new Song(
+                "Yikes",
+                189,
+                new Artist(
+                        "Kanye West",
+                        new ArrayList<Album>()),
+                new Album(
+                        "ye",
+                        new ArrayList<Song>(),
+                        new Genre("Rap")),
+                2,
+                ""));
+        songs.add(12, new Song(
+                "All Mine",
+                146,
+                new Artist(
+                        "Kanye West",
+                        new ArrayList<Album>()),
+                new Album(
+                        "ye",
+                        new ArrayList<Song>(),
+                        new Genre("Rap")),
+                3,
+                ""));
+        songs.add(13, new Song(
+                "Wouldn't Leave",
+                206,
+                new Artist(
+                        "Kanye West",
+                        new ArrayList<Album>()),
+                new Album(
+                        "ye",
+                        new ArrayList<Song>(),
+                        new Genre("Rap")),
+                4,
+                ""));
 
     }
 
