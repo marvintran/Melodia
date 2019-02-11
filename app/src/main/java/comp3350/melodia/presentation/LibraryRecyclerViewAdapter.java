@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import comp3350.melodia.R;
 import comp3350.melodia.objects.Song;
@@ -20,7 +21,7 @@ import comp3350.melodia.objects.Song;
 // https://guides.codepath.com/android/using-the-recyclerview
 public class LibraryRecyclerViewAdapter extends RecyclerView.Adapter<LibraryRecyclerViewAdapter.SongViewHolder>{
 
-    ArrayList<Song> songs;
+    List<Song> songs;
 
     // creates a SongViewHolder which contains references to all the views in this view row
     public static class SongViewHolder extends RecyclerView.ViewHolder {
@@ -37,7 +38,7 @@ public class LibraryRecyclerViewAdapter extends RecyclerView.Adapter<LibraryRecy
     }
 
     // constructor
-    public LibraryRecyclerViewAdapter(ArrayList<Song> songs){
+    public LibraryRecyclerViewAdapter(List<Song> songs){
         this.songs = songs;
     }
 
