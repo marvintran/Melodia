@@ -15,5 +15,10 @@
         android:icon="@drawable/playlist"
         android:title="@string/title_playlist" />
 
+    <item
+        android:id="@+id/songNav"
+        android:icon="@drawable/playlist"
+        android:title = "Listen"/>
+
 
 </menu>
