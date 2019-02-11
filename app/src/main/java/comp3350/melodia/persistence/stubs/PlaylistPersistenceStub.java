@@ -1,4 +1,4 @@
-package comp3350.melodia.persistance.stubs;
+package comp3350.melodia.persistence.stubs;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,7 +6,7 @@ import java.util.List;
 
 import comp3350.melodia.objects.Playlist;
 import comp3350.melodia.objects.Song;
-import comp3350.melodia.persistance.PlaylistPersistence;
+import comp3350.melodia.persistence.PlaylistPersistence;
 
 public class PlaylistPersistenceStub implements PlaylistPersistence {
     private List<Playlist> playlists;

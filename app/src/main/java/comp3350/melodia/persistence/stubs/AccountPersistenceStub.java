@@ -1,4 +1,4 @@
-package comp3350.melodia.persistance.stubs;
+package comp3350.melodia.persistence.stubs;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,7 +6,7 @@ import java.util.List;
 
 import comp3350.melodia.objects.Song;
 import comp3350.melodia.objects.Account;
-import comp3350.melodia.persistance.AccountPersistence;
+import comp3350.melodia.persistence.AccountPersistence;
 
 public class AccountPersistenceStub implements AccountPersistence {
     private List<Account> accounts;
