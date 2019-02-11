@@ -9,16 +9,16 @@ public class AccountTest{
 	@Test
 	public void accountTest1(){
 		
-		Account testAccount = new Account("mane","userID",
+		Account testAccount = new Account("name","userID",
 			"emailAddress", "usrProfile", null,null
 		);
 		
 		
 		assertNotNull(testAccount);
-		assertEquals("name",getFullName());
-		assertEquals("userID", getUserName());
-		assertEquals("emailAddress", getEmail());
-		assertEquals("usrProfile",getProfile());
+		assertEquals("name",testAccount.getFullName());
+		assertEquals("userID", testAccount.getUserName());
+		assertEquals("emailAddress", testAccount.getEmail());
+		assertEquals("usrProfile",testAccount.getProfile());
 		
 		System.out.println("Finished AccountTest");
 		
