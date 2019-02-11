@@ -1,11 +1,12 @@
 package comp3350.melodia.logic;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import comp3350.melodia.application.Services;
 import comp3350.melodia.objects.Account;
-import comp3350.melodia.persistance.AccountPersistence;
+import comp3350.melodia.persistence.AccountPersistence;
 
 public class AccessAccount{
 	private AccountPersistence accountPersistence;
@@ -18,9 +19,9 @@ public class AccessAccount{
 		account = null;
 	}
 	
-	public list<Account> getAccount(){
+	public List<Account> getAccount(){
 		
-		accountList = accountPersistence.getAllAccount();
+		accountList = accountPersistence.getAllAccounts();
 		
 		return Collections.unmodifiableList(accountList);
 		
