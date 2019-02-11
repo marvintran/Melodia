@@ -27,6 +27,10 @@ public class Account{
     public String getFullName(){
         return fullName;
     }
+    
+    public Login getLoginInf(){
+        return loginInf;
+    }
 
     public void setFullName(String inputName){
         this.fullName = inputName;
