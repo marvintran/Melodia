@@ -1,4 +1,4 @@
-package comp3350.melodia.persistence.stubs;
+package comp3350.melodia.persistance.stubs;
 
 import java.util.ArrayList;
 import java.util.Collections;

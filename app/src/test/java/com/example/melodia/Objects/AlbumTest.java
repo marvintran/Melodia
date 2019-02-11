@@ -9,11 +9,9 @@ import comp3350.melodia.objects.Song;
 
 import static org.junit.Assert.*;
 
-public class AlbumTest
-{
+public class AlbumTest {
     @Test
-    public void AlbumTest1()
-    {
+    public void AlbumTest1() {
         Album album;
 
         System.out.println("\nStarting AlbumTest");

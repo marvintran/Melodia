@@ -8,11 +8,9 @@ import comp3350.melodia.objects.Artist;
 
 import static org.junit.Assert.*;
 
-public class ArtistTest
-{
+public class ArtistTest {
     @Test
-    public void ArtistTest1()
-    {
+    public void ArtistTest1() {
         Artist artist;
 
         System.out.println("\nStarting ArtistTest");

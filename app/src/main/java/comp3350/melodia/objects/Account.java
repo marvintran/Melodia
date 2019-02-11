@@ -105,6 +105,4 @@ class Payment{
         this.vaildDate = vaildDate;
         secondPayment = null;
     }
-
-
 }
