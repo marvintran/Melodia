@@ -34,7 +34,7 @@ public class SongFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         try{
-
+            updateText();
             Button buttonNext = getActivity().findViewById(R.id.buttonNext);
             Button buttonPrev = getActivity().findViewById(R.id.buttonPrev);
 
