@@ -9,11 +9,9 @@ import comp3350.melodia.objects.Playlist;
 
 import static org.junit.Assert.*;
 
-public class PlaylistTest
-{
+public class PlaylistTest {
     @Test
-    public void PlaylistTest1()
-    {
+    public void PlaylistTest1() {
         Playlist playlist;
 
         System.out.println("\nStarting PlaylistTest");

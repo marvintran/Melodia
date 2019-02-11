@@ -8,7 +8,7 @@ import comp3350.melodia.objects.Genre;
 import comp3350.melodia.objects.Song;
 import comp3350.melodia.objects.Artist;
 import comp3350.melodia.objects.Album;
-import comp3350.melodia.persistance.SongPersistence;
+import comp3350.melodia.persistence.SongPersistence;
 
 public class SongPersistenceStub implements SongPersistence {
     private List<Song> songs;
@@ -51,6 +51,7 @@ public class SongPersistenceStub implements SongPersistence {
                         new ArrayList<Song>()),
                 2,
                 ""));
+
     }
 
     @Override
