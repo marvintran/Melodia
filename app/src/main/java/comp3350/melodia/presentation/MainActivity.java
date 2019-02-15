@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.homeNav:
                     Fragment homeFragment = HomeFragment.newInstance();
                     openFragment(homeFragment);
-                    mTextMessage.setText(R.string.home_button);
                     return true;
                 case R.id.playlistNav:
                     Fragment playlistFragment = PlaylistFragment.newInstance();
