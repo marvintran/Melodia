@@ -107,6 +107,8 @@ public class LibraryRecyclerViewAdapter extends RecyclerView.Adapter<LibraryRecy
                 // pass the song to the fragment so we can do stuff depending on the menu option selected
                 Song songClicked = songs.get(viewType);
                 listenerLongClick.onSongLongClicked(songClicked);
+
+                v.showContextMenu();// opens the context menu
                 return true;
             }
         });
