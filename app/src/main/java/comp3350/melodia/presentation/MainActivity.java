@@ -9,10 +9,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import comp3350.melodia.R;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements PlaylistFragment.OnPlaylistClickedListener{
 
     private TextView mTextMessage;
     //tutorial for NavigationBar found at https://code.tutsplus.com/tutorials/how-to-code-a-bottom-navigation-bar-for-an-android-app--cms-30305
@@ -66,4 +67,18 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
     }
 
+    // creates a new fragment to display the songs in that playlist
+    // we pass the index of the playlist that we want to display songs from
+    // the fragment will index into the List<Playlist> to get the playlist we want
+    public void onPlaylistClicked(int playlistIndex) {
+
+        // passing data (integer) from activity to fragment using Bundles
+        // https://stackoverflow.com/a/17063584
+        Bundle args = new Bundle();
+        args.putInt("exampleInt", playlistIndex);
+        Fragment playlistSongs = PlaylistSongsFragment.newInstance();
+        playlistSongs.setArguments(args);
+
+        openFragment(playlistSongs);
+    }
 }
