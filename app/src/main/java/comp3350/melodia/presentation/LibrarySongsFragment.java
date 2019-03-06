@@ -10,7 +10,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -20,8 +19,8 @@ import comp3350.melodia.logic.AccessSong;
 import comp3350.melodia.objects.Song;
 
 // this is the song library screen
-public class HomeFragment extends Fragment implements LibraryRecyclerViewAdapter.OnSongClickedListener,
-                                                      LibraryRecyclerViewAdapter.OnSongLongClickedListener,
+public class LibrarySongsFragment extends Fragment implements LibrarySongsAdapter.OnSongClickedListener,
+                                                      LibrarySongsAdapter.OnSongLongClickedListener,
                                                       View.OnCreateContextMenuListener{
 
     private List<Song> songList;
@@ -43,8 +42,8 @@ public class HomeFragment extends Fragment implements LibraryRecyclerViewAdapter
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
-    public static HomeFragment newInstance() {
-        HomeFragment fragment = new HomeFragment();
+    public static LibrarySongsFragment newInstance() {
+        LibrarySongsFragment fragment = new LibrarySongsFragment();
         return fragment;
     }
 
@@ -62,7 +61,7 @@ public class HomeFragment extends Fragment implements LibraryRecyclerViewAdapter
         myRecyclerView.setLayoutManager(myLinearLayout);
 
         // define the adapter that will communicate between the dataset and the RecycleView
-        myAdapter = new LibraryRecyclerViewAdapter(songList, this, this);
+        myAdapter = new LibrarySongsAdapter(songList, this, this);
         myRecyclerView.setAdapter(myAdapter);
 
         registerForContextMenu(myRecyclerView);

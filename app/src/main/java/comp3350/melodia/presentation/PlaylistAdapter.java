@@ -17,7 +17,7 @@ import comp3350.melodia.objects.Playlist;
 // https://developer.android.com/guide/topics/ui/layout/recyclerview
 // https://code.tutsplus.com/tutorials/android-from-scratch-understanding-adapters-and-adapter-views--cms-26646
 // https://guides.codepath.com/android/using-the-recyclerview
-public class PlaylistRecyclerViewAdapter extends RecyclerView.Adapter<PlaylistRecyclerViewAdapter.PlaylistViewHolder>{
+public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.PlaylistViewHolder>{
 
     private List<Playlist> playlists;
     private OnPlaylistClickedListener listenerClick;
@@ -49,8 +49,8 @@ public class PlaylistRecyclerViewAdapter extends RecyclerView.Adapter<PlaylistRe
     }
 
     // constructor
-    public PlaylistRecyclerViewAdapter(List<Playlist> playlists, OnPlaylistClickedListener listenerClick,
-                                                                 OnPlaylistLongClickedListener listenerLongClick) {
+    public PlaylistAdapter(List<Playlist> playlists, OnPlaylistClickedListener listenerClick,
+                           OnPlaylistLongClickedListener listenerLongClick) {
         this.playlists = playlists;
         this.listenerClick = listenerClick;
         this.listenerLongClick = listenerLongClick;

@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import comp3350.melodia.R;
 
@@ -24,7 +23,7 @@ public class MainActivity extends AppCompatActivity implements PlaylistFragment.
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.homeNav:
-                    Fragment homeFragment = HomeFragment.newInstance();
+                    Fragment homeFragment = LibrarySongsFragment.newInstance();
                     openFragment(homeFragment);
                     return true;
                 case R.id.playlistNav:
