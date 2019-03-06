@@ -8,6 +8,7 @@ import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -15,7 +16,9 @@ import android.widget.Toast;
 import java.util.List;
 
 import comp3350.melodia.R;
+import comp3350.melodia.logic.AccessPlaylist;
 import comp3350.melodia.logic.AccessSong;
+import comp3350.melodia.objects.Playlist;
 import comp3350.melodia.objects.Song;
 
 // this is the song library screen
@@ -76,6 +79,24 @@ public class LibrarySongsFragment extends Fragment implements LibrarySongsAdapte
 
         String songTitle = songClicked.getSongName();
         menu.setHeaderTitle(songTitle);
+
+        // dynamically create submenu items for adding to playlists
+        MenuItem menuItem = menu.findItem(R.id.add_to_playlist);
+        SubMenu subMenu = menuItem.getSubMenu();
+
+        // get all playlists
+        AccessPlaylist accessPlaylist = new AccessPlaylist();
+        List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
+
+        int count = 0;
+        for(Playlist currentPlaylist: allPlaylists) {
+
+            // for every playlislts, make a submenu item
+            String playlistTitle = currentPlaylist.getPlaylistName();
+            String titleNoSpaces = playlistTitle.replaceAll(" ", "_");
+            subMenu.add(menu.NONE, count, menu.NONE, playlistTitle);
+            count++;
+        }
     }
 
     @Override
@@ -99,6 +120,21 @@ public class LibrarySongsFragment extends Fragment implements LibrarySongsAdapte
 
                 return true;
             default:
+                AccessPlaylist accessPlaylist = new AccessPlaylist();
+                List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
+
+                Playlist playlistClicked = allPlaylists.get(item.getItemId());
+                List<Song> playlistSongs = playlistClicked.getSongs();
+
+                playlistSongs.add(songClicked);
+                playlistClicked.setSongs(playlistSongs);
+
+                String songTItle = songClicked.getSongName();
+                String title = playlistClicked.getPlaylistName();
+                accessPlaylist.updatePlaylist(playlistClicked);
+
+                toastMessage = Toast.makeText(getActivity(), songTItle + " added to "+title, Toast.LENGTH_SHORT);;
+                toastMessage.show();
                 return super.onContextItemSelected(item);
         }
     }
