@@ -3,5 +3,10 @@
     <item android:id="@+id/queue"
         android:title="@string/queue" />
     <item android:id="@+id/add_to_playlist"
-        android:title="@string/add_to_playlist" />
+        android:title="@string/add_to_playlist" >
+        <!-- "file" submenu -->
+        <menu>
+            <!-- empty submenu, filled with playlist titles -->
+        </menu>
+    </item>
 </menu>

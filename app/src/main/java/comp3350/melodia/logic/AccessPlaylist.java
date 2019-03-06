@@ -27,4 +27,8 @@ public class AccessPlaylist {
         return playlistPersistence.insertPlaylist(newPlaylist);
     }
 
+    public void updatePlaylist(Playlist thePlaylist) {
+        playlistPersistence.updatePlaylist(thePlaylist);
+    }
+
 }
