@@ -15,11 +15,11 @@ import comp3350.melodia.objects.Song;
 // https://developer.android.com/guide/topics/ui/layout/recyclerview
 // https://code.tutsplus.com/tutorials/android-from-scratch-understanding-adapters-and-adapter-views--cms-26646
 // https://guides.codepath.com/android/using-the-recyclerview
-public abstract class AbstractSongAdapter extends RecyclerView.Adapter<AbstractSongAdapter.SongViewHolder>{
+public abstract class AbstractSongsAdapter extends RecyclerView.Adapter<AbstractSongsAdapter.SongViewHolder>{
 
     private List<Song> songs;
-    private AbstractSongAdapter.OnSongClickedListener listenerClick;
-    private AbstractSongAdapter.OnSongLongClickedListener listenerLongClick;
+    private AbstractSongsAdapter.OnSongClickedListener listenerClick;
+    private AbstractSongsAdapter.OnSongLongClickedListener listenerLongClick;
 
     // The fragment must implement these interfaces
     // so that the adapter can send data back to the fragment
@@ -47,8 +47,8 @@ public abstract class AbstractSongAdapter extends RecyclerView.Adapter<AbstractS
     }
 
     // constructor
-    public AbstractSongAdapter(List<Song> songs, AbstractSongAdapter.OnSongClickedListener listenerClick,
-                               AbstractSongAdapter.OnSongLongClickedListener listenerLongClick){
+    public AbstractSongsAdapter(List<Song> songs, AbstractSongsAdapter.OnSongClickedListener listenerClick,
+                                AbstractSongsAdapter.OnSongLongClickedListener listenerLongClick){
         this.songs = songs;
         this.listenerClick = listenerClick;
         this.listenerLongClick = listenerLongClick;
@@ -69,11 +69,11 @@ public abstract class AbstractSongAdapter extends RecyclerView.Adapter<AbstractS
 
     // creates a view row for a library_item where views contained in the view row are stored in a SongViewHolder
     // does not give the views in the SongViewHolder any data
-    public abstract AbstractSongAdapter.SongViewHolder onCreateViewHolder(ViewGroup parent, int viewType);
+    public abstract AbstractSongsAdapter.SongViewHolder onCreateViewHolder(ViewGroup parent, int viewType);
 
     // populates the views contained in this SongViewHolder
     @Override
-    public void onBindViewHolder(final AbstractSongAdapter.SongViewHolder songViewHolder, final int viewType) {
+    public void onBindViewHolder(final AbstractSongsAdapter.SongViewHolder songViewHolder, final int viewType) {
         songViewHolder.songName.setText(songs.get(viewType).getSongName());
         songViewHolder.artistName.setText(songs.get(viewType).getArtist().getArtistName());
         songViewHolder.trackDuration.setText(songs.get(viewType).getSongTimeString());

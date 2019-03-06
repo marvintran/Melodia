@@ -17,8 +17,8 @@ import comp3350.melodia.objects.Playlist;
 import comp3350.melodia.objects.Song;
 
 // the screen for viewing songs in a playlist
-public class PlaylistSongsFragment extends Fragment implements PlaylistSongsRecyclerViewAdapter.OnSongClickedListener,
-                                                               PlaylistSongsRecyclerViewAdapter.OnSongLongClickedListener {
+public class PlaylistSongsFragment extends Fragment implements PlaylistSongsAdapter.OnSongClickedListener,
+                                                               PlaylistSongsAdapter.OnSongLongClickedListener {
 
     private List<Song> songList;
     private Playlist thePlaylist;
@@ -69,7 +69,7 @@ public class PlaylistSongsFragment extends Fragment implements PlaylistSongsRecy
         myRecyclerView.setLayoutManager(myLinearLayout);
 
         // define the adapter that will communicate between the dataset and the RecycleView
-        myAdapter = new PlaylistSongsRecyclerViewAdapter(songList, this, this);
+        myAdapter = new PlaylistSongsAdapter(songList, this, this);
         myRecyclerView.setAdapter(myAdapter);
     }
 

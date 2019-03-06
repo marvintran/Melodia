@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -24,8 +23,8 @@ import comp3350.melodia.objects.Playlist;
 import comp3350.melodia.objects.Song;
 
 // the screen for viewing all of the playlists
-public class PlaylistFragment extends Fragment implements PlaylistRecyclerViewAdapter.OnPlaylistClickedListener,
-                                                          PlaylistRecyclerViewAdapter.OnPlaylistLongClickedListener {
+public class PlaylistFragment extends Fragment implements PlaylistAdapter.OnPlaylistClickedListener,
+                                                          PlaylistAdapter.OnPlaylistLongClickedListener {
 
     private List<Playlist> allPlaylists;
 
@@ -85,7 +84,7 @@ public class PlaylistFragment extends Fragment implements PlaylistRecyclerViewAd
         myRecyclerView.setLayoutManager(myLinearLayout);
 
         // define the adapter that will communicate between the dataset and the RecycleView
-        myAdapter = new PlaylistRecyclerViewAdapter(allPlaylists, this, this);
+        myAdapter = new PlaylistAdapter(allPlaylists, this, this);
         myRecyclerView.setAdapter(myAdapter);
     }
 
