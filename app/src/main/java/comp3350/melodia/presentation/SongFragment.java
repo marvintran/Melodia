@@ -1,6 +1,7 @@
 package comp3350.melodia.presentation;
 
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -28,14 +29,13 @@ public class SongFragment extends Fragment {
         accessSong = new AccessSong();
         songList = accessSong.getSongs();
         currSong = 0;
-        player = new MediaPlayer();
+        //player = new MediaPlayer();
         return inflater.inflate(R.layout.fragment_song, container, false);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        
         try{
             updateText();
             Button buttonNext = getActivity().findViewById(R.id.buttonNext);
@@ -66,22 +66,30 @@ public class SongFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     try{
-                        //Uses the database to get the song path
-                        //player.setDataSource(songList.get(currSong).getSongData().getPath());
 
-                        //TODO: change to line shown above when database is ready
-                        //Temp song from
-                        //https://www.bensound.com/royalty-free-music/track/all-that-chill-hop
                         TextView txt = getActivity().findViewById(R.id.buttonPlay);
                         if(txt.getText().equals("Play")){
+
+
+                            //TODO: change to line shown above when database is ready
+                            //Temp song from
+                            //https://www.bensound.com/royalty-free-music/track/all-that-chill-hop
+                            if(player != null){
+                                //Uses the database to get the song path
+                                //player.setDataSource(songList.get(currSong).getSongData().getPath());
+                            }
+                            else{
+                                player = MediaPlayer.create(getContext(),R.raw.bensound_allthat);
+                            }
+
+                            player.start();
                             txt.setText("Pause");
                         }
                         else{
+                            player.pause();
                             txt.setText("Play");
                         }
-                        player.setDataSource("app/src/bensound-allthat.mp3");
-                        player.prepare();
-                        player.start();
+
                     }catch (Exception e){
                         System.out.println("Error: " + e);
                     }
