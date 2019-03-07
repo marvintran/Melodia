@@ -51,6 +51,7 @@ public class SongFragment extends Fragment {
                         currSong++;
                         playSong();
                     }
+                    System.out.println("Update text");
                     updateText();
 
                 }
