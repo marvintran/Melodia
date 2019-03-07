@@ -54,7 +54,7 @@ public class PlaylistFragment extends Fragment implements PlaylistAdapter.OnPlay
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_playlists_list, container, false);
+        View v = inflater.inflate(R.layout.fragment_playlist, container, false);
 
         Button newPlaylist = (Button) v.findViewById(R.id.new_playlist);
         newPlaylist.setOnClickListener(mButtonClickListener);

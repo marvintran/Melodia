@@ -42,7 +42,7 @@ public class LibrarySongsFragment extends Fragment implements LibrarySongsAdapte
 
         accessSong = new AccessSong();
         songList = accessSong.getSongs();
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        return inflater.inflate(R.layout.fragment_library, container, false);
     }
 
     public static LibrarySongsFragment newInstance() {
