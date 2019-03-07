@@ -1,5 +1,6 @@
 package comp3350.melodia.presentation;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import comp3350.melodia.objects.Song;
 
 public class SongFragment extends Fragment {
 
+    private MediaPlayer player;
     private List<Song> songList;
     private int currSong;
     private AccessSong accessSong;
@@ -26,6 +28,7 @@ public class SongFragment extends Fragment {
         accessSong = new AccessSong();
         songList = accessSong.getSongs();
         currSong = 0;
+        player = new MediaPlayer();
         return inflater.inflate(R.layout.fragment_song, container, false);
     }
 
@@ -37,6 +40,7 @@ public class SongFragment extends Fragment {
             updateText();
             Button buttonNext = getActivity().findViewById(R.id.buttonNext);
             Button buttonPrev = getActivity().findViewById(R.id.buttonPrev);
+            Button buttonPlay = getActivity().findViewById(R.id.buttonPlay);
 
             buttonNext.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -58,12 +62,28 @@ public class SongFragment extends Fragment {
 
                 }
             });
+            buttonPlay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try{
+                        //Uses the database to get the song path
+                        //player.setDataSource(songList.get(currSong).getSongData().getPath());
+
+                        //TODO: change to line shown above when database is ready
+                        //Temp song from
+                        //https://www.bensound.com/royalty-free-music/track/all-that-chill-hop
+                        player.setDataSource();
+                        player.start();
+                    }catch (Exception e){
+                        System.out.println("Error: " + e);
+                    }
+
+                }
+            });
 
         } catch(Exception e){
             System.out.println("Error:" + e);
         }
-
-
     }
 
     private void updateText(){

@@ -61,6 +61,8 @@ public class Song {
         return trackNumber;
     }
 
+    public File getSongData(){return songData;}
+
     public void setTrackNumber(int trackNumber){
         this.trackNumber = trackNumber;
     }
