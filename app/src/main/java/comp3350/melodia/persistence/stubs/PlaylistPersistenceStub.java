@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import comp3350.melodia.objects.Album;
+import comp3350.melodia.objects.Artist;
+import comp3350.melodia.objects.Genre;
 import comp3350.melodia.objects.Playlist;
 import comp3350.melodia.objects.Song;
 import comp3350.melodia.persistence.PlaylistPersistence;
@@ -14,23 +17,40 @@ public class PlaylistPersistenceStub implements PlaylistPersistence {
     public PlaylistPersistenceStub() {
         this.playlists = new ArrayList<>();
 
+        List<Song> someSongs = new ArrayList<>();
+
+        Song someSong = new Song(
+                "halfmoon",
+                229,
+                new Artist(
+                        "Dean",
+                        new ArrayList<Album>()),
+                new Album(
+                        "130 mood: TRBL",
+                        new ArrayList<Song>(),
+                        new Genre("R&B")),
+                5,
+                "");
+
+        someSongs.add(someSong);
+
         playlists.add(0, new Playlist(
                 "Playlist 1",
                 2400,
                 10,
-                new ArrayList<Song>(),
+                someSongs,
                 ""));
         playlists.add(1, new Playlist(
                 "Playlist 2",
                 480,
                 2,
-                new ArrayList<Song>(),
+                someSongs,
                 ""));
         playlists.add(2, new Playlist(
                 "Playlist Test",
                 1200,
                 5,
-                new ArrayList<Song>(),
+                someSongs,
                 ""));
     }
 
