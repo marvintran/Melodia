@@ -35,7 +35,7 @@ public class SongFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        
         try{
             updateText();
             Button buttonNext = getActivity().findViewById(R.id.buttonNext);
@@ -72,7 +72,15 @@ public class SongFragment extends Fragment {
                         //TODO: change to line shown above when database is ready
                         //Temp song from
                         //https://www.bensound.com/royalty-free-music/track/all-that-chill-hop
-                        player.setDataSource();
+                        TextView txt = getActivity().findViewById(R.id.buttonPlay);
+                        if(txt.getText().equals("Play")){
+                            txt.setText("Pause");
+                        }
+                        else{
+                            txt.setText("Play");
+                        }
+                        player.setDataSource("app/src/bensound-allthat.mp3");
+                        player.prepare();
                         player.start();
                     }catch (Exception e){
                         System.out.println("Error: " + e);
