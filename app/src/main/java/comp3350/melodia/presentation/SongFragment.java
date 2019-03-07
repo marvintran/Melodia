@@ -1,5 +1,6 @@
 package comp3350.melodia.presentation;
 
+import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.File;
 import java.util.List;
 
 import comp3350.melodia.R;
@@ -29,7 +31,7 @@ public class SongFragment extends Fragment {
         accessSong = new AccessSong();
         songList = accessSong.getSongs();
         currSong = 0;
-        //player = new MediaPlayer();
+        player = new MediaPlayer();
         return inflater.inflate(R.layout.fragment_song, container, false);
     }
 
@@ -69,20 +71,28 @@ public class SongFragment extends Fragment {
 
                         TextView txt = getActivity().findViewById(R.id.buttonPlay);
                         if(txt.getText().equals("Play")){
-
-
-                            //TODO: change to line shown above when database is ready
                             //Temp song from
                             //https://www.bensound.com/royalty-free-music/track/all-that-chill-hop
-                            if(player != null){
-                                //Uses the database to get the song path
-                                //player.setDataSource(songList.get(currSong).getSongData().getPath());
+
+                            //Check if the track is paused
+                            if(!player.isPlaying() && player.getCurrentPosition() > 1){
+                                player.start();
                             }
                             else{
-                                player = MediaPlayer.create(getContext(),R.raw.bensound_allthat);
-                            }
+                                //Uses database to get URI
+                                //AssetFileDescriptor afd = getContext().getAssets().openFd(
+                                //        songList.get(currSong).getSongData().getPath());
 
-                            player.start();
+                                //Replace once database implemented
+                                AssetFileDescriptor afd = getContext().getAssets().openFd(
+                                        "bensound_allthat.mp3");
+
+
+                                player.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(),
+                                        afd.getLength());
+                                player.prepare();
+                                player.start();
+                            }
                             txt.setText("Pause");
                         }
                         else{
