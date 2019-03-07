@@ -1,16 +1,16 @@
 package comp3350.melodia.objects;
 
 import java.io.File;
-import java.util.Collection;
+import java.util.List;
 
 public class Playlist{
     private String playlistName;
     private int playlistTime;
     private int numberOfSongs;
-    private Collection<Song> songs;
+    private List<Song> songs;
     private File playlistData; // get the data for the playlist
 
-    public Playlist(String playlistName, int playlistTime, int numberOfSongs, Collection<Song> songs, File playlistData) {
+    public Playlist(String playlistName, int playlistTime, int numberOfSongs, List<Song> songs, File playlistData) {
         this.playlistName = playlistName;
         this.playlistTime = playlistTime;
         this.numberOfSongs = numberOfSongs;
@@ -18,7 +18,7 @@ public class Playlist{
         this.playlistData = playlistData;
     }
 
-    public Playlist(String playlistName, int playlistTime, int numberOfSongs, Collection<Song> songs, String playlistLocation) {
+    public Playlist(String playlistName, int playlistTime, int numberOfSongs, List<Song> songs, String playlistLocation) {
         this(playlistName, playlistTime, numberOfSongs, songs, new File(playlistLocation));
     }
 
@@ -45,10 +45,10 @@ public class Playlist{
         this.numberOfSongs = numberOfSongs;
     }
 
-    public Collection<Song> getSongs(){
+    public List<Song> getSongs(){
         return songs;
     }
-    public void setSongs(Collection<Song> songs){
+    public void setSongs(List<Song> songs){
         this.songs = songs;
     }
 }

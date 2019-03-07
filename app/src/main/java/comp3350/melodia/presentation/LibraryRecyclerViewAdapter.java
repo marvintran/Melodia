@@ -63,11 +63,19 @@ public class LibraryRecyclerViewAdapter extends RecyclerView.Adapter<LibraryRecy
         return songViewHolder;
     }
 
+    public String getSongTimeString(Song song){
+        int hrs = song.getSongTime() / 3600;
+        int mins = (song.getSongTime() % 3600) / 60;
+        int secs   = song.getSongTime() % 60;
+
+        return String.format("%02d : %02d : %02d ", hrs, mins, secs);
+    }
+
     // populates the views contained in this SongViewHolder
     @Override
     public void onBindViewHolder(SongViewHolder songViewHolder, int viewType) {
         songViewHolder.songName.setText(songs.get(viewType).getSongName());
         songViewHolder.artistName.setText(songs.get(viewType).getArtist().getArtistName());
-        songViewHolder.trackDuration.setText(songs.get(viewType).getSongTimeString());
+        songViewHolder.trackDuration.setText(getSongTimeString(songs.get(viewType)));
     }
 }

@@ -35,10 +35,7 @@ public class Song {
         return songTime;
     }
 
-    public String getSongTimeString(){
-        return Integer.toString((songTime % 3600)/60)+":" //minutes
-                + Integer.toString(songTime % 60); //seconds
-    }
+
 
     public void setSongTime(int songTime) {
         this.songTime = songTime;

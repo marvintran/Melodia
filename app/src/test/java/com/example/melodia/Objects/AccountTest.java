@@ -10,7 +10,7 @@ public class AccountTest{
 	public void accountTest1(){
 		
 		Account testAccount = new Account("name","userID",
-			"emailAddress", "usrProfile", null,null
+			"emailAddress", "usrProfile", null
 		);
 		
 		

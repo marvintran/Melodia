@@ -112,7 +112,15 @@ public class SongFragment extends Fragment {
 
         TextView t3 = getActivity().findViewById(R.id.textSongTime);
 
-        t3.setText(songList.get(currSong).getSongTimeString());
+        t3.setText(getSongTimeString(songList.get(currSong)));
+    }
+
+    public String getSongTimeString(Song song){
+        int hrs = song.getSongTime() / 3600;
+        int mins = (song.getSongTime() % 3600) / 60;
+        int secs   = song.getSongTime() % 60;
+
+        return String.format("%02d : %02d : %02d ", hrs, mins, secs);
     }
 
 
