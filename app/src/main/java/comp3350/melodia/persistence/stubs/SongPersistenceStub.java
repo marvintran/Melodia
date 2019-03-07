@@ -17,29 +17,29 @@ public class SongPersistenceStub implements SongPersistence {
         this.songs = new ArrayList<>();
 
         songs.add(0, new Song(
-                "halfmoon",
+                "All that",
                 229,
                 new Artist(
-                        "Dean",
+                        "Benjamin Tissot",
                         new ArrayList<Album>()),
                 new Album(
                         "130 mood: TRBL",
                         new ArrayList<Song>(),
                         new Genre("R&B")),
                 5,
-                ""));
+                "bensound_allthat.mp3"));
         songs.add(1, new Song(
-                "diver",
+                "Dance",
                 251,
                 new Artist(
-                        "Nico Touches the Walls",
+                        "Benjamin Tissot",
                         new ArrayList<Album>()),
                 new Album(
                         "Single",
                         new ArrayList<Song>(),
                         new Genre("JPOP")),
                 1,
-                ""));
+                "bensound_dance.mp3"));
         songs.add(2, new Song(
                 "fan",
                 225,
