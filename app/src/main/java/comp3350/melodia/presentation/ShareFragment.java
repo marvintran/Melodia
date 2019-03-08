@@ -13,7 +13,7 @@ import android.widget.Button;
 import comp3350.melodia.R;
 
 public class ShareFragment extends Fragment implements View.OnClickListener {
-
+    
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
