@@ -86,7 +86,6 @@ public class SongFragment extends Fragment {
                     try{
                         if(player.isPlaying() && player.getCurrentPosition() > 1){
                             player.pause();
-                            seekbarHandler.removeCallbacks(seekbarUpdater);
                         }
                         else if(player.getCurrentPosition() > 1){
                             player.start();
@@ -119,6 +118,7 @@ public class SongFragment extends Fragment {
             public void run() {
                 seekbar.setProgress(player.getCurrentPosition());
                 seekbarHandler.postDelayed(this,50);
+                updateTime();
             }
         };
         seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -194,14 +194,24 @@ public class SongFragment extends Fragment {
         else{
             t4.setText("Play");
         }
+    }
 
+    private void updateTime(){
+        int currDuration = player.getCurrentPosition();
+        int hrs = (currDuration/1000) / 3600;
+        int mins = ((currDuration/1000) % 3600) / 60;
+        int secs   = (currDuration/1000) % 60;
 
+        TextView timePlayed = getActivity().findViewById(R.id.textCurrSongTime);
+        timePlayed.setText(String.format("%02d : %02d : %02d ", hrs, mins, secs));
     }
 
     public String getSongTimeString(Song song){
         int hrs = song.getSongTime() / 3600;
         int mins = (song.getSongTime() % 3600) / 60;
         int secs   = song.getSongTime() % 60;
+
+
 
         return String.format("%02d : %02d : %02d ", hrs, mins, secs);
     }
