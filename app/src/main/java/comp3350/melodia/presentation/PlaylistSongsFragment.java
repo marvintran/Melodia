@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,19 +16,23 @@ import comp3350.melodia.R;
 import comp3350.melodia.logic.AccessPlaylist;
 import comp3350.melodia.objects.Playlist;
 import comp3350.melodia.objects.Song;
+import comp3350.melodia.objects.SongViewHolder;
 
 // the screen for viewing songs in a playlist
-public class PlaylistSongsFragment extends Fragment implements PlaylistSongsAdapter.OnSongClickedListener,
-                                                               PlaylistSongsAdapter.OnSongLongClickedListener {
+public class PlaylistSongsFragment extends Fragment
+                                   implements PlaylistSongsAdapter.OnSongClickedListener,
+                                              PlaylistSongsAdapter.OnSongLongClickedListener,
+                                              PlaylistSongsAdapter.OnStartDragListener {
 
     private List<Song> songList;
     private Playlist thePlaylist;
 
     private RecyclerView myRecyclerView;
-    private RecyclerView.Adapter myAdapter;
+    private PlaylistSongsAdapter myAdapter;
     private RecyclerView.LayoutManager myLinearLayout;
 
     private Toast toastMessage;
+    private ItemTouchHelper touchHelper;
 
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -69,8 +74,12 @@ public class PlaylistSongsFragment extends Fragment implements PlaylistSongsAdap
         myRecyclerView.setLayoutManager(myLinearLayout);
 
         // define the adapter that will communicate between the dataset and the RecycleView
-        myAdapter = new PlaylistSongsAdapter(songList, this, this);
+        myAdapter = new PlaylistSongsAdapter(songList, this, this, this);
         myRecyclerView.setAdapter(myAdapter);
+
+        SwipeAndDragHelper swipeAndDragHelper = new SwipeAndDragHelper(myAdapter);
+        touchHelper = new ItemTouchHelper(swipeAndDragHelper);
+        touchHelper.attachToRecyclerView(myRecyclerView);
     }
 
     // passing data from Adapter to Fragment
@@ -111,5 +120,10 @@ public class PlaylistSongsFragment extends Fragment implements PlaylistSongsAdap
         // option to add this song to a playlist
         // option to delete this song from the playlist
 
+    }
+
+    @Override
+    public void onStartDrag(SongViewHolder viewHolder) {
+        touchHelper.startDrag(viewHolder);
     }
 }
