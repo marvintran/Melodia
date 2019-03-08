@@ -1,6 +1,5 @@
 package comp3350.melodia.objects;
 
-import java.util.Collection;
 import java.util.List;
 
 import comp3350.melodia.logic.Login;
@@ -15,7 +14,6 @@ public class Account{
     private String profile;
     private List<Song> favoriteList;
     private Login loginInf;
-    //private AccessAccount userAccess;
 
     public Account(String fullName, String userName, String email, String profile, List<Song> favoriteList, Login newlog){
         this.fullName = fullName;
@@ -33,7 +31,6 @@ public class Account{
         this.email = email;
         this.profile = profile;
         this.favoriteList = favoriteList;
-        //userAccess = null;
     }
 
 
@@ -103,11 +100,8 @@ public class Account{
     //}//use for test
 
     public String toString(){
-        String result = "";
-        result += "Name :" + fullName+" \n";
-        result += "UserName: " + userName + " \n";
-        result += "eMail : " + email + " \n";
-        result += "Profile: " + profile;
+        String result = String.format("Name :%s \nUserName: %s \neMail : %s \nProfile: %s" ,
+                fullName, userName, email, profile);
         return result;
     }
 
