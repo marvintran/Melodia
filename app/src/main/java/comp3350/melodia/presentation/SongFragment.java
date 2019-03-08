@@ -32,12 +32,17 @@ public class SongFragment extends Fragment {
         songList = accessSong.getSongs();
         currSong = 0;
         player = new MediaPlayer();
+        this.setRetainInstance(true);
         return inflater.inflate(R.layout.fragment_song, container, false);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        if(savedInstanceState != null){
+
+        }
         try{
             updateText();
             Button buttonNext = getActivity().findViewById(R.id.buttonNext);
@@ -51,7 +56,6 @@ public class SongFragment extends Fragment {
                         currSong++;
                         playSong();
                     }
-                    System.out.println("Update text");
                     updateText();
 
                 }
@@ -117,9 +121,10 @@ public class SongFragment extends Fragment {
                 @Override
                 public void onPrepared(MediaPlayer player) {
                     player.start();
+                    updateText();
                 }
             });
-            updateText();
+
 
         }catch (Exception e){
             System.out.println("Error:" + e);
@@ -158,12 +163,10 @@ public class SongFragment extends Fragment {
         return String.format("%02d : %02d : %02d ", hrs, mins, secs);
     }
 
-
     public static SongFragment newInstance() {
         SongFragment fragment = new SongFragment();
         return fragment;
     }
-
 
     @Override
     public void onDestroy() {
