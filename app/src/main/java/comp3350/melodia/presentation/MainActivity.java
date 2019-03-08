@@ -60,10 +60,10 @@ public class MainActivity extends AppCompatActivity implements PlaylistFragment.
         setContentView(R.layout.activity_main);
 
 
-        fm.beginTransaction().add(R.id.container, homeNav, "songNav").commit();
-        fm.beginTransaction().add(R.id.container, playlistNav, "songNav").hide(
+        fm.beginTransaction().add(R.id.container, homeNav, "homeNav").commit();
+        fm.beginTransaction().add(R.id.container, playlistNav, "playlistNav").hide(
                 playlistNav).commit();
-        fm.beginTransaction().add(R.id.container, shareNav, "songNav").hide(shareNav).commit();
+        fm.beginTransaction().add(R.id.container, shareNav, "shareNav").hide(shareNav).commit();
         fm.beginTransaction().add(R.id.container, songNav, "songNav").hide(songNav).commit();
 
 
@@ -71,14 +71,6 @@ public class MainActivity extends AppCompatActivity implements PlaylistFragment.
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setSelectedItemId(R.id.homeNav);
-    }
-
-    private void openFragment (Fragment fragment) {
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.frameLayout, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
     }
 
     // creates a new fragment to display the songs in that playlist
@@ -93,6 +85,8 @@ public class MainActivity extends AppCompatActivity implements PlaylistFragment.
         Fragment playlistSongs = PlaylistSongsFragment.newInstance();
         playlistSongs.setArguments(args);
 
-        openFragment(playlistSongs);
+        fm.beginTransaction().hide(active).commit();
+        fm.beginTransaction().add(R.id.container, playlistSongs, "playlistSongs").commit();
+        active = playlistSongs;
     }
 }
