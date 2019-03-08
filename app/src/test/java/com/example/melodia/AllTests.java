@@ -4,6 +4,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import com.example.melodia.Objects.*;
+import com.example.melodia.logic.AccessPlaylistTest;
 
 import comp3350.melodia.objects.Account;
 
@@ -14,7 +15,8 @@ import comp3350.melodia.objects.Account;
         GenreTest.class,
         PlaylistTest.class,
         SongTest.class,
-        AccountTest.class
+        AccountTest.class,
+        AccessPlaylistTest.class
 })
 public class AllTests {
 
