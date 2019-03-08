@@ -1,5 +1,6 @@
 package comp3350.melodia.presentation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -7,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -18,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements PlaylistFragment.
     final Fragment playlistNav = PlaylistFragment.newInstance();
     final Fragment shareNav = ShareFragment.newInstance();
     final Fragment songNav = SongFragment.newInstance();
+    final Fragment radioNav = RadioFragment.newInstance();
     final FragmentManager fm = getSupportFragmentManager();
     Fragment active = homeNav;
 
@@ -32,23 +36,24 @@ public class MainActivity extends AppCompatActivity implements PlaylistFragment.
                 case R.id.homeNav:
                     fm.beginTransaction().hide(active).show(homeNav).commit();
                     active = homeNav;
-                    mTextMessage.setText(R.string.home_button);
                     return true;
                 case R.id.playlistNav:
                     fm.beginTransaction().hide(active).show(playlistNav).commit();
                     active = playlistNav;
-                   // mTextMessage.setText(R.string.playlist_button);
                     return true;
                 case R.id.shareNav:
                     fm.beginTransaction().hide(active).show(shareNav).commit();
                     active = shareNav;
-                   // mTextMessage.setText(R.string.share_button);
                     return true;
-
                 case R.id.songNav:
                     fm.beginTransaction().hide(active).show(songNav).commit();
                     active = songNav;
                     return true;
+                case R.id.radioNav:
+                    fm.beginTransaction().hide(active).show(radioNav).commit();
+                    active = radioNav;
+                    return true;
+
             }
             return false;
         }
@@ -65,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements PlaylistFragment.
                 playlistNav).commit();
         fm.beginTransaction().add(R.id.container, shareNav, "shareNav").hide(shareNav).commit();
         fm.beginTransaction().add(R.id.container, songNav, "songNav").hide(songNav).commit();
+        fm.beginTransaction().add(R.id.container, radioNav, "radioNav").hide(radioNav).commit();
 
 
         mTextMessage = findViewById(R.id.message);
@@ -88,5 +94,21 @@ public class MainActivity extends AppCompatActivity implements PlaylistFragment.
         fm.beginTransaction().hide(active).commit();
         fm.beginTransaction().add(R.id.container, playlistSongs, "playlistSongs").commit();
         active = playlistSongs;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.settings, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.settings) {
+            startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -56,7 +57,7 @@ public class PlaylistFragment extends Fragment implements PlaylistAdapter.OnPlay
 
         View v = inflater.inflate(R.layout.fragment_playlist, container, false);
 
-        Button newPlaylist = (Button) v.findViewById(R.id.new_playlist);
+        FloatingActionButton newPlaylist = v.findViewById(R.id.new_playlist);
         newPlaylist.setOnClickListener(mButtonClickListener);
         return v;
     }
