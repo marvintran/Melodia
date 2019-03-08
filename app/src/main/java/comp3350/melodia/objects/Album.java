@@ -7,33 +7,33 @@ public class Album{
     private Collection<Song> songs;
     private Genre genreName = null;
 
-    public Album(String albumName, Collection<Song> songs){
+    public Album(String albumName, Collection<Song> songs) {
         this.albumName = albumName;
         this.songs = songs;
     }
 
-    //added second constructor if the album has a genre
-    public Album(String albumName, Collection<Song> songs, Genre genreName){
+    // Added second constructor if the album has a genre.
+    public Album(String albumName, Collection<Song> songs, Genre genreName) {
         this(albumName, songs);
         this.genreName = genreName;
     }
 
-    public String getAlbumName(){
+    public String getAlbumName() {
         return albumName;
     }
 
-    public void setAlbumName(String albumName){
+    public void setAlbumName(String albumName) {
         this.albumName = albumName;
     }
 
-    public Collection<Song> getSongs(){
+    public Collection<Song> getSongs() {
         return songs;
     }
 
-    public Genre getAlbumGenre(){
+    public Genre getAlbumGenre() {
         return genreName;
     }
-    public void setAlbumGenre(Genre genreName){
+    public void setAlbumGenre(Genre genreName) {
         this.genreName = genreName;
     }
 }

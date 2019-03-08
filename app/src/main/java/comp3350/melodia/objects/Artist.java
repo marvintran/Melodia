@@ -6,7 +6,7 @@ public class Artist {
     private String artistName;
     private Collection<Album> albums;
 
-    public Artist(String artistName, Collection<Album> albums){
+    public Artist(String artistName, Collection<Album> albums) {
         this.artistName = artistName;
         this.albums = albums;
     }

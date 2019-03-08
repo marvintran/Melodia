@@ -32,7 +32,9 @@ public class SongFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container,
+                             Bundle savedInstanceState){
         accessSong = new AccessSong();
         songList = accessSong.getSongs();
         currSong = 0;
@@ -46,7 +48,7 @@ public class SongFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if(savedInstanceState != null){
+        if(savedInstanceState != null) {
 
         }
         try{
@@ -59,52 +61,52 @@ public class SongFragment extends Fragment {
             buttonNext.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(currSong+1 < songList.size()){
-                        currSong++;
-                        playSong();
-                        seekBar.setMax(player.getDuration());
-                    }
-                    updateText();
+                if(currSong+1 < songList.size()){
+                    currSong++;
+                    playSong();
+                    seekBar.setMax(player.getDuration());
+                }
+                updateText();
 
                 }
             });
             buttonPrev.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(currSong-1 >= 0){
-                        currSong--;
-                        playSong();
-                        seekBar.setMax(player.getDuration());
-                    }
-                    updateText();
+                if(currSong-1 >= 0){
+                    currSong--;
+                    playSong();
+                    seekBar.setMax(player.getDuration());
+                }
+                updateText();
 
                 }
             });
             buttonPlay.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    try{
-                        if(player.isPlaying() && player.getCurrentPosition() > 1){
-                            player.pause();
-                        }
-                        else if(player.getCurrentPosition() > 1){
-                            player.start();
-                        }
-                        else{
-                            playSong();
-                            seekBar.setMax(player.getDuration());
-                        }
-
-                    }catch (Exception e){
-                        System.out.println("Error: " + e);
+                try{
+                    if(player.isPlaying() && player.getCurrentPosition() > 1){
+                        player.pause();
                     }
-                    updateText();
+                    else if(player.getCurrentPosition() > 1){
+                        player.start();
+                    }
+                    else{
+                        playSong();
+                        seekBar.setMax(player.getDuration());
+                    }
+
+                }catch (Exception e){
+                    System.out.println("Error: " + e);
+                }
+                updateText();
                 }
             });
 
             createSeekbar(seekBar);
 
-        } catch(Exception e){
+        } catch(Exception e) {
             System.out.println("Error:" + e);
         }
 
@@ -123,7 +125,9 @@ public class SongFragment extends Fragment {
         };
         seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            public void onProgressChanged(SeekBar seekBar,
+                                          int progress,
+                                          boolean fromUser) {
                 if(fromUser){
                     player.seekTo(progress);
                 }
@@ -143,16 +147,11 @@ public class SongFragment extends Fragment {
 
     private  void playSong(){
         try{
-            //Temp song from
-            //https://www.bensound.com/royalty-free-music/track/all-that-chill-hop
+            // Temp song from:
+            // https://www.bensound.com/royalty-free-music/track/all-that-chill-hop
 
-            //Uses database to get URI
             AssetFileDescriptor afd = getContext().getAssets().openFd(
                     songList.get(currSong).getSongData().getPath());
-
-            //Replace once database implemented
-            //AssetFileDescriptor afd = getContext().getAssets().openFd(
-            //        "bensound_allthat.mp3");
 
             if(player.isPlaying()){
                 player.stop();
