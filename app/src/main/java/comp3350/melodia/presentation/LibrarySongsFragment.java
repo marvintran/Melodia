@@ -149,13 +149,12 @@ public class LibrarySongsFragment
     public void onSongClicked(Song theSong)
     {
         String songTitle = theSong.getSongName();
-
+        String message =
+                String.format("Added \"%s\" to the queue", songTitle);
         if(toastMessage != null)
             toastMessage.cancel();
 
-        toastMessage = Toast.makeText(getActivity(),
-                                 "Added \"" + songTitle + "\" to the queue",
-                                      Toast.LENGTH_SHORT);
+        toastMessage = Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT);
         toastMessage.show();
 
         // Todo: Add this song to the current queue and play it.

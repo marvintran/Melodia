@@ -159,11 +159,10 @@ public class PlaylistSongsFragment extends Fragment
     {
         String songTitle = theSong.getSongName();
         String playlistName = thePlaylist.getPlaylistName();
-
-        toastMessage = Toast.makeText(getActivity(),
-                                 "Playing playlist \"" + playlistName +
-                                      "\" at song \"" + songTitle + "\"",
-                                      Toast.LENGTH_SHORT);
+        String message =
+                String.format("Playing playlist \"%s\" at song \"%s\"",
+                        playlistName, songTitle);
+        toastMessage = Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT);
         toastMessage.show();
     }
 

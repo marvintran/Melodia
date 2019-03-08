@@ -1,7 +1,8 @@
 package comp3350.melodia.objects;
 
-import java.util.Collection;
 import java.util.List;
+
+import comp3350.melodia.logic.Login;
 
 
 public class Account{
@@ -13,7 +14,6 @@ public class Account{
     private String profile;
     private List<Song> favoriteList;
     private Login loginInf;
-    //private AccessAccount userAccess;
 
     public Account(String fullName, String userName, String email, String profile, List<Song> favoriteList, Login newlog){
         this.fullName = fullName;
@@ -31,7 +31,6 @@ public class Account{
         this.email = email;
         this.profile = profile;
         this.favoriteList = favoriteList;
-        //userAccess = null;
     }
 
 
@@ -101,11 +100,8 @@ public class Account{
     //}//use for test
 
     public String toString(){
-        String result = "";
-        result += "Name :" + fullName+" \n";
-        result += "UserName: " + userName + " \n";
-        result += "eMail : " + email + " \n";
-        result += "Profile: " + profile;
+        String result = String.format("Name :%s \nUserName: %s \neMail : %s \nProfile: %s" ,
+                fullName, userName, email, profile);
         return result;
     }
 
@@ -122,85 +118,4 @@ class Payment{
         this.vaildDate = vaildDate;
         secondPayment = null;
     }
-}
-class Login{
-	private String loginID;
-	private String password;
-	private String[] securityQues;
-	private String[] securityAws;
-	private int numOfQuestion;
-	private boolean secondPwSetted;
-	private String secondPassword;
-	
-	public Login(String loginID, String password){
-		this.password = password;
-		this.loginID = loginID;
-		this.secondPassword = password;
-		numOfQuestion = 0;
-		secondPwSetted = false;
-		securityQues = new String[3];
-		securityAws = new String[3];
-		
-	}
-	
-	
-	
-	public void setSecurityQuestion(String question, String answer){
-		if(numOfQuestion >2 ){
-			System.out.println("Three Secrity Question Setted, Cannot add more");
-		}
-		else{
-			securityQues[numOfQuestion] = question;
-			securityAws[numOfQuestion] = answer;
-			numOfQuestion ++;
-		}
-	}
-	
-	public boolean checkSecurityQuestion(String question, String answer){
-		boolean result = false;
-		for(int i = 0; i < 3; i++){
-			if(securityQues[i] == question){
-				if(securityAws[i].compareTo(answer) == 0){
-					result = true;
-				}
-			}
-		}
-		return result;
-	}
-	
-	public void setSecondPassword(String inputPassword){
-		this.secondPassword = inputPassword;
-		secondPwSetted = true;
-	}
-	
-	public boolean checkPassword(String inputPassword){
-		boolean result = false;
-		if(inputPassword.compareTo(password) == 0){
-			result = true;
-		}
-		
-		return result;
-	}
-	
-	
-	public boolean changePassword(int opition, String newPassword, String ip1, String ip2){
-		boolean result = false;
-		if(opition == 1){//user use secrity question to change password
-			if(checkSecurityQuestion(ip1,ip2)){
-				this.password = newPassword;
-				result = true;
-			}
-		}
-		else if(opition == 2){//user use second password to change password
-			if(ip1.compareTo(secondPassword) == 0){
-				this.password = newPassword;
-				result = true;
-			}
-		}
-		return result;
-	
-	}
-	
-	
-	
 }
