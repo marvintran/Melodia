@@ -8,8 +8,8 @@ import comp3350.melodia.persistence.AlbumPersistence;
 import comp3350.melodia.persistence.hsqldb.AlbumPersistenceHSQLDB;
 import comp3350.melodia.persistence.hsqldb.ArtistPersistenceHSQLDB;
 import comp3350.melodia.persistence.hsqldb.AccountPersistenceHSQLDB;
-import comp3350.melodia.persistence.hsqldb.PlaylistPersistenceHSQLDB;
 import comp3350.melodia.persistence.hsqldb.SongPersistenceHSQLDB;
+import comp3350.melodia.persistence.stubs.PlaylistPersistenceStub;
 
 
 public class Services
@@ -34,7 +34,7 @@ public class Services
     {
         if (playlistPersistence == null)
         {
-            playlistPersistence = new PlaylistPersistenceHSQLDB(Main.getDBPathName());
+            playlistPersistence = new PlaylistPersistenceStub();
         }
 
         return playlistPersistence;
