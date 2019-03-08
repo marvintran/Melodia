@@ -19,9 +19,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/new_playlist"
-        tools:context="comp3350.melodia.presentation.PlaylistFragment"
-        tools:listitem="@layout/fragment_playlists" />
+        app:layout_constraintTop_toBottomOf="@+id/new_playlist" />
 
     <Button
         android:id="@+id/new_playlist"

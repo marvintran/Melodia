@@ -8,6 +8,7 @@ import java.util.List;
 
 import comp3350.melodia.R;
 import comp3350.melodia.objects.Song;
+import comp3350.melodia.objects.SongViewHolder;
 
 public class LibrarySongsAdapter extends AbstractSongsAdapter {
 
@@ -17,7 +18,7 @@ public class LibrarySongsAdapter extends AbstractSongsAdapter {
     }
 
     @Override
-    public SongViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public SongViewHolder onCreateViewHolder(ViewGroup parent, int position) {
         // create a view row as defined by our library_item.xml file
         View songView = LayoutInflater.from(parent.getContext()).inflate(R.layout.library_item, parent, false);
         // create a songViewHolder which contains references to the views for this row
