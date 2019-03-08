@@ -184,13 +184,14 @@ public class SongFragment extends Fragment {
         TextView t3 = getActivity().findViewById(R.id.textSongTime);
         t3.setText(getSongTimeString(songList.get(currSong)));
 
-        TextView t4 = getActivity().findViewById(R.id.buttonPlay);
+        Button play_pause = getActivity().findViewById(R.id.buttonPlay);
 
         if(player.isPlaying()){
-            t4.setText("Pause");
+             play_pause.setBackgroundResource(R.drawable.pause);
+
         }
         else{
-            t4.setText("Play");
+             play_pause.setBackgroundResource(R.drawable.play);
         }
     }
 
