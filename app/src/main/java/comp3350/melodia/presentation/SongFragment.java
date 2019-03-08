@@ -26,7 +26,6 @@ public class SongFragment extends Fragment {
     private MediaPlayer player;
     private List<Song> songList;
     private int currSong;
-    private AccessSong accessSong;
     private Handler seekbarHandler;
     private Runnable seekbarUpdater;
 
@@ -35,7 +34,7 @@ public class SongFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState){
-        accessSong = new AccessSong();
+        AccessSong accessSong = new AccessSong();
         songList = accessSong.getSongs();
         currSong = 0;
         player = new MediaPlayer();

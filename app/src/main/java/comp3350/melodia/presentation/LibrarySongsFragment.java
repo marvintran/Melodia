@@ -28,14 +28,7 @@ public class LibrarySongsFragment
                    View.OnCreateContextMenuListener{
 
     private List<Song> songList;
-    private AccessSong accessSong;
-
-    private RecyclerView myRecyclerView;
-    private RecyclerView.Adapter myAdapter;
-    private RecyclerView.LayoutManager myLinearLayout;
-
     private Toast toastMessage;
-
     private Song songClicked;
 
     @Override
@@ -43,7 +36,7 @@ public class LibrarySongsFragment
                               ViewGroup container,
                               Bundle savedInstanceState) {
 
-        accessSong = new AccessSong();
+        AccessSong accessSong = new AccessSong();
         songList = accessSong.getSongs();
         return inflater.inflate(R.layout.fragment_library, container, false);
     }
@@ -56,6 +49,9 @@ public class LibrarySongsFragment
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        RecyclerView myRecyclerView;
+        RecyclerView.Adapter myAdapter;
+        RecyclerView.LayoutManager myLinearLayout;
 
         myRecyclerView = (RecyclerView)getView().findViewById(R.id.my_recycler_view);
         myRecyclerView.setHasFixedSize(true);

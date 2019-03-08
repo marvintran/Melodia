@@ -29,15 +29,9 @@ public class PlaylistFragment
                    PlaylistAdapter.OnPlaylistLongClickedListener {
 
     private List<Playlist> allPlaylists;
-
-    private RecyclerView myRecyclerView;
-    private RecyclerView.Adapter myAdapter;
-    private RecyclerView.LayoutManager myLinearLayout;
     private AccessPlaylist accessPlaylist;
-
     private Toast toastMessage;
-
-    OnPlaylistClickedListener listener;
+    private OnPlaylistClickedListener listener;
 
     public interface OnPlaylistClickedListener {
         public void onPlaylistClicked(int playlistIndex);
@@ -74,6 +68,10 @@ public class PlaylistFragment
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        RecyclerView myRecyclerView;
+        RecyclerView.Adapter myAdapter;
+        RecyclerView.LayoutManager myLinearLayout;
 
         accessPlaylist = new AccessPlaylist();
         allPlaylists = accessPlaylist.getPlaylists();

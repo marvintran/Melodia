@@ -31,14 +31,8 @@ public class PlaylistSongsFragment extends Fragment
 
     private List<Song> songList;
     private Playlist thePlaylist;
-
-    private RecyclerView myRecyclerView;
-    private PlaylistSongsAdapter myAdapter;
-    private RecyclerView.LayoutManager myLinearLayout;
-
     private Toast toastMessage;
     private ItemTouchHelper touchHelper;
-
     private Song songClicked;
 
     @Override
@@ -67,6 +61,10 @@ public class PlaylistSongsFragment extends Fragment
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        RecyclerView myRecyclerView;
+        PlaylistSongsAdapter myAdapter;
+        RecyclerView.LayoutManager myLinearLayout;
 
         myRecyclerView = (RecyclerView)getView().findViewById(R.id.my_recycler_view);
         myRecyclerView.setHasFixedSize(true);
