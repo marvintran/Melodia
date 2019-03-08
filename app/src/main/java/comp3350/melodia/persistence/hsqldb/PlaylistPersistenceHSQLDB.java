@@ -33,7 +33,7 @@ public class PlaylistPersistenceHSQLDB implements PlaylistPersistence{
         final String songs = rs.getString("songs");
         final String playlistDataPath = rs.getString("playlistData");
 
-        //return new Playlist(playlistName, playlistTime, numberOfSongs, songs, playlistDataPath);
+        // return new Playlist(playlistName, playlistTime, numberOfSongs, songs, playlistDataPath);
         return null;
     }
 
@@ -43,7 +43,7 @@ public class PlaylistPersistenceHSQLDB implements PlaylistPersistence{
 
         try (final Connection c = connection()) {
             final Statement st = c.createStatement();
-            final ResultSet rs = st.executeQuery("SELECT * FROM playlists");
+            final ResultSet rs = st.executeQuery("SELECT * FROM playlist");
             while (rs.next())
             {
                 final Playlist playlist = fromResultSet(rs);
@@ -64,7 +64,7 @@ public class PlaylistPersistenceHSQLDB implements PlaylistPersistence{
     public Playlist insertPlaylist(Playlist currentPlaylist) {
 
         try (final Connection c = connection()) {
-            final PreparedStatement st = c.prepareStatement("INSERT INTO playlists VALUES(?, ?)");
+            final PreparedStatement st = c.prepareStatement("INSERT INTO playlist VALUES(?, ?)");
             st.setString(1, currentPlaylist.getPlaylistName());
             st.setInt(2, currentPlaylist.getPlaylistTime());
             st.setInt(3, currentPlaylist.getNumberOfSongs());
@@ -82,7 +82,7 @@ public class PlaylistPersistenceHSQLDB implements PlaylistPersistence{
     public Playlist updatePlaylist(Playlist currentPlaylist) {
 
         try (final Connection c = connection()) {
-            final PreparedStatement st = c.prepareStatement("UPDATE playlists SET name = ? WHERE playlistName = ?");
+            final PreparedStatement st = c.prepareStatement("UPDATE playlist SET name = ? WHERE playlistName = ?");
             st.setString(1, currentPlaylist.getPlaylistName());
             st.setInt(2, currentPlaylist.getPlaylistTime());
             st.setInt(3, currentPlaylist.getNumberOfSongs());

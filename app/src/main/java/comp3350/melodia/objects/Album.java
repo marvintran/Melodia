@@ -18,6 +18,10 @@ public class Album{
         this.genreName = genreName;
     }
 
+    public Album(String albumName){
+        this.albumName = albumName;
+    }
+
     public String getAlbumName(){
         return albumName;
     }

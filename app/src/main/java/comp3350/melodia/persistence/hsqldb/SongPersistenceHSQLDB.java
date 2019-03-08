@@ -30,13 +30,17 @@ public class SongPersistenceHSQLDB implements SongPersistence {
     private Song fromResultSet(final ResultSet rs) throws SQLException {
         final String songName = rs.getString("songName");
         final int songTime = rs.getInt("songTime");
-        final String artistStr = rs.getString("artist");
-        final String albumStr = rs.getString("album");
+        final String artistStr = rs.getString("artistName");
+        final String albumStr = rs.getString("albumName");
         final int trackNumber = rs.getInt("trackNumber");
-        final String songDataPath = rs.getString("songData");
+        final String songDataPath = rs.getString("songPath");
 
-//        return new Song(songName, songTime, artist, album, trackNumber, songData);
-        return null;
+        File song = new File(songDataPath);
+        Artist artist = new Artist(artistStr);
+        Album album = new Album(albumStr);
+
+        return new Song(songName, songTime, artist, album, trackNumber, song);
+
     }
 
     @Override

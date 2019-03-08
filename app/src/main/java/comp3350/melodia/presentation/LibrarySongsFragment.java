@@ -30,8 +30,8 @@ import comp3350.melodia.application.Main;
 
 // this is the song library screen
 public class LibrarySongsFragment extends Fragment implements LibrarySongsAdapter.OnSongClickedListener,
-                                                      LibrarySongsAdapter.OnSongLongClickedListener,
-                                                      View.OnCreateContextMenuListener{
+        LibrarySongsAdapter.OnSongLongClickedListener,
+        View.OnCreateContextMenuListener{
 
     private List<Song> songList;
     private AccessSong accessSong;
