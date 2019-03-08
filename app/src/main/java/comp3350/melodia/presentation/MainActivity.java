@@ -14,6 +14,13 @@ import comp3350.melodia.R;
 
 public class MainActivity extends AppCompatActivity implements PlaylistFragment.OnPlaylistClickedListener{
 
+    final Fragment homeNav = LibrarySongsFragment.newInstance();
+    final Fragment playlistNav = PlaylistFragment.newInstance();
+    final Fragment shareNav = ShareFragment.newInstance();
+    final Fragment songNav = SongFragment.newInstance();
+    final FragmentManager fm = getSupportFragmentManager();
+    Fragment active = homeNav;
+
     private TextView mTextMessage;
     //tutorial for NavigationBar found at https://code.tutsplus.com/tutorials/how-to-code-a-bottom-navigation-bar-for-an-android-app--cms-30305
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -23,24 +30,24 @@ public class MainActivity extends AppCompatActivity implements PlaylistFragment.
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.homeNav:
-                    Fragment homeFragment = LibrarySongsFragment.newInstance();
-                    openFragment(homeFragment);
+                    fm.beginTransaction().hide(active).show(homeNav).commit();
+                    active = homeNav;
                     mTextMessage.setText(R.string.home_button);
                     return true;
                 case R.id.playlistNav:
-                    Fragment playlistFragment = PlaylistFragment.newInstance();
-                    openFragment(playlistFragment);
+                    fm.beginTransaction().hide(active).show(playlistNav).commit();
+                    active = playlistNav;
                    // mTextMessage.setText(R.string.playlist_button);
                     return true;
                 case R.id.shareNav:
-                    Fragment shareFragment = ShareFragment.newInstance();
-                    openFragment(shareFragment);
+                    fm.beginTransaction().hide(active).show(shareNav).commit();
+                    active = shareNav;
                    // mTextMessage.setText(R.string.share_button);
                     return true;
 
                 case R.id.songNav:
-                    Fragment songFragment = SongFragment.newInstance();
-                    openFragment(songFragment);
+                    fm.beginTransaction().hide(active).show(songNav).commit();
+                    active = songNav;
                     return true;
             }
             return false;
@@ -51,6 +58,14 @@ public class MainActivity extends AppCompatActivity implements PlaylistFragment.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        fm.beginTransaction().add(R.id.container, homeNav, "songNav").commit();
+        fm.beginTransaction().add(R.id.container, playlistNav, "songNav").hide(
+                playlistNav).commit();
+        fm.beginTransaction().add(R.id.container, shareNav, "songNav").hide(shareNav).commit();
+        fm.beginTransaction().add(R.id.container, songNav, "songNav").hide(songNav).commit();
+
 
         mTextMessage = findViewById(R.id.message);
         BottomNavigationView navigation = findViewById(R.id.navigation);
