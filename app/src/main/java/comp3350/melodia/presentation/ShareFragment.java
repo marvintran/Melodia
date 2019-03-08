@@ -1,5 +1,6 @@
 package comp3350.melodia.presentation;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,12 +9,37 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 
 import comp3350.melodia.R;
 
 public class ShareFragment extends Fragment implements View.OnClickListener {
-    
+
+
+    private OnRegisterClickedListener registerListener;
+    private OnLoginClickedListener loginListener;
+
+    public interface OnRegisterClickedListener {
+        public void onRegisterClicked();
+    }
+    public interface OnLoginClickedListener {
+        void onLoginClicked();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            registerListener = (OnRegisterClickedListener) context;
+            loginListener = (OnLoginClickedListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(
+                    context.toString() + " must implement OnArticleSelectedListener");
+        }
+    }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -29,14 +55,20 @@ public class ShareFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.login:
-                Fragment loginFragment = LoginFragment.newInstance();
-                openFragment(loginFragment);
+                onLoginClicked();
                 break;
             case R.id.register:
-                Fragment registerFragment = RegisterFragment.newInstance();
-                openFragment(registerFragment);
+                onRegisterClicked();
                 break;
         }
+    }
+
+    public void onRegisterClicked() {
+        registerListener.onRegisterClicked();
+    }
+
+    public void onLoginClicked(){
+        loginListener.onLoginClicked();
     }
 
     public static ShareFragment newInstance() {
