@@ -5,10 +5,10 @@
 
 
     <ImageView
-        android:id="@+id/share"
+        android:id="@+id/radio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/share"
+        android:src="@drawable/radio"
         android:contentDescription="@string/share_button" />
 
 </FrameLayout>

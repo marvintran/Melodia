@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity implements PlaylistFragment.
     final Fragment playlistNav = PlaylistFragment.newInstance();
     final Fragment shareNav = ShareFragment.newInstance();
     final Fragment songNav = SongFragment.newInstance();
+    final Fragment radioNav = RadioFragment.newInstance();
     final FragmentManager fm = getSupportFragmentManager();
     Fragment active = homeNav;
 
@@ -32,22 +33,22 @@ public class MainActivity extends AppCompatActivity implements PlaylistFragment.
                 case R.id.homeNav:
                     fm.beginTransaction().hide(active).show(homeNav).commit();
                     active = homeNav;
-                    mTextMessage.setText(R.string.home_button);
                     return true;
                 case R.id.playlistNav:
                     fm.beginTransaction().hide(active).show(playlistNav).commit();
                     active = playlistNav;
-                   // mTextMessage.setText(R.string.playlist_button);
                     return true;
                 case R.id.shareNav:
                     fm.beginTransaction().hide(active).show(shareNav).commit();
                     active = shareNav;
-                   // mTextMessage.setText(R.string.share_button);
                     return true;
-
                 case R.id.songNav:
                     fm.beginTransaction().hide(active).show(songNav).commit();
                     active = songNav;
+                    return true;
+                case R.id.radioNav:
+                    fm.beginTransaction().hide(active).show(radioNav).commit();
+                    active = radioNav;
                     return true;
             }
             return false;
@@ -65,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements PlaylistFragment.
                 playlistNav).commit();
         fm.beginTransaction().add(R.id.container, shareNav, "shareNav").hide(shareNav).commit();
         fm.beginTransaction().add(R.id.container, songNav, "songNav").hide(songNav).commit();
+        fm.beginTransaction().add(R.id.container, radioNav, "radioNav").hide(radioNav).commit();
 
 
         mTextMessage = findViewById(R.id.message);
