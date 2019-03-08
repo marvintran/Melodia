@@ -4,9 +4,9 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import com.example.melodia.Objects.*;
-import com.example.melodia.logic.AccessPlaylistTest;
 
-import comp3350.melodia.objects.Account;
+import com.example.melodia.logic.AccessPlaylistTest;
+import com.example.melodia.business.AccessSongTest;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
@@ -16,7 +16,8 @@ import comp3350.melodia.objects.Account;
         PlaylistTest.class,
         SongTest.class,
         AccountTest.class,
-        AccessPlaylistTest.class
+        AccessPlaylistTest.class,
+        AccessSongTest.class
 })
 public class AllTests {
 

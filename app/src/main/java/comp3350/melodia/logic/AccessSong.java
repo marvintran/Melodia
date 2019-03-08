@@ -6,6 +6,7 @@ import java.util.List;
 import comp3350.melodia.application.Services;
 import comp3350.melodia.objects.Song;
 import comp3350.melodia.persistence.SongPersistence;
+import comp3350.melodia.persistence.stubs.SongPersistenceStub;
 
 public class AccessSong {
     private SongPersistence songPersistence;
@@ -16,6 +17,10 @@ public class AccessSong {
         songPersistence = Services.getSongPersistence();
         songs = null;
         song = null;
+    }
+    public AccessSong(final SongPersistenceStub songPersistence){
+        this();
+        this.songPersistence = songPersistence;
     }
 
     public List<Song> getSongs(){
