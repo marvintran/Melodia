@@ -1,6 +1,5 @@
 package comp3350.melodia.logic;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 

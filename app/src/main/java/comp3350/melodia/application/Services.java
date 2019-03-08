@@ -5,54 +5,66 @@ import comp3350.melodia.persistence.PlaylistPersistence;
 import comp3350.melodia.persistence.SongPersistence;
 import comp3350.melodia.persistence.ArtistPersistence;
 import comp3350.melodia.persistence.AlbumPersistence;
-import comp3350.melodia.persistence.stubs.AlbumPersistenceStub;
-import comp3350.melodia.persistence.stubs.ArtistPersistenceStub;
-import comp3350.melodia.persistence.stubs.AccountPersistenceStub;
+import comp3350.melodia.persistence.hsqldb.AlbumPersistenceHSQLDB;
+import comp3350.melodia.persistence.hsqldb.ArtistPersistenceHSQLDB;
+import comp3350.melodia.persistence.hsqldb.AccountPersistenceHSQLDB;
+import comp3350.melodia.persistence.hsqldb.SongPersistenceHSQLDB;
 import comp3350.melodia.persistence.stubs.PlaylistPersistenceStub;
-import comp3350.melodia.persistence.stubs.SongPersistenceStub;
 
-public class Services {
+
+public class Services
+{
+    private static AccountPersistence accountPersistence = null;
+    private static PlaylistPersistence playlistPersistence = null;
     private static SongPersistence songPersistence = null;
     private static ArtistPersistence artistPersistence = null;
     private static AlbumPersistence albumPersistence = null;
-    private static AccountPersistence accountPersistence = null;
-    private static PlaylistPersistence playlistPersistence = null;
 
-    public static synchronized SongPersistence getSongPersistence() {
-        if (songPersistence == null) {
-            songPersistence = new SongPersistenceStub();
+    public static synchronized AccountPersistence getAccountPersistence()
+    {
+        if (accountPersistence == null)
+        {
+            accountPersistence = new AccountPersistenceHSQLDB(Main.getDBPathName());
         }
 
-        return songPersistence;
-    }
-
-    public static synchronized ArtistPersistence getArtistPersistence() {
-        if (artistPersistence == null) {
-            artistPersistence = new ArtistPersistenceStub();
-        }
-
-        return artistPersistence;
-    }
-
-    public static synchronized AlbumPersistence getAlbumPersistence() {
-        if (albumPersistence == null) {
-            albumPersistence = new AlbumPersistenceStub();
-        }
-
-        return albumPersistence;
-    }
-
-    public static synchronized AccountPersistence getAccountPersistence() {
-        if (accountPersistence == null) {
-            accountPersistence = new AccountPersistenceStub();
-        }
         return accountPersistence;
     }
 
-    public static synchronized PlaylistPersistence getPlaylistPersistence() {
-        if (playlistPersistence == null) {
+    public static synchronized PlaylistPersistence getPlaylistPersistence()
+    {
+        if (playlistPersistence == null)
+        {
             playlistPersistence = new PlaylistPersistenceStub();
         }
+
         return playlistPersistence;
     }
+
+    public static synchronized SongPersistence getSongPersistence()
+    {
+        if (songPersistence == null) {
+
+            songPersistence = new SongPersistenceHSQLDB(Main.getDBPathName());
+        }
+        return songPersistence;
+    }
+
+    public static synchronized ArtistPersistence getArtistPersistence()
+    {
+        if (artistPersistence == null) {
+
+            artistPersistence = new ArtistPersistenceHSQLDB(Main.getDBPathName());
+        }
+        return artistPersistence;
+    }
+
+    public static synchronized AlbumPersistence getAlbumPersistence()
+    {
+        if (albumPersistence == null) {
+
+            albumPersistence = new AlbumPersistenceHSQLDB(Main.getDBPathName());
+        }
+        return albumPersistence;
+    }
 }
+

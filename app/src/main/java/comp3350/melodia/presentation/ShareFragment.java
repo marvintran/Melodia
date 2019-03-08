@@ -25,18 +25,18 @@ public class ShareFragment extends Fragment implements View.OnClickListener {
         return view;
     }
 
-        @Override
-        public void onClick(View view) {
-            switch (view.getId()) {
-                case R.id.login:
-                    Fragment loginFragment = LoginFragment.newInstance();
-                    openFragment(loginFragment);
-                    break;
-                case R.id.register:
-                    Fragment registerFragment = RegisterFragment.newInstance();
-                    openFragment(registerFragment);
-                    break;
-            }
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.login:
+                Fragment loginFragment = LoginFragment.newInstance();
+                openFragment(loginFragment);
+                break;
+            case R.id.register:
+                Fragment registerFragment = RegisterFragment.newInstance();
+                openFragment(registerFragment);
+                break;
+        }
     }
 
     public static ShareFragment newInstance() {
