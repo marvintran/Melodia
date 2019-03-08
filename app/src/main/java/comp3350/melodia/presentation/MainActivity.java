@@ -103,6 +103,10 @@ public class MainActivity extends AppCompatActivity implements PlaylistFragment.
         return true;
     }
 
+    public void onRegisterClicked(){
+
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.settings) {
