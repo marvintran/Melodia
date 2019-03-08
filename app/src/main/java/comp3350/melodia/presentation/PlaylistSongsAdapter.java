@@ -42,7 +42,7 @@ public class PlaylistSongsAdapter extends AbstractSongsAdapter
     public void onBindViewHolder(final SongViewHolder songViewHolder, final int position) {
         songViewHolder.getSongNameView().setText(songs.get(position).getSongName());
         songViewHolder.getArtistNameView().setText(songs.get(position).getArtist().getArtistName());
-        songViewHolder.getTrackDurationView().setText(songs.get(position).getSongTimeString());
+        songViewHolder.getTrackDurationView().setText(getSongTimeString(songs.get(position)));
 
         // implementing onClick() in RecyclerView https://stackoverflow.com/a/38090900
 

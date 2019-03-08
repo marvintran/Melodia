@@ -14,8 +14,9 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/buttonTextLight"
         android:ems="10"
+        android:hint="@string/username"
+        android:textColorHint="@color/buttonTextLight"
         android:inputType="textPersonName"
-        android:text="@string/username"
         android:textColor="@color/buttonTextLight"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,14 +30,16 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/buttonTextLight"
         android:ems="10"
+        android:hint="@string/password"
+        android:textColorHint="@color/buttonTextLight"
         android:inputType="textPersonName"
-        android:text="@string/password"
         android:textColor="@color/buttonTextLight"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.46" />
+
 
     <ImageView
         android:id="@+id/imageView"

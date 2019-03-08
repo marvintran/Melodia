@@ -19,14 +19,24 @@ public class ShareFragment extends Fragment implements View.OnClickListener {
 
         View view = inflater.inflate(R.layout.fragment_share, container, false);
         Button login = view.findViewById(R.id.login);
+        Button register = view.findViewById(R.id.register);
         login.setOnClickListener(this);
+        register.setOnClickListener(this);
         return view;
     }
 
         @Override
         public void onClick(View view) {
-        Fragment loginFragment = LoginFragment.newInstance();
-        openFragment(loginFragment);
+            switch (view.getId()) {
+                case R.id.login:
+                    Fragment loginFragment = LoginFragment.newInstance();
+                    openFragment(loginFragment);
+                    break;
+                case R.id.register:
+                    Fragment registerFragment = RegisterFragment.newInstance();
+                    openFragment(registerFragment);
+                    break;
+            }
     }
 
     public static ShareFragment newInstance() {
@@ -37,7 +47,7 @@ public class ShareFragment extends Fragment implements View.OnClickListener {
 
     private void openFragment(Fragment fragment) {
         FragmentManager manager = getFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
+        FragmentTransaction transaction = manager.beginTransaction().hide(this);
         transaction.replace(R.id.frameLayout, fragment);
         transaction.addToBackStack(null);
         transaction.commit();

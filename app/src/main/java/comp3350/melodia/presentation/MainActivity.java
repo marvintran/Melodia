@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements PlaylistFragment.
                     fm.beginTransaction().hide(active).show(radioNav).commit();
                     active = radioNav;
                     return true;
+
             }
             return false;
         }
