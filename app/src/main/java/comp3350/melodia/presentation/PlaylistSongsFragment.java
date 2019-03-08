@@ -5,7 +5,11 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -22,7 +26,8 @@ import comp3350.melodia.objects.SongViewHolder;
 public class PlaylistSongsFragment extends Fragment
                                    implements PlaylistSongsAdapter.OnSongClickedListener,
                                               PlaylistSongsAdapter.OnSongLongClickedListener,
-                                              PlaylistSongsAdapter.OnStartDragListener {
+                                              PlaylistSongsAdapter.OnStartDragListener,
+                                              View.OnCreateContextMenuListener {
 
     private List<Song> songList;
     private Playlist thePlaylist;
@@ -33,6 +38,8 @@ public class PlaylistSongsFragment extends Fragment
 
     private Toast toastMessage;
     private ItemTouchHelper touchHelper;
+
+    private Song songClicked;
 
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -80,6 +87,77 @@ public class PlaylistSongsFragment extends Fragment
         SwipeAndDragHelper swipeAndDragHelper = new SwipeAndDragHelper(myAdapter);
         touchHelper = new ItemTouchHelper(swipeAndDragHelper);
         touchHelper.attachToRecyclerView(myRecyclerView);
+
+        registerForContextMenu(myRecyclerView);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.library_context_menu, menu);
+
+        String songTitle = songClicked.getSongName();
+        menu.setHeaderTitle(songTitle);
+
+        // dynamically create submenu items for adding to playlists
+        MenuItem menuItem = menu.findItem(R.id.add_to_playlist);
+        SubMenu subMenu = menuItem.getSubMenu();
+
+        // get all playlists
+        AccessPlaylist accessPlaylist = new AccessPlaylist();
+        List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
+
+        int count = 0;
+        for(Playlist currentPlaylist: allPlaylists) {
+
+            // for every playlislts, make a submenu item
+            String playlistTitle = currentPlaylist.getPlaylistName();
+            String titleNoSpaces = playlistTitle.replaceAll(" ", "_");
+            subMenu.add(menu.NONE, count, menu.NONE, playlistTitle);
+            count++;
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.queue:
+                String songTitle = songClicked.getSongName();
+                toastMessage = Toast.makeText(getActivity(), "Add to Queue: " + songTitle, Toast.LENGTH_SHORT);;
+                toastMessage.show();
+
+                // add the song that was long clicked to the queue
+
+
+
+                return true;
+            case R.id.add_to_playlist:
+                toastMessage = Toast.makeText(getActivity(), "Add to Playlist", Toast.LENGTH_SHORT);;
+                toastMessage.show();
+
+                // open another context menu where menu options are the titles of our playlists
+
+                return true;
+            default:
+                AccessPlaylist accessPlaylist2 = new AccessPlaylist();
+                List<Playlist> allPlaylists2 = accessPlaylist2.getPlaylists();
+
+                Playlist playlistClicked2 = allPlaylists2.get(item.getItemId());
+                List<Song> playlistSongs2 = playlistClicked2.getSongs();
+
+                playlistSongs2.add(songClicked);
+                playlistClicked2.setSongs(playlistSongs2);
+
+                String songTitle2 = songClicked.getSongName();
+                String title2 = playlistClicked2.getPlaylistName();
+                accessPlaylist2.updatePlaylist(playlistClicked2);
+
+                toastMessage = Toast.makeText(getActivity(), songTitle2 + " added to "+title2, Toast.LENGTH_SHORT);;
+                toastMessage.show();
+                return super.onContextItemSelected(item);
+        }
     }
 
     // passing data from Adapter to Fragment
@@ -111,6 +189,9 @@ public class PlaylistSongsFragment extends Fragment
     // long clicking a song in the playlist should open a context menu with various options
     public void onSongLongClicked(Song theSong)
     {
+        // save the song clicked in this class so the context menu can do stuff with it later
+        songClicked = theSong;
+
         toastMessage = Toast.makeText(getActivity(), "Long Clicked: Open Context Menu", Toast.LENGTH_SHORT);
         toastMessage.show();
 
