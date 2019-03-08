@@ -12,16 +12,16 @@ import comp3350.melodia.objects.SongViewHolder;
 
 public class LibrarySongsAdapter extends AbstractSongsAdapter {
 
-    public LibrarySongsAdapter(List<Song> songs, OnSongClickedListener listenerClick,
+    public LibrarySongsAdapter(List<Song> songs,
+                               OnSongClickedListener listenerClick,
                                OnSongLongClickedListener listenerLongClick){
         super(songs, listenerClick, listenerLongClick);
     }
 
     @Override
-    public SongViewHolder onCreateViewHolder(ViewGroup parent, int position) {
-        // create a view row as defined by our library_item.xml file
-        View songView = LayoutInflater.from(parent.getContext()).inflate(R.layout.library_item, parent, false);
-        // create a songViewHolder which contains references to the views for this row
+    public SongViewHolder onCreateViewHolder(ViewGroup parent,int position) {
+        View songView = LayoutInflater.from(parent.getContext()).inflate(
+                R.layout.library_item, parent, false);
         SongViewHolder songViewHolder = new SongViewHolder(songView);
         return songViewHolder;
     }

@@ -31,35 +31,26 @@ public class PlaylistSongsFragment extends Fragment
 
     private List<Song> songList;
     private Playlist thePlaylist;
-
-    private RecyclerView myRecyclerView;
-    private PlaylistSongsAdapter myAdapter;
-    private RecyclerView.LayoutManager myLinearLayout;
-
     private Toast toastMessage;
     private ItemTouchHelper touchHelper;
-
     private Song songClicked;
 
     @Override
-    public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView (LayoutInflater inflater,
+                              ViewGroup container,
+                              Bundle savedInstanceState) {
 
-        // we receive the integer that the MainActivity passed to this fragment
-        // this integer is the index of the playlist in our List<Playlist>
-        // that we want to see the songs of
         Bundle b = getArguments();
         int playlistIndex = b.getInt("exampleInt");
 
-        // get the list of playlists, then get the playlist at indexPlaylist
         AccessPlaylist accessPlaylist = new AccessPlaylist();
         List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
         thePlaylist = allPlaylists.get(playlistIndex);
 
-        // get the List<Song> contained in the playlist of indexPlaylist
-        // this list of songs is the one we will display
         songList = thePlaylist.getSongs();
 
-        return inflater.inflate(R.layout.fragment_playlist_songs, container, false);
+        return inflater.inflate(
+                R.layout.fragment_playlist_songs, container, false);
     }
 
     public static PlaylistSongsFragment newInstance() {
@@ -71,16 +62,16 @@ public class PlaylistSongsFragment extends Fragment
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        // obtain a handle to the recyclerView
+        RecyclerView myRecyclerView;
+        PlaylistSongsAdapter myAdapter;
+        RecyclerView.LayoutManager myLinearLayout;
+
         myRecyclerView = (RecyclerView)getView().findViewById(R.id.my_recycler_view);
-        // make sure the size does not change for improved performance
         myRecyclerView.setHasFixedSize(true);
 
-        // making the RecyclerView look like a ListView
         myLinearLayout = new LinearLayoutManager(getActivity());
         myRecyclerView.setLayoutManager(myLinearLayout);
 
-        // define the adapter that will communicate between the dataset and the RecycleView
         myAdapter = new PlaylistSongsAdapter(songList, this, this, this);
         myRecyclerView.setAdapter(myAdapter);
 
@@ -92,7 +83,8 @@ public class PlaylistSongsFragment extends Fragment
     }
 
     @Override
-    public void onCreateContextMenu(ContextMenu menu, View v,
+    public void onCreateContextMenu(ContextMenu menu,
+                                    View v,
                                     ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getActivity().getMenuInflater();
@@ -101,18 +93,17 @@ public class PlaylistSongsFragment extends Fragment
         String songTitle = songClicked.getSongName();
         menu.setHeaderTitle(songTitle);
 
-        // dynamically create submenu items for adding to playlists
+        // We will dynamically create submenu items for adding to playlists.
         MenuItem menuItem = menu.findItem(R.id.add_to_playlist);
         SubMenu subMenu = menuItem.getSubMenu();
 
-        // get all playlists
         AccessPlaylist accessPlaylist = new AccessPlaylist();
         List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
 
         int count = 0;
         for(Playlist currentPlaylist: allPlaylists) {
 
-            // for every playlislts, make a submenu item
+            // For every playlist, make a submenu item.
             String playlistTitle = currentPlaylist.getPlaylistName();
             String titleNoSpaces = playlistTitle.replaceAll(" ", "_");
             subMenu.add(menu.NONE, count, menu.NONE, playlistTitle);
@@ -125,20 +116,19 @@ public class PlaylistSongsFragment extends Fragment
         switch (item.getItemId()) {
             case R.id.queue:
                 String songTitle = songClicked.getSongName();
-                toastMessage = Toast.makeText(getActivity(), "Add to Queue: " + songTitle, Toast.LENGTH_SHORT);;
+                toastMessage = Toast.makeText(getActivity(),
+                                         "Add to Queue: " + songTitle,
+                                              Toast.LENGTH_SHORT);
                 toastMessage.show();
 
-                // add the song that was long clicked to the queue
-
-
+                // Todo: Add the song that was long clicked to the queue.
 
                 return true;
             case R.id.add_to_playlist:
-                toastMessage = Toast.makeText(getActivity(), "Add to Playlist", Toast.LENGTH_SHORT);;
+                toastMessage = Toast.makeText(getActivity(),
+                                         "Add to Playlist",
+                                              Toast.LENGTH_SHORT);
                 toastMessage.show();
-
-                // open another context menu where menu options are the titles of our playlists
-
                 return true;
             default:
                 AccessPlaylist accessPlaylist2 = new AccessPlaylist();
@@ -154,7 +144,9 @@ public class PlaylistSongsFragment extends Fragment
                 String title2 = playlistClicked2.getPlaylistName();
                 accessPlaylist2.updatePlaylist(playlistClicked2);
 
-                toastMessage = Toast.makeText(getActivity(), songTitle2 + " added to "+title2, Toast.LENGTH_SHORT);;
+                toastMessage = Toast.makeText(getActivity(),
+                                         songTitle2 + " added to " + title2,
+                                              Toast.LENGTH_SHORT);
                 toastMessage.show();
                 return super.onContextItemSelected(item);
         }
@@ -163,44 +155,26 @@ public class PlaylistSongsFragment extends Fragment
     // passing data from Adapter to Fragment
     // https://developer.android.com/guide/components/fragments.html#EventCallbacks
     // https://stackoverflow.com/a/52830847
-
-    // clicking on a song in a playlist should:
-    // clear the queue and add the songs in this playlist to the queue
-    // then start playing this playlist at the song the user clicked
     public void onSongClicked(Song theSong)
     {
         String songTitle = theSong.getSongName();
         String playlistName = thePlaylist.getPlaylistName();
 
-        toastMessage = Toast.makeText(getActivity(), "Playing playlist \"" + playlistName + "\" at song \"" + songTitle + "\"", Toast.LENGTH_SHORT);;
+        toastMessage = Toast.makeText(getActivity(),
+                                 "Playing playlist \"" + playlistName +
+                                      "\" at song \"" + songTitle + "\"",
+                                      Toast.LENGTH_SHORT);
         toastMessage.show();
-
-        // clear current queue
-
-
-        // add the songList to the currently playing queue
-
-
-        // start playing songs in the currently playing queue at the song the user clicked (Song theSong)
-
-
     }
 
-    // long clicking a song in the playlist should open a context menu with various options
     public void onSongLongClicked(Song theSong)
     {
-        // save the song clicked in this class so the context menu can do stuff with it later
         songClicked = theSong;
 
-        toastMessage = Toast.makeText(getActivity(), "Long Clicked: Open Context Menu", Toast.LENGTH_SHORT);
+        toastMessage = Toast.makeText(getActivity(),
+                                 "Long Clicked: Open Context Menu",
+                                      Toast.LENGTH_SHORT);
         toastMessage.show();
-
-        // open context menu,
-
-        // option to add this song to the currently playing queue
-        // option to add this song to a playlist
-        // option to delete this song from the playlist
-
     }
 
     @Override

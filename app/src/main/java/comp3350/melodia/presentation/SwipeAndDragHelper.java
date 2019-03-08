@@ -20,27 +20,31 @@ public class SwipeAndDragHelper extends ItemTouchHelper.Callback {
         this.theAdapterListening = adapterListeningForDragging;
     }
 
+    // This disables holding anywhere on a song to reorder the song.
     @Override
     public boolean isLongPressDragEnabled() {
-        return false;// disable holding anywhere on a song to reorder
+        return false;
     }
 
     @Override
     public boolean isItemViewSwipeEnabled() {
-        return false;// disable swiping
+        return false;
     }
 
     @Override
-    public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+    public int getMovementFlags(RecyclerView recyclerView,
+                                RecyclerView.ViewHolder viewHolder) {
         int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
         int swipeFlags = ItemTouchHelper.START | ItemTouchHelper.END;
         return makeMovementFlags(dragFlags, swipeFlags);
     }
 
     @Override
-    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
+    public boolean onMove(RecyclerView recyclerView,
+                          RecyclerView.ViewHolder viewHolder,
                           RecyclerView.ViewHolder target) {
-        theAdapterListening.onItemMove(viewHolder.getAdapterPosition(), target.getAdapterPosition());
+        theAdapterListening.onItemMove(viewHolder.getAdapterPosition(),
+                                       target.getAdapterPosition());
         return true;
     }
 
