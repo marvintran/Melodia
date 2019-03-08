@@ -4,12 +4,14 @@ import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.io.File;
@@ -25,6 +27,9 @@ public class SongFragment extends Fragment {
     private List<Song> songList;
     private int currSong;
     private AccessSong accessSong;
+    private Handler seekbarHandler;
+    private Runnable seekbarUpdater;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -32,6 +37,7 @@ public class SongFragment extends Fragment {
         songList = accessSong.getSongs();
         currSong = 0;
         player = new MediaPlayer();
+        seekbarHandler = new Handler();
         this.setRetainInstance(true);
         return inflater.inflate(R.layout.fragment_song, container, false);
     }
@@ -48,6 +54,7 @@ public class SongFragment extends Fragment {
             Button buttonNext = getActivity().findViewById(R.id.buttonNext);
             Button buttonPrev = getActivity().findViewById(R.id.buttonPrev);
             Button buttonPlay = getActivity().findViewById(R.id.buttonPlay);
+            final SeekBar seekBar = getActivity().findViewById(R.id.seekBar);
 
             buttonNext.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -55,6 +62,7 @@ public class SongFragment extends Fragment {
                     if(currSong+1 < songList.size()){
                         currSong++;
                         playSong();
+                        seekBar.setMax(player.getDuration());
                     }
                     updateText();
 
@@ -66,6 +74,7 @@ public class SongFragment extends Fragment {
                     if(currSong-1 >= 0){
                         currSong--;
                         playSong();
+                        seekBar.setMax(player.getDuration());
                     }
                     updateText();
 
@@ -77,12 +86,14 @@ public class SongFragment extends Fragment {
                     try{
                         if(player.isPlaying() && player.getCurrentPosition() > 1){
                             player.pause();
+                            seekbarHandler.removeCallbacks(seekbarUpdater);
                         }
                         else if(player.getCurrentPosition() > 1){
                             player.start();
                         }
                         else{
                             playSong();
+                            seekBar.setMax(player.getDuration());
                         }
 
                     }catch (Exception e){
@@ -91,11 +102,44 @@ public class SongFragment extends Fragment {
                     updateText();
                 }
             });
+
+            createSeekbar(seekBar);
+
         } catch(Exception e){
             System.out.println("Error:" + e);
         }
+
+
+
     }
 
+    private void createSeekbar(final SeekBar seekbar){
+        seekbarUpdater = new Runnable() {
+            @Override
+            public void run() {
+                seekbar.setProgress(player.getCurrentPosition());
+                seekbarHandler.postDelayed(this,50);
+            }
+        };
+        seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if(fromUser){
+                    player.seekTo(progress);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+    }
 
     private  void playSong(){
         try{
@@ -122,6 +166,7 @@ public class SongFragment extends Fragment {
                 public void onPrepared(MediaPlayer player) {
                     player.start();
                     updateText();
+                    seekbarHandler.postDelayed(seekbarUpdater,0);
                 }
             });
 
@@ -129,8 +174,6 @@ public class SongFragment extends Fragment {
         }catch (Exception e){
             System.out.println("Error:" + e);
         }
-
-
     }
     private void updateText(){
         TextView t1 = getActivity().findViewById(R.id.textSongName);
