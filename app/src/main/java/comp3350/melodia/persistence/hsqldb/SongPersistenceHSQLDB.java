@@ -33,7 +33,7 @@ public class SongPersistenceHSQLDB implements SongPersistence {
         final String artistStr = rs.getString("artistName");
         final String albumStr = rs.getString("albumName");
         final int trackNumber = rs.getInt("trackNumber");
-        final String songDataPath = rs.getString("songpath");
+        final String songDataPath = rs.getString("songPath");
 
 
         File song = new File(songDataPath);
