@@ -29,23 +29,12 @@ public class Playlist{
         return playlistName;
     }
 
-    public void setPlaylistName(String playlistName) {
-        this.playlistName = playlistName;
-    }
-
     public int getPlaylistTime() {
         return playlistTime;
     }
 
-    public void setPlaylistTime(int playlistTime) {
-        this.playlistTime = playlistTime;
-    }
-
     public int getNumberOfSongs() {
         return numberOfSongs;
-    }
-    public void setNumberOfSongs(int numberOfSongs) {
-        this.numberOfSongs = numberOfSongs;
     }
 
     public List<Song> getSongs() {

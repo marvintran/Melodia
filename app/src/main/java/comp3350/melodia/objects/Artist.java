@@ -17,14 +17,8 @@ public class Artist {
     public String getArtistName(){
         return artistName;
     }
-    public void setArtistName(String artistName){
-        this.artistName = artistName;
-    }
     public Collection<Album> getAlbums(){
         return albums;
-    }
-    public void setAlbums(Collection<Album> albums){
-        this.albums = albums;
     }
 }
 

@@ -1,6 +1,5 @@
 package comp3350.melodia.objects;
 
-import java.util.Collection;
 import java.util.List;
 
 public class Album{
@@ -27,18 +26,11 @@ public class Album{
         return albumName;
     }
 
-    public void setAlbumName(String albumName) {
-        this.albumName = albumName;
-    }
-
     public List<Song> getSongs() {
         return songs;
     }
 
     public Genre getAlbumGenre() {
         return genreName;
-    }
-    public void setAlbumGenre(Genre genreName) {
-        this.genreName = genreName;
     }
 }
