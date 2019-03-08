@@ -15,7 +15,8 @@ import android.widget.TextView;
 
 import comp3350.melodia.R;
 
-public class MainActivity extends AppCompatActivity implements PlaylistFragment.OnPlaylistClickedListener{
+public class MainActivity extends AppCompatActivity implements PlaylistFragment.OnPlaylistClickedListener,
+        ShareFragment.OnRegisterClickedListener, ShareFragment.OnLoginClickedListener{
 
     final Fragment homeNav = LibrarySongsFragment.newInstance();
     final Fragment playlistNav = PlaylistFragment.newInstance();
@@ -103,8 +104,21 @@ public class MainActivity extends AppCompatActivity implements PlaylistFragment.
         return true;
     }
 
+    @Override
     public void onRegisterClicked(){
+        Fragment registerFragment = RegisterFragment.newInstance();
+        fm.beginTransaction().hide(active).commit();
+        fm.beginTransaction().add(R.id.container, registerFragment).commit();
+        active = registerFragment;
 
+    }
+
+    @Override
+    public void onLoginClicked(){
+        Fragment loginFragment = LoginFragment.newInstance();
+        fm.beginTransaction().hide(active).commit();
+        fm.beginTransaction().add(R.id.container, loginFragment).commit();
+        active = loginFragment;
     }
 
     @Override
