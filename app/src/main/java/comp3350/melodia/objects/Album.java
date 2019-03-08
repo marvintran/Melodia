@@ -1,21 +1,26 @@
 package comp3350.melodia.objects;
 
 import java.util.Collection;
+import java.util.List;
 
 public class Album{
     private String albumName;
-    private Collection<Song> songs;
+    private List<Song> songs;
     private Genre genreName = null;
 
-    public Album(String albumName, Collection<Song> songs) {
+    public Album(String albumName, List<Song> songs) {
         this.albumName = albumName;
         this.songs = songs;
     }
 
     // Added second constructor if the album has a genre.
-    public Album(String albumName, Collection<Song> songs, Genre genreName) {
+    public Album(String albumName, List<Song> songs, Genre genreName) {
         this(albumName, songs);
         this.genreName = genreName;
+    }
+
+    public Album(String albumName){
+        this.albumName = albumName;
     }
 
     public String getAlbumName() {
@@ -26,7 +31,7 @@ public class Album{
         this.albumName = albumName;
     }
 
-    public Collection<Song> getSongs() {
+    public List<Song> getSongs() {
         return songs;
     }
 
