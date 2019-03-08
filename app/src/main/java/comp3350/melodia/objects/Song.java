@@ -30,18 +30,8 @@ public class Song {
         return songName;
     }
 
-    public void setSongName(String songName) {
-        this.songName = songName;
-    }
-
     public int getSongTime() {
         return songTime;
-    }
-
-
-
-    public void setSongTime(int songTime) {
-        this.songTime = songTime;
     }
 
     public Artist getArtist() {
@@ -68,9 +58,6 @@ public class Song {
         return songData;
     }
 
-    public void setTrackNumber(int trackNumber) {
-        this.trackNumber = trackNumber;
-    }
 }
 
 

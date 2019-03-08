@@ -23,8 +23,4 @@ public class AccessSong {
         return Collections.unmodifiableList(songs);
     }
 
-    public Song insertSong(Song newSong){
-        return songPersistence.insertSong(newSong);
-    }
-
 }
