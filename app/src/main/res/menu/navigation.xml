@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/radioNav"
+        android:icon="@drawable/radio"
+        android:title="@string/radio_button" />
     <item
         android:id="@+id/shareNav"
         android:icon="@drawable/share"
@@ -17,8 +22,8 @@
 
     <item
         android:id="@+id/songNav"
-        android:icon="@drawable/playlist"
-        android:title = "Listen"/>
+        android:icon="@drawable/listen"
+        android:title = "@string/song_button"/>
 
 
 </menu>

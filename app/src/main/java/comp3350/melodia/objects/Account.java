@@ -1,6 +1,7 @@
 package comp3350.melodia.objects;
 
 import java.util.Collection;
+import java.util.List;
 
 
 public class Account{
@@ -10,11 +11,11 @@ public class Account{
     private String email;
     private Payment payInfo;
     private String profile;
-    private Collection<Song> favoriteList;
+    private List<Song> favoriteList;
     private Login loginInf;
     //private AccessAccount userAccess;
 
-    public Account(String fullName, String userName, String email, String profile, Collection<Song> favoriteList, Login newlog){
+    public Account(String fullName, String userName, String email, String profile, List<Song> favoriteList, Login newlog){
         this.fullName = fullName;
         this.userName = userName;
         this.email = email;
@@ -24,7 +25,7 @@ public class Account{
         //userAccess = null;
     }
 
-    public Account(String fullName, String userName, String email, String profile, Collection<Song> favoriteList){
+    public Account(String fullName, String userName, String email, String profile, List<Song> favoriteList){
         this.fullName = fullName;
         this.userName = userName;
         this.email = email;
@@ -70,11 +71,11 @@ public class Account{
         return email;
     }
 
-    public void setFavorList(Collection<Song> newList){
+    public void setFavorList(List<Song> newList){
         this.favoriteList = newList;
     }
 
-    public Collection<Song> getFavorList(){
+    public List<Song> getFavorList(){
         return favoriteList;
     }
 

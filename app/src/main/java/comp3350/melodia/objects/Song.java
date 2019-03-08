@@ -8,9 +8,10 @@ public class Song {
     private Artist artist;
     private Album album;
     private int trackNumber;
-    private File songData; //data for the song
+    private File songData;
 
-    public Song(String songName, int songTime, Artist artist, Album album, int trackNumber, File songData) {
+    public Song(String songName, int songTime, Artist artist, Album album,
+                int trackNumber, File songData) {
         this.songName = songName;
         this.songTime = songTime;
         this.artist = artist;
@@ -19,8 +20,10 @@ public class Song {
         this.songData = songData;
     }
 
-    public Song(String songName, int songTime, Artist artist, Album album, int trackNumber, String songLocation) {
-        this(songName, songTime, artist, album, trackNumber, new File(songLocation));
+    public Song(String songName, int songTime, Artist artist, Album album,
+                int trackNumber, String songLocation) {
+        this(songName, songTime, artist, album, trackNumber,
+                new File(songLocation));
     }
 
     public String getSongName() {
@@ -34,6 +37,8 @@ public class Song {
     public int getSongTime() {
         return songTime;
     }
+
+
 
     public void setSongTime(int songTime) {
         this.songTime = songTime;
@@ -59,9 +64,11 @@ public class Song {
         return trackNumber;
     }
 
-    public File getSongData(){return songData;}
+    public File getSongData() {
+        return songData;
+    }
 
-    public void setTrackNumber(int trackNumber){
+    public void setTrackNumber(int trackNumber) {
         this.trackNumber = trackNumber;
     }
 }
