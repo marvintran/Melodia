@@ -1,5 +1,6 @@
 package comp3350.melodia.presentation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -7,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -50,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements PlaylistFragment.
                     fm.beginTransaction().hide(active).show(radioNav).commit();
                     active = radioNav;
                     return true;
+
             }
             return false;
         }
@@ -90,5 +94,21 @@ public class MainActivity extends AppCompatActivity implements PlaylistFragment.
         fm.beginTransaction().hide(active).commit();
         fm.beginTransaction().add(R.id.container, playlistSongs, "playlistSongs").commit();
         active = playlistSongs;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.settings, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.settings) {
+            startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
