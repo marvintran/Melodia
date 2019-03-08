@@ -81,20 +81,6 @@ public abstract class AbstractSongsAdapter extends RecyclerView.Adapter<SongView
             }
         });
 
-
-        // implementing onClick() in RecyclerView https://stackoverflow.com/a/38090900
-
-        // clicking on an item in the list
-        songViewHolder.getLinearlayout().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // if a song was clicked in the library, add it to the queue
-                // pass the song clicked to the fragment so it can add it to the queue
-                Song songClicked = songs.get(position);
-                listenerClick.onSongClicked(songClicked);
-            }
-        });
-
         // long clicking on an item in the list
         songViewHolder.getLinearlayout().setOnLongClickListener(new View.OnLongClickListener() {
             @Override
