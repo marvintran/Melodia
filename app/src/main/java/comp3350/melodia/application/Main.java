@@ -1,10 +1,8 @@
 package comp3350.melodia.application;
 
-import comp3350.melodia.presentation.CLI;
-
 public class Main
 {
-    private static String dbName="SC";
+    private static String dbName="musicDatabase";
 
     public static void main(String[] args)
     {

@@ -74,7 +74,7 @@ public class AccountPersistenceHSQLDB implements AccountPersistence {
             st.setString(1, currentAccount.getFullName());
             st.setString(2, currentAccount.getUserName());
             st.setString(3, currentAccount.getEmail());
-            st.setObject(4, currentAccount.getLoginInfo());
+            //st.setObject(4, currentAccount.getLoginInfo());
             st.setString(5, currentAccount.getProfile());
             st.setObject(6, currentAccount.getFavorList());
 

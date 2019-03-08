@@ -44,8 +44,9 @@ public class SongPersistenceHSQLDB implements SongPersistence {
         final List<Song> songs = new ArrayList<>();
 
         try (final Connection c = connection()) {
+
             final Statement st = c.createStatement();
-            final ResultSet rs = st.executeQuery("SELECT * FROM songs");
+            final ResultSet rs = st.executeQuery("SELECT * FROM song");
             while (rs.next())
             {
                 final Song song = fromResultSet(rs);
