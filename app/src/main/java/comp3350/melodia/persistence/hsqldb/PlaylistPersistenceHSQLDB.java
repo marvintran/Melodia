@@ -43,7 +43,7 @@ public class PlaylistPersistenceHSQLDB implements PlaylistPersistence{
 
         try (final Connection c = connection()) {
             final Statement st = c.createStatement();
-            final ResultSet rs = st.executeQuery("SELECT * FROM playlists");
+            final ResultSet rs = st.executeQuery("SELECT * FROM playlist");
             while (rs.next())
             {
                 final Playlist playlist = fromResultSet(rs);

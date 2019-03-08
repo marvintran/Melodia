@@ -23,6 +23,15 @@ public class Song {
         this(songName, songTime, artist, album, trackNumber, new File(songLocation));
     }
 
+    public Song(String songName, int songTime, String artist, String album, int trackNumber, String songLocation) {
+        this.songName = songName;
+        this.songTime = songTime;
+        //this.artist = artist;
+        //this.album = album;
+        this.trackNumber = trackNumber;
+        this.songData = songData;
+    }
+
     public String getSongName() {
         return songName;
     }
