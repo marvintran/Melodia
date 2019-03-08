@@ -3,6 +3,8 @@
     <string name="home_button">Home</string>
     <string name="playlist_button">Playlist</string>
     <string name="share_button">Share</string>
+    <string name="song_button">Listen</string>
+    <string name="radio_button">Radio</string>
     <string name="title_activity_playlist">PlaylistActivity</string>
     <string name="title_home">Home</string>
     <string name="title_playlist">Playlist</string>
@@ -12,6 +14,7 @@
     <string name="register_button">REGISTER</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
+    <string name="title_radio">Radio</string>
     <string name="queue">Add to Queue</string>
     <string name="add_to_playlist">Add to Playlist</string>
 

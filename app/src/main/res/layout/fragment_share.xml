@@ -30,6 +30,8 @@
     <Button
         android:background="@drawable/rounded_button"
         android:id="@+id/login"
+    <ImageView
+        android:id="@+id/share"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/login_button"
