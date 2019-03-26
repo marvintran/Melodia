@@ -3,6 +3,7 @@ package comp3350.melodia.objects;
 import java.io.File;
 
 public class Song {
+    private int songID;
     private String songName;
     private int songTime;
     private Artist artist;
@@ -10,8 +11,9 @@ public class Song {
     private int trackNumber;
     private File songData;
 
-    public Song(String songName, int songTime, Artist artist, Album album,
+    public Song(int songID, String songName, int songTime, Artist artist, Album album,
                 int trackNumber, File songData) {
+        this.songID = songID;
         this.songName = songName;
         this.songTime = songTime;
         this.artist = artist;
@@ -20,11 +22,13 @@ public class Song {
         this.songData = songData;
     }
 
-    public Song(String songName, int songTime, Artist artist, Album album,
+    public Song(int songID, String songName, int songTime, Artist artist, Album album,
                 int trackNumber, String songLocation) {
-        this(songName, songTime, artist, album, trackNumber,
+        this(songID, songName, songTime, artist, album, trackNumber,
                 new File(songLocation));
     }
+
+    public int getSongID(){return songID;}
 
     public String getSongName() {
         return songName;

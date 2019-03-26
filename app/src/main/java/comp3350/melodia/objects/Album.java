@@ -3,23 +3,25 @@ package comp3350.melodia.objects;
 import java.util.List;
 
 public class Album{
+    private int albumID;
     private String albumName;
     private List<Song> songs;
     private Genre genreName = null;
 
-    public Album(String albumName, List<Song> songs) {
+    public Album(int albumID, String albumName, List<Song> songs) {
+        this.albumID = albumID;
         this.albumName = albumName;
         this.songs = songs;
     }
 
     // Added second constructor if the album has a genre.
-    public Album(String albumName, List<Song> songs, Genre genreName) {
-        this(albumName, songs);
+    public Album(int albumID, String albumName, List<Song> songs, Genre genreName) {
+        this(albumID, albumName, songs);
         this.genreName = genreName;
     }
 
-    public Album(String albumName){
-        this.albumName = albumName;
+    public int getAlbumID() {
+        return albumID;
     }
 
     public String getAlbumName() {
