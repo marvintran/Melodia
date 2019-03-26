@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="filtering_options">
+        <item>Track Name</item>
+        <item>Artist</item>
+    </string-array>
+</resources>

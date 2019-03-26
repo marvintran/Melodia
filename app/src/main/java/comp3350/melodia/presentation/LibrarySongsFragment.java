@@ -13,6 +13,9 @@ import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.File;
@@ -38,7 +41,7 @@ public class LibrarySongsFragment
     private List<Song> songList;
     private Toast toastMessage;
     private Song songClicked;
-
+    private LibrarySongsAdapter myAdapter;
     @Override
     public View onCreateView (LayoutInflater inflater,
                               ViewGroup container,
@@ -50,7 +53,49 @@ public class LibrarySongsFragment
 
         songList = accessSong.getSongs();
 
-        return inflater.inflate(R.layout.fragment_library, container, false);
+        View v = inflater.inflate(R.layout.fragment_library, container, false);
+
+        Spinner spinner = (Spinner) v.findViewById(R.id.spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getActivity(),
+                R.array.filtering_options, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        spinner.setAdapter(adapter);
+
+        // Spinner click listener https://stackoverflow.com/a/40465646
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+
+                // On selecting a spinner item
+                String filterSelection = parent.getItemAtPosition(position).toString();
+
+                if( filterSelection.equals("Track name"))
+                {
+                    AccessSong accessSong = new AccessSong();
+                    List<Song> newSongList = accessSong.getSongs();
+                    myAdapter.updateList(newSongList);
+                }
+                else if( filterSelection.equals("Artist"))
+                {
+                    // currently just replaces the list with the songs in the first playlsit
+                    AccessPlaylist accessPlaylist = new AccessPlaylist();
+                    List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
+                    Playlist thePlaylist = allPlaylists.get(0);
+                    List<Song> newSongList = thePlaylist.getSongs();
+                    myAdapter.updateList(newSongList);
+                }
+                // Showing selected spinner item
+                Toast.makeText(parent.getContext(), "Selected: " + filterSelection, Toast.LENGTH_LONG).show();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        return v;
     }
 
     public static LibrarySongsFragment newInstance() {
@@ -62,7 +107,7 @@ public class LibrarySongsFragment
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         RecyclerView myRecyclerView;
-        RecyclerView.Adapter myAdapter;
+
         RecyclerView.LayoutManager myLinearLayout;
 
         myRecyclerView = (RecyclerView)getView().findViewById(R.id.my_recycler_view);

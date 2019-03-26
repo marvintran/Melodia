@@ -25,4 +25,9 @@ public class LibrarySongsAdapter extends AbstractSongsAdapter {
         SongViewHolder songViewHolder = new SongViewHolder(songView);
         return songViewHolder;
     }
+
+    public void updateList(List<Song> songs) {
+        this.songs = songs;
+        notifyDataSetChanged();
+    }
 }
