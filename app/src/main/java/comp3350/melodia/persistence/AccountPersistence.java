@@ -7,8 +7,6 @@ public interface AccountPersistence {
 
     List<Account> getAllAccounts();
 
-    List<Account> getAccountRandom(Account currentAccount);
-
     Account insertAccount(Account currentAccount);
 
     Account updateAccount(Account currentAccount);
