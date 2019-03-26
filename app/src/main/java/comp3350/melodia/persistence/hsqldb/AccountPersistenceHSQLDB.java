@@ -40,7 +40,7 @@ public class AccountPersistenceHSQLDB implements AccountPersistence {
 
         try (final Connection c = connection()) {
             final Statement st = c.createStatement();
-            final ResultSet rs = st.executeQuery("SELECT * FROM accounts");
+            final ResultSet rs = st.executeQuery("SELECT * FROM ACCOUNT");
             while (rs.next())
             {
                 final Account account = fromResultSet(rs);
@@ -61,7 +61,7 @@ public class AccountPersistenceHSQLDB implements AccountPersistence {
     public Account insertAccount(Account currentAccount) {
 
         try (final Connection c = connection()) {
-            final PreparedStatement st = c.prepareStatement("INSERT INTO accounts VALUES(?, ?)");
+            final PreparedStatement st = c.prepareStatement("INSERT INTO ACCOUNT VALUES(?, ?, ?, ?)");
             st.setString(1, currentAccount.getFullName());
             st.setString(2, currentAccount.getUserName());
             st.setString(3, currentAccount.getEmail());
@@ -79,9 +79,9 @@ public class AccountPersistenceHSQLDB implements AccountPersistence {
     public Account updateAccount(Account currentAccount) {
 
         try (final Connection c = connection()) {
-            final PreparedStatement st = c.prepareStatement("UPDATE accounts SET name = ? WHERE fullName = ?");
-            st.setString(1, currentAccount.getFullName());
-            st.setString(2, currentAccount.getUserName());
+            final PreparedStatement st = c.prepareStatement("UPDATE ACCOUNT SET name = ? WHERE fullName = ? WHERE email = ? WHERE profile = ? ");
+            st.setString(1, currentAccount.getUserName());
+            st.setString(2, currentAccount.getFullName());
             st.setString(3, currentAccount.getEmail());
             st.setString(4, currentAccount.getProfile());
 

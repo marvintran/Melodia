@@ -101,9 +101,6 @@ public class AlbumPersistenceHSQLDB implements AlbumPersistence {
             final PreparedStatement sc = c.prepareStatement("DELETE FROM ALBUM WHERE ALBUMID = ?");
             sc.setInt(1, currentAlbum.getAlbumID());
             sc.executeUpdate();
-            final PreparedStatement st = c.prepareStatement("DELETE FROM PLAYLIST WHERE PLAYLISTID = ?");
-            st.setInt(1, currentAlbum.getAlbumID());
-            st.executeUpdate();
         } catch (final SQLException e) {
             throw new PersistenceException(e);
         }
