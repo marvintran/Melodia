@@ -6,7 +6,7 @@ import java.util.List;
 import comp3350.melodia.application.Services;
 import comp3350.melodia.objects.Song;
 import comp3350.melodia.persistence.SongPersistence;
-import comp3350.melodia.persistence.stubs.SongPersistenceStub;
+import comp3350.melodia.persistence.hsqldb.SongPersistenceHSQLDB;
 
 public class AccessSong {
     private SongPersistence songPersistence;
@@ -18,7 +18,7 @@ public class AccessSong {
         songs = null;
         song = null;
     }
-    public AccessSong(final SongPersistenceStub songPersistence){
+    public AccessSong(final SongPersistenceHSQLDB songPersistence){
         this();
         this.songPersistence = songPersistence;
     }
