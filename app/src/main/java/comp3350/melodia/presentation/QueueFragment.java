@@ -1,5 +1,6 @@
 package comp3350.melodia.presentation;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,49 +13,71 @@ import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.List;
 
 import comp3350.melodia.R;
 import comp3350.melodia.logic.AccessPlaylist;
+import comp3350.melodia.logic.AccessSong;
 import comp3350.melodia.objects.Playlist;
 import comp3350.melodia.objects.Song;
 import comp3350.melodia.objects.SongViewHolder;
 
 // the screen for viewing songs in a playlist
-public class PlaylistSongsFragment extends Fragment
-                                   implements PlaylistSongsAdapter.OnSongClickedListener,
-                                              PlaylistSongsAdapter.OnSongLongClickedListener,
-                                              PlaylistSongsAdapter.OnStartDragListener,
-                                              View.OnCreateContextMenuListener {
+public class QueueFragment extends Fragment
+                           implements QueueAdapter.OnSongClickedListener,
+                           QueueAdapter.OnSongLongClickedListener,
+                           QueueAdapter.OnStartDragListener,
+                           View.OnCreateContextMenuListener {
 
     private List<Song> songList;
-    private Playlist thePlaylist;
     private Toast toastMessage;
     private ItemTouchHelper touchHelper;
     private Song songClicked;
+
+    private onPlayerButtonClickedListener playerButtonListener;
+
+    public interface onPlayerButtonClickedListener {
+        public void onShowPlayer();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            playerButtonListener = (onPlayerButtonClickedListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(
+                    context.toString() + " must implement OnArticleSelectedListener");
+        }
+    }
 
     @Override
     public View onCreateView (LayoutInflater inflater,
                               ViewGroup container,
                               Bundle savedInstanceState) {
 
-        Bundle b = getArguments();
-        int playlistIndex = b.getInt("exampleInt");
-
         AccessPlaylist accessPlaylist = new AccessPlaylist();
         List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
-        thePlaylist = allPlaylists.get(playlistIndex);
+        Playlist thePlaylist = allPlaylists.get(0);
 
         songList = thePlaylist.getSongs();
 
-        return inflater.inflate(
-                R.layout.fragment_playlist_songs, container, false);
+        View v = inflater.inflate(R.layout.queue_fragment, container, false);
+
+        Button showPlayer = v.findViewById(R.id.player);
+        showPlayer.setOnClickListener(mButtonClickListener);
+
+        Button shuffle = v.findViewById(R.id.shuffle);
+        shuffle.setOnClickListener(shuffleButtonListener);
+
+        return v;
     }
 
-    public static PlaylistSongsFragment newInstance() {
-        PlaylistSongsFragment fragment = new PlaylistSongsFragment();
+    public static QueueFragment newInstance() {
+        QueueFragment fragment = new QueueFragment();
         return fragment;
     }
 
@@ -63,7 +86,7 @@ public class PlaylistSongsFragment extends Fragment
         super.onActivityCreated(savedInstanceState);
 
         RecyclerView myRecyclerView;
-        PlaylistSongsAdapter myAdapter;
+        QueueAdapter myAdapter;
         RecyclerView.LayoutManager myLinearLayout;
 
         myRecyclerView = (RecyclerView)getView().findViewById(R.id.my_recycler_view);
@@ -72,7 +95,7 @@ public class PlaylistSongsFragment extends Fragment
         myLinearLayout = new LinearLayoutManager(getActivity());
         myRecyclerView.setLayoutManager(myLinearLayout);
 
-        myAdapter = new PlaylistSongsAdapter(songList, this, this, this);
+        myAdapter = new QueueAdapter(songList, this, this, this);
         myRecyclerView.setAdapter(myAdapter);
 
         SwipeAndDragHelper swipeAndDragHelper = new SwipeAndDragHelper(myAdapter);
@@ -88,7 +111,7 @@ public class PlaylistSongsFragment extends Fragment
                                     ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getActivity().getMenuInflater();
-        inflater.inflate(R.menu.library_context_menu, menu);
+        inflater.inflate(R.menu.queue_context_menu, menu);
 
         String songTitle = songClicked.getSongName();
         menu.setHeaderTitle(songTitle);
@@ -113,16 +136,6 @@ public class PlaylistSongsFragment extends Fragment
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.queue:
-                String songTitle = songClicked.getSongName();
-                toastMessage = Toast.makeText(getActivity(),
-                                         "Add to Queue: " + songTitle,
-                                              Toast.LENGTH_SHORT);
-                toastMessage.show();
-
-                // Todo: Add the song that was long clicked to the queue.
-
-                return true;
             case R.id.add_to_playlist:
                 toastMessage = Toast.makeText(getActivity(),
                                          "Add to Playlist",
@@ -157,10 +170,8 @@ public class PlaylistSongsFragment extends Fragment
     public void onSongClicked(Song theSong)
     {
         String songTitle = theSong.getSongName();
-        String playlistName = thePlaylist.getPlaylistName();
-        String message =
-                String.format("Playing playlist \"%s\" at song \"%s\"",
-                        playlistName, songTitle);
+        String message = "Playing " + songTitle;
+
         toastMessage = Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT);
         toastMessage.show();
     }
@@ -179,4 +190,20 @@ public class PlaylistSongsFragment extends Fragment
     public void onStartDrag(SongViewHolder viewHolder) {
         touchHelper.startDrag(viewHolder);
     }
+
+    private View.OnClickListener mButtonClickListener = new View.OnClickListener() {
+        public void onClick(View v) {
+
+            playerButtonListener.onShowPlayer();
+        }
+    };
+
+    private View.OnClickListener shuffleButtonListener = new View.OnClickListener() {
+        public void onClick(View v) {
+            toastMessage = Toast.makeText(getActivity(),
+                      "Shuffled Songs",
+                           Toast.LENGTH_SHORT);
+            toastMessage.show();
+        }
+    };
 }

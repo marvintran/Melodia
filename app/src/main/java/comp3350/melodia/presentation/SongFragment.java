@@ -1,5 +1,6 @@
 package comp3350.melodia.presentation;
 
+import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -29,6 +30,22 @@ public class SongFragment extends Fragment {
     private Handler seekbarHandler;
     private Runnable seekbarUpdater;
 
+    private onQueueButtonClickedListener queueButtonListener;
+
+    public interface onQueueButtonClickedListener {
+        public void onShowQueue();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            queueButtonListener = (onQueueButtonClickedListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(
+                    context.toString() + " must implement OnArticleSelectedListener");
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -40,7 +57,13 @@ public class SongFragment extends Fragment {
         player = new MediaPlayer();
         seekbarHandler = new Handler();
         this.setRetainInstance(true);
-        return inflater.inflate(R.layout.fragment_song, container, false);
+
+        View v = inflater.inflate(R.layout.fragment_song, container, false);
+
+        Button newPlaylist = v.findViewById(R.id.queue_button);
+        newPlaylist.setOnClickListener(mButtonClickListener);
+
+        return v;
     }
 
     @Override
@@ -224,4 +247,11 @@ public class SongFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
     }
+
+
+    private View.OnClickListener mButtonClickListener = new View.OnClickListener() {
+        public void onClick(View v) {
+            queueButtonListener.onShowQueue();
+        }
+    };
 }
