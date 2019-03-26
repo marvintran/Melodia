@@ -123,7 +123,7 @@ public class PlaylistFragment
 
             // create a new playlist with this playlist title
             ArrayList<Song> emptyList = new ArrayList<Song>();
-            Playlist emptyPlaylist = new Playlist(title, 0, 0, emptyList, "");
+            Playlist emptyPlaylist = new Playlist(0,title, 0, 0, emptyList, "");
             accessPlaylist.insertPlaylist(emptyPlaylist);
             }
         });

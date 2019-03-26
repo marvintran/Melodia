@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import comp3350.melodia.objects.Album;
-import comp3350.melodia.objects.Genre;
-import comp3350.melodia.objects.Song;
 import comp3350.melodia.persistence.AlbumPersistence;
 
 public class AlbumPersistenceHSQLDB implements AlbumPersistence {
@@ -27,11 +25,14 @@ public class AlbumPersistenceHSQLDB implements AlbumPersistence {
     }
 
     private Album fromResultSet(final ResultSet rs) throws SQLException {
+
+        final int albumID = rs.getInt("albumID");
         final String albumNameStr = rs.getString("albumNameStr");
         final String songs = rs.getString("songs");
         final String genreNameStr = rs.getString("genreName");
 
-        //return new Album(albumNameStr, songs, genreNameStr);
+        //return new Album(albumNameStr, List<Song> songs, genreNameStr);
+
         return null;
     }
 
@@ -41,7 +42,7 @@ public class AlbumPersistenceHSQLDB implements AlbumPersistence {
 
         try (final Connection c = connection()) {
             final Statement st = c.createStatement();
-            final ResultSet rs = st.executeQuery("SELECT * FROM albums");
+            final ResultSet rs = st.executeQuery("SELECT * FROM ALBUM");
             while (rs.next())
             {
                 final Album album = fromResultSet(rs);
@@ -63,11 +64,11 @@ public class AlbumPersistenceHSQLDB implements AlbumPersistence {
     public Album insertAlbum(Album currentAlbum) {
 
         try (final Connection c = connection()) {
-            final PreparedStatement st = c.prepareStatement("INSERT INTO album VALUES(?, ?)");
-            st.setString(1, currentAlbum.getAlbumName());
-            //st.setString(2, currentAlbum.getSongs());
-            //st.setString(3, currentAlbum.getAlbumGenre());
-
+            final PreparedStatement st = c.prepareStatement("INSERT INTO ALBUM VALUES(?, ?, ?, ?)");
+            st.setInt(1, currentAlbum.getAlbumID());
+            st.setString(2, currentAlbum.getAlbumName());
+            st.setObject(3, currentAlbum.getSongs());
+            st.setObject(4, currentAlbum.getAlbumGenre());
 
             st.executeUpdate();
 
@@ -81,10 +82,9 @@ public class AlbumPersistenceHSQLDB implements AlbumPersistence {
     public Album updateAlbum(Album currentAlbum) {
 
         try (final Connection c = connection()) {
-            final PreparedStatement st = c.prepareStatement("UPDATE album SET name = ? WHERE albumName = ?");
+            final PreparedStatement st = c.prepareStatement("UPDATE ALBUM SET name = ? WHERE ALBUMID = ?");
             st.setString(1, currentAlbum.getAlbumName());
-            st.setObject(2, currentAlbum.getSongs());
-            st.setObject(3, currentAlbum.getAlbumGenre());
+            st.setInt(2, currentAlbum.getAlbumID());
 
             st.executeUpdate();
 
@@ -98,11 +98,11 @@ public class AlbumPersistenceHSQLDB implements AlbumPersistence {
     public void deleteAlbum(Album currentAlbum) {
 
         try (final Connection c = connection()) {
-            final PreparedStatement sc = c.prepareStatement("DELETE FROM albums WHERE albumName = ?");
-            sc.setString(1, currentAlbum.getAlbumName());
+            final PreparedStatement sc = c.prepareStatement("DELETE FROM ALBUM WHERE ALBUMID = ?");
+            sc.setInt(1, currentAlbum.getAlbumID());
             sc.executeUpdate();
-            final PreparedStatement st = c.prepareStatement("DELETE FROM playlists WHERE albumName = ?");
-            st.setString(1, currentAlbum.getAlbumName());
+            final PreparedStatement st = c.prepareStatement("DELETE FROM PLAYLIST WHERE PLAYLISTID = ?");
+            st.setInt(1, currentAlbum.getAlbumID());
             st.executeUpdate();
         } catch (final SQLException e) {
             throw new PersistenceException(e);

@@ -41,20 +41,6 @@ public class AccountPersistenceStub implements AccountPersistence {
     }
 
     @Override
-    public List<Account> getAccountRandom(Account currentAccount) {
-        List<Account> newAccounts;
-        int index;
-
-        newAccounts = new ArrayList<>();
-        index = accounts.indexOf(currentAccount);
-        if (index >= 0)
-        {
-            newAccounts.add(accounts.get(index));
-        }
-        return newAccounts;
-    }
-
-    @Override
     public Account insertAccount(Account currentAccount) {
         accounts.add(currentAccount);
         return currentAccount;

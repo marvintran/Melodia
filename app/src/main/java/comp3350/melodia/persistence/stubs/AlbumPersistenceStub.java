@@ -15,13 +15,13 @@ public class AlbumPersistenceStub implements AlbumPersistence {
     public AlbumPersistenceStub() {
         this.albums = new ArrayList<>();
 
-        albums.add(0, new Album(
+        albums.add(0, new Album(1,
                 "Album 1",
                 Collections.unmodifiableList(new ArrayList<Song>())));
-        albums.add(1, new Album(
+        albums.add(1, new Album(2,
                 "Album 2",
                 Collections.unmodifiableList(new ArrayList<Song>())));
-        albums.add(2, new Album(
+        albums.add(2, new Album(3,
                 "AlbumTest",
                 Collections.unmodifiableList(new ArrayList<Song>())));
     }

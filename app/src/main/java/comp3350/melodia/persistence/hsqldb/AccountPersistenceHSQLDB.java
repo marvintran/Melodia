@@ -7,11 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import comp3350.melodia.objects.Account;
-import comp3350.melodia.objects.Song;
 import comp3350.melodia.persistence.AccountPersistence;
 
 public class AccountPersistenceHSQLDB implements AccountPersistence {
@@ -32,10 +30,8 @@ public class AccountPersistenceHSQLDB implements AccountPersistence {
         final String userName = rs.getString("userName");
         final String email = rs.getString("email");
         final String profile = rs.getString("profile");
-        //final String favoriteListStr = rs.getString("favoriteList");
 
         return new Account(fullName, userName, email, profile, null);
-//        return null;
     }
 
     @Override
@@ -62,11 +58,6 @@ public class AccountPersistenceHSQLDB implements AccountPersistence {
     }
 
     @Override
-    public  List<Account> getAccountRandom(Account currentAccount){
-        return null;
-    }
-
-    @Override
     public Account insertAccount(Account currentAccount) {
 
         try (final Connection c = connection()) {
@@ -74,9 +65,7 @@ public class AccountPersistenceHSQLDB implements AccountPersistence {
             st.setString(1, currentAccount.getFullName());
             st.setString(2, currentAccount.getUserName());
             st.setString(3, currentAccount.getEmail());
-            //st.setObject(4, currentAccount.getLoginInfo());
-            st.setString(5, currentAccount.getProfile());
-            st.setObject(6, currentAccount.getFavorList());
+            st.setString(4, currentAccount.getProfile());
 
             st.executeUpdate();
 
@@ -94,9 +83,7 @@ public class AccountPersistenceHSQLDB implements AccountPersistence {
             st.setString(1, currentAccount.getFullName());
             st.setString(2, currentAccount.getUserName());
             st.setString(3, currentAccount.getEmail());
-            //st.setString(4, currentAccount.getLoginInfo());
-            st.setString(5, currentAccount.getProfile());
-            //st.setString(6, currentAccount.getFavorList());
+            st.setString(4, currentAccount.getProfile());
 
             st.executeUpdate();
 
