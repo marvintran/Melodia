@@ -84,14 +84,15 @@ public class PlaylistAdapter
     public void onBindViewHolder(PlaylistViewHolder playlistViewHolder,
                                  final int viewType) {
 
-        String numberOfSongs = Integer.toString(
-                playlists.get(viewType).getNumberOfSongs());
-        if(numberOfSongs.equals("1"))
+        int numberOfSongs = playlists.get(viewType).getNumberOfSongs();
+
+        if(numberOfSongs == 1) {
             playlistViewHolder.numberOfSongs.setText(
-                    numberOfSongs + " Song");
-        else
+                    String.format("%d Song", numberOfSongs));
+        } else {
             playlistViewHolder.numberOfSongs.setText(
-                    numberOfSongs + " Songs");
+                    String.format("%d Songs", numberOfSongs));
+        }
 
         playlistViewHolder.playlistTitle.setText(
                 playlists.get(viewType).getPlaylistName());
