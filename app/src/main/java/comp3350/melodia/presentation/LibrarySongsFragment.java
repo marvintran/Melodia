@@ -106,7 +106,7 @@ public class LibrarySongsFragment
 
         RecyclerView.LayoutManager myLinearLayout;
 
-        myRecyclerView = (RecyclerView)getView().findViewById(R.id.my_recycler_view);
+        myRecyclerView = (RecyclerView)getView().findViewById(R.id.library_recycler_view);
         myRecyclerView.setHasFixedSize(true);
 
         myLinearLayout = new LinearLayoutManager(getActivity());

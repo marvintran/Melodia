@@ -87,7 +87,7 @@ public class QueueFragment extends Fragment
         QueueAdapter myAdapter;
         RecyclerView.LayoutManager myLinearLayout;
 
-        myRecyclerView = (RecyclerView)getView().findViewById(R.id.my_recycler_view);
+        myRecyclerView = (RecyclerView)getView().findViewById(R.id.queue_recycler_view);
         myRecyclerView.setHasFixedSize(true);
 
         myLinearLayout = new LinearLayoutManager(getActivity());

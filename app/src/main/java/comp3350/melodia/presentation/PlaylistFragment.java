@@ -77,7 +77,7 @@ public class PlaylistFragment
         accessPlaylist = new AccessPlaylist();
         allPlaylists = accessPlaylist.getPlaylists();
 
-        myRecyclerView = (RecyclerView)getView().findViewById(R.id.my_recycler_view);
+        myRecyclerView = (RecyclerView)getView().findViewById(R.id.playlist_recycler_view);
         myRecyclerView.setHasFixedSize(true);
 
         myLinearLayout = new LinearLayoutManager(getActivity());
