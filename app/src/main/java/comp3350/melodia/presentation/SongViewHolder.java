@@ -1,4 +1,4 @@
-package comp3350.melodia.objects;
+package comp3350.melodia.presentation;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

@@ -10,7 +10,6 @@ import java.util.List;
 
 import comp3350.melodia.R;
 import comp3350.melodia.objects.Song;
-import comp3350.melodia.objects.SongViewHolder;
 
 public class QueueAdapter
        extends AbstractSongsAdapter

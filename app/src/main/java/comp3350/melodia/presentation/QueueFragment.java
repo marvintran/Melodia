@@ -20,10 +20,8 @@ import java.util.List;
 
 import comp3350.melodia.R;
 import comp3350.melodia.logic.AccessPlaylist;
-import comp3350.melodia.logic.AccessSong;
 import comp3350.melodia.objects.Playlist;
 import comp3350.melodia.objects.Song;
-import comp3350.melodia.objects.SongViewHolder;
 
 // the screen for viewing songs in a playlist
 public class QueueFragment extends Fragment

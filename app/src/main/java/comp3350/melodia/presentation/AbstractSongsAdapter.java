@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import comp3350.melodia.objects.Song;
-import comp3350.melodia.objects.SongViewHolder;
 
 // inspiration was taken from the following:
 // https://developer.android.com/guide/topics/ui/layout/recyclerview
