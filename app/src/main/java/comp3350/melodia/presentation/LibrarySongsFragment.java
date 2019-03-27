@@ -66,25 +66,21 @@ public class LibrarySongsFragment
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
 
-                // On selecting a spinner item
                 String filterSelection = parent.getItemAtPosition(position).toString();
 
-                if( filterSelection.equals("Track name"))
-                {
+                if( filterSelection.equals("Track Name")) {
                     AccessSong accessSong = new AccessSong();
                     List<Song> newSongList = accessSong.getSongs();
                     myAdapter.updateList(newSongList);
-                }
-                else if( filterSelection.equals("Artist"))
-                {
-                    // currently just replaces the list with the songs in the first playlsit
+                } else if( filterSelection.equals("Artist")) {
+                    // currently just replaces the list with the songs in the first playlist
                     AccessPlaylist accessPlaylist = new AccessPlaylist();
                     List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
                     Playlist thePlaylist = allPlaylists.get(0);
                     List<Song> newSongList = thePlaylist.getSongs();
                     myAdapter.updateList(newSongList);
                 }
-                // Showing selected spinner item
+
                 Toast.makeText(parent.getContext(), "Selected: " + filterSelection, Toast.LENGTH_LONG).show();
 
             }
