@@ -1,5 +1,6 @@
 package com.example.melodia;
 
+import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -13,8 +14,10 @@ import comp3350.melodia.presentation.MainActivity;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.longClick;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -31,15 +34,29 @@ public class PlaylistTest {
 
         // create the playlist
         onView(withId(R.id.new_playlist)).perform(click());
-        onView(withId(R.id.playlist_title)).perform(typeText("Awesome Playlist"));
+        onView(withId(R.id.playlist_title))
+                .perform(typeText("Awesome Playlist"));
         onView(withText("Create")).perform(click());
 
         // verify that it was added
-        onView(withText("Awesome Playlist")).check(matches(isDisplayed()));
+        onView(withId(R.id.playlist_recycler_view))
+                .check(matches(hasDescendant(withText("Awesome Playlist"))));
 
         // go to library and add song to the playlist
         onView(withId(R.id.homeNav)).perform(click());
+        onView(withId(R.id.library_recycler_view))
+                .perform(RecyclerViewActions.actionOnItem(
+                        hasDescendant(withText("All that")), longClick()));
+        onView(withText("Add to Playlist")).perform(click());
+        onView(withText("Awesome Playlist")).perform(click());
 
+        // verify that it was added
+        onView(withId(R.id.playlistNav)).perform(click());
+        onView(withId(R.id.playlist_recycler_view))
+                .perform(RecyclerViewActions.actionOnItem(
+                        hasDescendant(withText("Awesome Playlist")), click()));
+        onView(withId(R.id.library_recycler_view))
+                .check(matches(hasDescendant(withText("All that"))));
 
     }
 }
