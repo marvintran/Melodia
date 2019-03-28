@@ -32,16 +32,17 @@ public class SongPersistenceHSQLDB implements SongPersistence {
         final int songID = rs.getInt("songID");
         final String songName = rs.getString("songName");
         final int songTime = rs.getInt("songTime");
-        final String artistStr = rs.getString("artistName");
-        final String albumStr = rs.getString("albumName");
+        final int albumID = rs.getInt("albumID");
+        final String albumName = rs.getString("albumName");
+        final int artistID = rs.getInt("artistID");
+        final String artistName = rs.getString("artistName");
         final int trackNumber = rs.getInt("trackNumber");
         final String songDataPath = rs.getString("songPath");
 
         File song = new File(songDataPath);
-        //Artist artist = new Artist(artistStr);
-        //Album album = new Album(albumStr);
 
-        return new Song(songID, songName, songTime, null, null, trackNumber, song);
+        return new Song(songID, songName, songTime, albumID, albumName, artistID, artistName, trackNumber, song);
+
     }
 
     @Override
@@ -73,13 +74,15 @@ public class SongPersistenceHSQLDB implements SongPersistence {
     public Song insertSong(Song currentSong) {
 
         try (final Connection c = connection()) {
-            final PreparedStatement st = c.prepareStatement("INSERT INTO SONG VALUES(?, ?, ?, ?, ?, ?)");
+            final PreparedStatement st = c.prepareStatement("INSERT INTO SONG VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
             st.setInt(1, currentSong.getSongID());
             st.setString(2, currentSong.getSongName());
             st.setInt(3, currentSong.getSongTime());
-            st.setObject(4, currentSong.getArtist());
-            st.setObject(5, currentSong.getAlbum());
-            st.setInt(6, currentSong.getTrackNumber());
+            st.setInt(4, currentSong.getAlbumID());
+            st.setString(5, currentSong.getAlbumName());
+            st.setInt(6, currentSong.getArtistID());
+            st.setString(7, currentSong.getArtistName());
+            st.setInt(8, currentSong.getTrackNumber());
 
             st.executeUpdate();
 
