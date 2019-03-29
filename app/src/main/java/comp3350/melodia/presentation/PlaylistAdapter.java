@@ -36,7 +36,6 @@ public class PlaylistAdapter
     public static class PlaylistViewHolder extends RecyclerView.ViewHolder {
         TextView playlistTitle;
         TextView numberOfSongs;
-        TextView playlistDuration;
         LinearLayout linearlayout;
 
         PlaylistViewHolder(View itemView) {
@@ -45,8 +44,6 @@ public class PlaylistAdapter
                     R.id.playlist_title);
             numberOfSongs = (TextView)itemView.findViewById(
                     R.id.total_songs);
-            playlistDuration = (TextView)itemView.findViewById(
-                    R.id.playlist_duration);
             this.linearlayout = (LinearLayout) itemView.findViewById(
                     R.id.linearlayout);
         }
@@ -95,8 +92,6 @@ public class PlaylistAdapter
 
         playlistViewHolder.playlistTitle.setText(
                 playlists.get(viewType).getPlaylistName());
-        playlistViewHolder.playlistDuration.setText(
-                Integer.toString(playlists.get(viewType).getPlaylistTime()));
 
         // implementing onClick() in RecyclerView https://stackoverflow.com/a/38090900
         playlistViewHolder.linearlayout.setOnClickListener(new View.OnClickListener() {
@@ -113,5 +108,10 @@ public class PlaylistAdapter
                 return true;
             }
         });
+    }
+
+    void updateItems(List<Playlist> allPlaylists){
+        playlists = allPlaylists;
+        notifyDataSetChanged();
     }
 }

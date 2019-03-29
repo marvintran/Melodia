@@ -126,14 +126,12 @@ public class LibrarySongsFragment
                 List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
 
                 Playlist playlistClicked = allPlaylists.get(item.getItemId());
-                List<Song> playlistSongs = playlistClicked.getSongs();
-
-                playlistSongs.add(songClicked);
-                playlistClicked.setSongs(playlistSongs);
+                int playlistID = playlistClicked.getPlaylistID();
+                accessPlaylist.updatePlaylist(playlistID, songClicked.getSongID());
 
                 String songTItle = songClicked.getSongName();
                 String title = playlistClicked.getPlaylistName();
-                accessPlaylist.updatePlaylist(playlistClicked);
+
 
                 toastMessage = Toast.makeText(getActivity(),
                                          songTItle + " added to " + title,

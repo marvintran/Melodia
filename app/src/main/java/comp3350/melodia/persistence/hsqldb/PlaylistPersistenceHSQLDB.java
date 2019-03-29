@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import comp3350.melodia.objects.Playlist;
+import comp3350.melodia.objects.Song;
 import comp3350.melodia.persistence.PlaylistPersistence;
 
 public class PlaylistPersistenceHSQLDB implements PlaylistPersistence {
@@ -29,12 +30,9 @@ public class PlaylistPersistenceHSQLDB implements PlaylistPersistence {
 
         final int playlistID = rs.getInt("playlistID");
         final String playlistName = rs.getString("playlistName");
-        final String playlistPath = rs.getString("playlistPath");
+        final int numberOfSongs = rs.getInt("numSongs");
 
-        File playlist = new File(playlistPath);
-
-        return new Playlist(playlistID, playlistName, 0, 0, null, playlist);
-
+        return new Playlist(playlistID, playlistName, numberOfSongs);
     }
 
     @Override
@@ -62,32 +60,30 @@ public class PlaylistPersistenceHSQLDB implements PlaylistPersistence {
     }
 
     @Override
-    public Playlist insertPlaylist(Playlist currentPlaylist) {
+    public void insertPlaylist(String playlistName) {
 
         try (final Connection c = connection()) {
-            final PreparedStatement st = c.prepareStatement("INSERT INTO PLAYLIST VALUES(?, ?)");
-            st.setInt(1, currentPlaylist.getPlaylistID());
-            st.setString(2, currentPlaylist.getPlaylistName());
-
+            //final PreparedStatement st = c.prepareStatement("INSERT INTO PLAYLIST VALUES(?, ?)");
+            final PreparedStatement st = c.prepareStatement("INSERT INTO PLAYLIST (PLAYLISTNAME, NUMSONGS) VALUES('"+playlistName+"', 0)");
+            //st.setString(1, playlistName);
+            //st.setInt(2, 0);// a new playlist has 0 songs to start
             st.executeUpdate();
 
-            return currentPlaylist;
         } catch (final SQLException e) {
             throw new PersistenceException(e);
         }
     }
 
     @Override
-    public Playlist updatePlaylist(Playlist currentPlaylist) {
+    public void updatePlaylist(int playlistID, int songID) {
 
         try (final Connection c = connection()) {
-            final PreparedStatement st = c.prepareStatement("UPDATE PLAYLIST SET name = ? WHERE PLAYLISTID = ?");
-            st.setString(1, currentPlaylist.getPlaylistName());
-            st.setInt(2, currentPlaylist.getPlaylistID());
+            final PreparedStatement st = c.prepareStatement("INSERT INTO PLAYLIST_SONGS VALUES(?, ?)");
+            st.setInt(1, playlistID);
+            st.setInt(2, songID);
 
             st.executeUpdate();
 
-            return currentPlaylist;
         } catch (final SQLException e) {
             throw new PersistenceException(e);
         }

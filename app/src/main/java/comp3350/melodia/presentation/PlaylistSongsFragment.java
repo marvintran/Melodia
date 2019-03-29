@@ -47,7 +47,7 @@ public class PlaylistSongsFragment extends Fragment
         List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
         thePlaylist = allPlaylists.get(playlistIndex);
 
-        songList = thePlaylist.getSongs();
+        //songList = thePlaylist.getSongs();
 
         return inflater.inflate(
                 R.layout.fragment_playlist_songs, container, false);
@@ -135,14 +135,11 @@ public class PlaylistSongsFragment extends Fragment
                 List<Playlist> allPlaylists2 = accessPlaylist2.getPlaylists();
 
                 Playlist playlistClicked2 = allPlaylists2.get(item.getItemId());
-                List<Song> playlistSongs2 = playlistClicked2.getSongs();
-
-                playlistSongs2.add(songClicked);
-                playlistClicked2.setSongs(playlistSongs2);
+                int playlistID = playlistClicked2.getPlaylistID();
+                accessPlaylist2.updatePlaylist(playlistID, songClicked.getSongID());
 
                 String songTitle2 = songClicked.getSongName();
                 String title2 = playlistClicked2.getPlaylistName();
-                accessPlaylist2.updatePlaylist(playlistClicked2);
 
                 toastMessage = Toast.makeText(getActivity(),
                                          songTitle2 + " added to " + title2,

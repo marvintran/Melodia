@@ -24,16 +24,15 @@ public class AccessPlaylist {
     }
 
     public List<Playlist> getPlaylists(){
-        playlists = playlistPersistence.getAllPlaylists();
-        return Collections.unmodifiableList(playlists);
+        return playlistPersistence.getAllPlaylists();
     }
 
-    public Playlist insertPlaylist(Playlist newPlaylist){
-        return playlistPersistence.insertPlaylist(newPlaylist);
+    public void insertPlaylist(String playlistName){
+        playlistPersistence.insertPlaylist(playlistName);
     }
 
-    public void updatePlaylist(Playlist thePlaylist) {
-        playlistPersistence.updatePlaylist(thePlaylist);
+    public void updatePlaylist(int playlistID, int songID) {
+        playlistPersistence.updatePlaylist(playlistID, songID);
     }
 
 }

@@ -33,7 +33,7 @@ public class PlaylistFragment
     private AccessPlaylist accessPlaylist;
     private Toast toastMessage;
     private OnPlaylistClickedListener listener;
-
+    PlaylistAdapter myAdapter;
     public interface OnPlaylistClickedListener {
         public void onPlaylistClicked(int playlistIndex);
     }
@@ -71,7 +71,7 @@ public class PlaylistFragment
         super.onActivityCreated(savedInstanceState);
 
         RecyclerView myRecyclerView;
-        RecyclerView.Adapter myAdapter;
+
         RecyclerView.LayoutManager myLinearLayout;
 
         accessPlaylist = new AccessPlaylist();
@@ -122,9 +122,10 @@ public class PlaylistFragment
             toastMessage.show();
 
             // create a new playlist with this playlist title
-            ArrayList<Song> emptyList = new ArrayList<Song>();
-            Playlist emptyPlaylist = new Playlist(0,title, 0, 0, emptyList, "");
-            accessPlaylist.insertPlaylist(emptyPlaylist);
+            accessPlaylist.insertPlaylist(title);
+            //allPlaylists.clear();
+            allPlaylists = accessPlaylist.getPlaylists();
+            myAdapter.updateItems(allPlaylists);
             }
         });
         AlertDialog dialog = alert.create();
