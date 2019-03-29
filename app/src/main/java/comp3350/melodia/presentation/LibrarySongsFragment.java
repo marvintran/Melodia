@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
@@ -39,6 +40,22 @@ public class LibrarySongsFragment
     private Toast toastMessage;
     private Song songClicked;
 
+    RefreshInterface listener;
+
+    public interface RefreshInterface{
+        public void refreshPlaylists();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            listener = (RefreshInterface) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(
+                    context.toString() + " must implement OnArticleSelectedListener");
+        }
+    }
     @Override
     public View onCreateView (LayoutInflater inflater,
                               ViewGroup container,
@@ -129,6 +146,12 @@ public class LibrarySongsFragment
                 int playlistID = playlistClicked.getPlaylistID();
                 accessPlaylist.updatePlaylist(playlistID, songClicked.getSongID());
 
+                listener.refreshPlaylists();
+                /*
+                FragmentManager fm = getFragmentManager();
+                PlaylistFragment fragm = (PlaylistFragment)fm.findFragmentById(R.id.playlistNav);
+                fragm.updatePlaylists();
+*/
                 String songTItle = songClicked.getSongName();
                 String title = playlistClicked.getPlaylistName();
 

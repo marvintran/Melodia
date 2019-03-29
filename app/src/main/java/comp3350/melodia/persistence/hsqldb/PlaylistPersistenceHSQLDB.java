@@ -78,11 +78,21 @@ public class PlaylistPersistenceHSQLDB implements PlaylistPersistence {
     public void updatePlaylist(int playlistID, int songID) {
 
         try (final Connection c = connection()) {
+
+            // insert song into playlist
             final PreparedStatement st = c.prepareStatement("INSERT INTO PLAYLIST_SONGS VALUES(?, ?)");
             st.setInt(1, playlistID);
             st.setInt(2, songID);
-
             st.executeUpdate();
+
+            // update the number of songs in this playlist
+            final Statement st2 = c.createStatement();
+            final ResultSet rs = st2.executeQuery("SELECT * FROM PLAYLIST WHERE PLAYLISTID = " + playlistID);
+            rs.next();
+
+            int numSongsPlusOne = rs.getInt("NUMSONGS") + 1;
+            final PreparedStatement st3 = c.prepareStatement("UPDATE PLAYLIST SET NUMSONGS = "+numSongsPlusOne+" WHERE PLAYLISTID = "+playlistID);
+            st3.executeUpdate();
 
         } catch (final SQLException e) {
             throw new PersistenceException(e);

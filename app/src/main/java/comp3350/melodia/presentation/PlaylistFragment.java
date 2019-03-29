@@ -154,4 +154,10 @@ public class PlaylistFragment
                                       Toast.LENGTH_SHORT);
         toastMessage.show();
     }
+
+    public void updatePlaylists()
+    {
+        allPlaylists = accessPlaylist.getPlaylists();
+        myAdapter.updateItems(allPlaylists);
+    }
 }

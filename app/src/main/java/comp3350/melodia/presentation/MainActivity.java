@@ -15,11 +15,14 @@ import android.widget.TextView;
 
 import comp3350.melodia.R;
 
-public class MainActivity extends AppCompatActivity implements PlaylistFragment.OnPlaylistClickedListener,
-        ShareFragment.OnRegisterClickedListener, ShareFragment.OnLoginClickedListener{
+public class MainActivity extends AppCompatActivity
+                          implements PlaylistFragment.OnPlaylistClickedListener,
+                                     ShareFragment.OnRegisterClickedListener,
+                                     ShareFragment.OnLoginClickedListener,
+                                     LibrarySongsFragment.RefreshInterface{
 
     final Fragment homeNav = LibrarySongsFragment.newInstance();
-    final Fragment playlistNav = PlaylistFragment.newInstance();
+    final PlaylistFragment playlistNav = PlaylistFragment.newInstance();
     final Fragment shareNav = ShareFragment.newInstance();
     final Fragment songNav = SongFragment.newInstance();
     final Fragment radioNav = RadioFragment.newInstance();
@@ -128,5 +131,12 @@ public class MainActivity extends AppCompatActivity implements PlaylistFragment.
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void refreshPlaylists()
+    {
+        //PlaylistFragment fragm = (PlaylistFragment)fm.findFragmentById(R.id.playlistNav);
+        //fragm.updatePlaylists();
+        playlistNav.updatePlaylists();
     }
 }
