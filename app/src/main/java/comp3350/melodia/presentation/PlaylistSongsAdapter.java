@@ -12,8 +12,9 @@ import comp3350.melodia.R;
 import comp3350.melodia.objects.Song;
 import comp3350.melodia.objects.SongViewHolder;
 
-public class PlaylistSongsAdapter extends AbstractSongsAdapter
-                                  implements SwipeAndDragHelper.ItemDraggingListener{
+public class PlaylistSongsAdapter
+        extends AbstractSongsAdapter
+        implements SwipeAndDragHelper.ItemDraggingListener {
 
     private OnStartDragListener theFragmentListening;
 
@@ -21,52 +22,49 @@ public class PlaylistSongsAdapter extends AbstractSongsAdapter
         void onStartDrag(SongViewHolder viewHolder);
     }
 
-    public PlaylistSongsAdapter(List<Song> songs, OnSongClickedListener listenerClick,
+    public PlaylistSongsAdapter(List<Song> songs,
+                                OnSongClickedListener listenerClick,
                                 OnSongLongClickedListener listenerLongClick,
-                                OnStartDragListener dragStartListener){
+                                OnStartDragListener dragStartListener) {
         super(songs, listenerClick, listenerLongClick);
         this.theFragmentListening = dragStartListener;
     }
 
     @Override
     public SongViewHolder onCreateViewHolder(ViewGroup parent, int position) {
-        // create a view row as defined by our library_item.xml file
-        View songView = LayoutInflater.from(parent.getContext()).inflate(R.layout.playlist_songs_item, parent, false);
-        // create a songViewHolder which contains references to the views for this row
+        View songView = LayoutInflater.from(parent.getContext()).inflate(
+                R.layout.playlist_songs_item, parent, false);
         SongViewHolder songViewHolder = new SongViewHolder(songView);
         return songViewHolder;
     }
 
-    // override the onBindViewHolder from AbstractSongsAdapter to include
-    // the dragHandle setOnTouchListener()
-    public void onBindViewHolder(final SongViewHolder songViewHolder, final int position) {
-        songViewHolder.getSongNameView().setText(songs.get(position).getSongName());
-        songViewHolder.getArtistNameView().setText(songs.get(position).getArtist().getArtistName());
-        songViewHolder.getTrackDurationView().setText(getSongTimeString(songs.get(position)));
+    // We override the onBindViewHolder from AbstractSongsAdapter.
+    // We want to include the dragHandle setOnTouchListener().
+    public void onBindViewHolder(final SongViewHolder songViewHolder,
+                                 final int position) {
+        songViewHolder.getSongNameView().setText(
+                songs.get(position).getSongName());
+        songViewHolder.getArtistNameView().setText(
+                songs.get(position).getArtistName());
+        songViewHolder.getTrackDurationView().setText(
+                getSongTimeString(songs.get(position)));
 
         // implementing onClick() in RecyclerView https://stackoverflow.com/a/38090900
-
-        // clicking on an item in the list
         songViewHolder.getLinearlayout().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // if a song was clicked in the library, add it to the queue
-                // pass the song clicked to the fragment so it can add it to the queue
                 Song songClicked = songs.get(position);
                 listenerClick.onSongClicked(songClicked);
             }
         });
 
-        // long clicking on an item in the list
         songViewHolder.getLinearlayout().setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                // if a song was long clicked in the library, open context menu
-                // pass the song to the fragment so we can do stuff depending on the menu option selected
                 Song songClicked = songs.get(position);
                 listenerLongClick.onSongLongClicked(songClicked);
 
-                v.showContextMenu();// opens the context menu
+                v.showContextMenu();
                 return true;
             }
         });
@@ -82,7 +80,7 @@ public class PlaylistSongsAdapter extends AbstractSongsAdapter
         });
     }
 
-    // implementing ItemTouchHelperAdapter
+    // These are the methods for implementing SwipeAndDragHelper.ItemDraggingListener
     @Override
     public void onItemDismiss(int position) {
         songs.remove(position);

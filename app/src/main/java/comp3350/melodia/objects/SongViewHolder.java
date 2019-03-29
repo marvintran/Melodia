@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import comp3350.melodia.R;
 
-// creates a SongViewHolder which contains references to all the views in this view row
 public class SongViewHolder extends RecyclerView.ViewHolder {
     private TextView songNameView;
     private TextView artistNameView;

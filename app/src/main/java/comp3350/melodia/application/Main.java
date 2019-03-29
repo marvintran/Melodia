@@ -2,7 +2,7 @@ package comp3350.melodia.application;
 
 public class Main
 {
-    private static String dbName="musicDatabase";
+    private static String dbName="MusicDB";
 
     public static void main(String[] args)
     {

@@ -1,44 +1,38 @@
 package comp3350.melodia.objects;
 
-import java.util.Collection;
+import java.util.List;
 
 public class Album{
+    private int albumID;
     private String albumName;
-    private Collection<Song> songs;
+    private List<Song> songs;
     private Genre genreName = null;
 
-    public Album(String albumName, Collection<Song> songs){
+    public Album(int albumID, String albumName, List<Song> songs) {
+        this.albumID = albumID;
         this.albumName = albumName;
         this.songs = songs;
     }
 
-    //added second constructor if the album has a genre
-    public Album(String albumName, Collection<Song> songs, Genre genreName){
-        this(albumName, songs);
+    // Added second constructor if the album has a genre.
+    public Album(int albumID, String albumName, List<Song> songs, Genre genreName) {
+        this(albumID, albumName, songs);
         this.genreName = genreName;
     }
 
-    public Album(String albumName){
-        this.albumName = albumName;
-        this.songs = songs;
+    public int getAlbumID() {
+        return albumID;
     }
 
-    public String getAlbumName(){
+    public String getAlbumName() {
         return albumName;
     }
 
-    public void setAlbumName(String albumName){
-        this.albumName = albumName;
-    }
-
-    public Collection<Song> getSongs(){
+    public List<Song> getSongs() {
         return songs;
     }
 
-    public Genre getAlbumGenre(){
+    public Genre getAlbumGenre() {
         return genreName;
-    }
-    public void setAlbumGenre(Genre genreName){
-        this.genreName = genreName;
     }
 }

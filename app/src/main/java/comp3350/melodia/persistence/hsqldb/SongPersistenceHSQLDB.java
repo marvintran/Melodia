@@ -28,19 +28,20 @@ public class SongPersistenceHSQLDB implements SongPersistence {
     }
 
     private Song fromResultSet(final ResultSet rs) throws SQLException {
+
+        final int songID = rs.getInt("songID");
         final String songName = rs.getString("songName");
         final int songTime = rs.getInt("songTime");
-        final String artistStr = rs.getString("artistName");
-        final String albumStr = rs.getString("albumName");
+        final int albumID = rs.getInt("albumID");
+        final String albumName = rs.getString("albumName");
+        final int artistID = rs.getInt("artistID");
+        final String artistName = rs.getString("artistName");
         final int trackNumber = rs.getInt("trackNumber");
         final String songDataPath = rs.getString("songPath");
 
-
         File song = new File(songDataPath);
-        Artist artist = new Artist(artistStr);
-        Album album = new Album(albumStr);
 
-        return new Song(songName, songTime, artist, album, trackNumber, song);
+        return new Song(songID, songName, songTime, albumID, albumName, artistID, artistName, trackNumber, song);
 
     }
 
@@ -51,7 +52,7 @@ public class SongPersistenceHSQLDB implements SongPersistence {
         try (final Connection c = connection()) {
 
             final Statement st = c.createStatement();
-            final ResultSet rs = st.executeQuery("SELECT * FROM song");
+            final ResultSet rs = st.executeQuery("SELECT * FROM SONG");
             while (rs.next())
             {
                 final Song song = fromResultSet(rs);
@@ -73,12 +74,15 @@ public class SongPersistenceHSQLDB implements SongPersistence {
     public Song insertSong(Song currentSong) {
 
         try (final Connection c = connection()) {
-            final PreparedStatement st = c.prepareStatement("INSERT INTO songs VALUES(?, ?)");
-            st.setString(1, currentSong.getSongName());
-            st.setInt(2, currentSong.getSongTime());
-            //st.setObject(2, currentSong.getArtist());
-            //st.setObject(2, currentSong.getAlbum());
-            st.setInt(2, currentSong.getTrackNumber());
+            final PreparedStatement st = c.prepareStatement("INSERT INTO SONG VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
+            st.setInt(1, currentSong.getSongID());
+            st.setString(2, currentSong.getSongName());
+            st.setInt(3, currentSong.getSongTime());
+            st.setInt(4, currentSong.getAlbumID());
+            st.setString(5, currentSong.getAlbumName());
+            st.setInt(6, currentSong.getArtistID());
+            st.setString(7, currentSong.getArtistName());
+            st.setInt(8, currentSong.getTrackNumber());
 
             st.executeUpdate();
 
@@ -92,12 +96,10 @@ public class SongPersistenceHSQLDB implements SongPersistence {
     public Song updateSong(Song currentSong) {
 
         try (final Connection c = connection()) {
-            final PreparedStatement st = c.prepareStatement("UPDATE songs SET name = ? WHERE songName = ?");
+            final PreparedStatement st = c.prepareStatement("UPDATE SONG SET name = ? WHERE SONGID = ?");
             st.setString(1, currentSong.getSongName());
-            st.setInt(2, currentSong.getSongTime());
-            st.setObject(2, currentSong.getArtist());
-            st.setObject(2, currentSong.getAlbum());
-            st.setInt(2, currentSong.getTrackNumber());
+            st.setInt(2, currentSong.getSongID());
+
 
             st.executeUpdate();
 
@@ -111,8 +113,8 @@ public class SongPersistenceHSQLDB implements SongPersistence {
     public void deleteSong(Song currentSong) {
 
         try (final Connection c = connection()) {
-            final PreparedStatement sc = c.prepareStatement("DELETE FROM songs WHERE songName = ?");
-            sc.setString(1, currentSong.getSongName());
+            final PreparedStatement sc = c.prepareStatement("DELETE FROM SONG WHERE SONGID = ?");
+            sc.setInt(1, currentSong.getSongID());
             sc.executeUpdate();
         } catch (final SQLException e) {
             throw new PersistenceException(e);

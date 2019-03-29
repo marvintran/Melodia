@@ -1,4 +1,4 @@
-package comp3350.melodia.persistence.stubs;
+package Objects.Persistence;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,43 +15,29 @@ public class AccountPersistenceStub implements AccountPersistence {
         this.accounts = new ArrayList<Account>();
 
         accounts.add(0, new Account(
-            "Full Name",
-            "unknownUSERNAME",
-            "EMAIL",
-            "profile",
-            new ArrayList<Song>()));
+                "Full Name",
+                "unknownUSERNAME",
+                "EMAIL",
+                "profile",
+                new ArrayList<Song>()));
         accounts.add(1, new Account(
-            "First Middle Last",
-            "someUser",
-            "unknownEMAIL@myumanitoba.ca",
-            "blahprofile",
-            new ArrayList<Song>()));
+                "First Middle Last",
+                "someUser",
+                "unknownEMAIL@myumanitoba.ca",
+                "blahprofile",
+                new ArrayList<Song>()));
         accounts.add(2, new Account(
                 "Some Unknown User",
                 "nameofsomeUser",
                 "blahdsb@gmail.com",
                 "profileTest",
                 new ArrayList<Song>()
-                ));
+        ));
     }
 
     @Override
     public List<Account> getAllAccounts() {
         return Collections.unmodifiableList(accounts);
-    }
-
-    @Override
-    public List<Account> getAccountRandom(Account currentAccount) {
-        List<Account> newAccounts;
-        int index;
-
-        newAccounts = new ArrayList<>();
-        index = accounts.indexOf(currentAccount);
-        if (index >= 0)
-        {
-            newAccounts.add(accounts.get(index));
-        }
-        return newAccounts;
     }
 
     @Override
@@ -83,5 +69,6 @@ public class AccountPersistenceStub implements AccountPersistence {
         }
     }
 }
+
 
 

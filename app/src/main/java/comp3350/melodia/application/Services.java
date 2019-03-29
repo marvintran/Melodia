@@ -11,7 +11,6 @@ import comp3350.melodia.persistence.hsqldb.AccountPersistenceHSQLDB;
 import comp3350.melodia.persistence.hsqldb.PlaylistPersistenceHSQLDB;
 import comp3350.melodia.persistence.hsqldb.SongPersistenceHSQLDB;
 
-
 public class Services
 {
     private static AccountPersistence accountPersistence = null;

@@ -65,22 +65,8 @@ public abstract class AbstractSongsAdapter extends RecyclerView.Adapter<SongView
     @Override
     public void onBindViewHolder(final SongViewHolder songViewHolder, final int position) {
         songViewHolder.getSongNameView().setText(songs.get(position).getSongName());
-        songViewHolder.getArtistNameView().setText(songs.get(position).getArtist().getArtistName());
+        songViewHolder.getArtistNameView().setText(songs.get(position).getArtistName());
         songViewHolder.getTrackDurationView().setText(getSongTimeString(songs.get(position)));
-
-        // implementing onClick() in RecyclerView https://stackoverflow.com/a/38090900
-
-        // clicking on an item in the list
-        songViewHolder.getLinearlayout().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // if a song was clicked in the library, add it to the queue
-                // pass the song clicked to the fragment so it can add it to the queue
-                Song songClicked = songs.get(position);
-                listenerClick.onSongClicked(songClicked);
-            }
-        });
-
 
         // implementing onClick() in RecyclerView https://stackoverflow.com/a/38090900
 
