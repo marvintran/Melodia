@@ -1,4 +1,4 @@
-package comp3350.melodia.persistence.stubs;
+package Objects.Persistence;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,9 +14,9 @@ public class ArtistPersistenceStub implements ArtistPersistence {
     public ArtistPersistenceStub() {
         this.artists = new ArrayList<>();
 
-        artists.add(0, new Artist("Dean", new ArrayList<Album>()));
-        artists.add(1, new Artist("Nico Touches the Wall", new ArrayList<Album>()));
-        artists.add(2, new Artist("epik high", new ArrayList<Album>()));
+        artists.add(0, new Artist(1, "Dean", new ArrayList<Album>()));
+        artists.add(1, new Artist(2, "Nico Touches the Wall", new ArrayList<Album>()));
+        artists.add(2, new Artist(3, "epik high", new ArrayList<Album>()));
     }
 
     @Override
@@ -49,4 +49,5 @@ public class ArtistPersistenceStub implements ArtistPersistence {
         }
     }
 }
+
 

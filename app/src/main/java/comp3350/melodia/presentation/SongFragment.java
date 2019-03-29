@@ -202,7 +202,7 @@ public class SongFragment extends Fragment {
 
 
         TextView t2 = getActivity().findViewById(R.id.textArtist);
-        t2.setText(songList.get(currSong).getArtist().getArtistName());
+        t2.setText(songList.get(currSong).getArtistName());
 
         TextView t3 = getActivity().findViewById(R.id.textSongTime);
         t3.setText(getSongTimeString(songList.get(currSong)));

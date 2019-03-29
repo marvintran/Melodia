@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
@@ -42,6 +43,24 @@ public class LibrarySongsFragment
     private Toast toastMessage;
     private Song songClicked;
     private LibrarySongsAdapter myAdapter;
+
+    RefreshInterface listener;
+
+    public interface RefreshInterface{
+        public void refreshPlaylists();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            listener = (RefreshInterface) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(
+                    context.toString() + " must implement OnArticleSelectedListener");
+        }
+    }
+
     @Override
     public View onCreateView (LayoutInflater inflater,
                               ViewGroup container,
@@ -73,11 +92,12 @@ public class LibrarySongsFragment
                     List<Song> newSongList = accessSong.getSongs();
                     myAdapter.updateList(newSongList);
                 } else if( filterSelection.equals("Artist")) {
-                    // currently just replaces the list with the songs in the first playlist
                     AccessPlaylist accessPlaylist = new AccessPlaylist();
                     List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
                     Playlist thePlaylist = allPlaylists.get(0);
-                    List<Song> newSongList = thePlaylist.getSongs();
+                    AccessSong accessSong = new AccessSong();
+                    List<Song> newSongList = accessSong.getSongs();// track name
+                    //List<Song> newSongList = accessSong.getPlaylistSongs(thePlaylist.getPlaylistID());
                     myAdapter.updateList(newSongList);
                 }
 
@@ -167,14 +187,18 @@ public class LibrarySongsFragment
                 List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
 
                 Playlist playlistClicked = allPlaylists.get(item.getItemId());
-                List<Song> playlistSongs = playlistClicked.getSongs();
+                int playlistID = playlistClicked.getPlaylistID();
+                accessPlaylist.updatePlaylist(playlistID, songClicked.getSongID());
 
-                playlistSongs.add(songClicked);
-                playlistClicked.setSongs(playlistSongs);
-
+                listener.refreshPlaylists();
+                /*
+                FragmentManager fm = getFragmentManager();
+                PlaylistFragment fragm = (PlaylistFragment)fm.findFragmentById(R.id.playlistNav);
+                fragm.updatePlaylists();
+*/
                 String songTItle = songClicked.getSongName();
                 String title = playlistClicked.getPlaylistName();
-                accessPlaylist.updatePlaylist(playlistClicked);
+
 
                 toastMessage = Toast.makeText(getActivity(),
                                          songTItle + " added to " + title,

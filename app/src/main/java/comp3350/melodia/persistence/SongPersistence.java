@@ -7,6 +7,8 @@ public interface SongPersistence {
 
     List<Song> getAllSongs();
 
+    List<Song> getPlaylistSongs(int playlistID);
+
     Song insertSong(Song currentSong);
 
     Song updateSong(Song currentSong);

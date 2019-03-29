@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import comp3350.melodia.objects.Song;
@@ -30,7 +31,8 @@ public abstract class AbstractSongsAdapter extends RecyclerView.Adapter<SongView
     // constructor
     public AbstractSongsAdapter(List<Song> songs, OnSongClickedListener listenerClick,
                                 OnSongLongClickedListener listenerLongClick){
-        this.songs = songs;
+        //this.songs = songs;
+        this.songs = new ArrayList(songs);
         this.listenerClick = listenerClick;
         this.listenerLongClick = listenerLongClick;
     }
@@ -64,7 +66,7 @@ public abstract class AbstractSongsAdapter extends RecyclerView.Adapter<SongView
     @Override
     public void onBindViewHolder(final SongViewHolder songViewHolder, final int position) {
         songViewHolder.getSongNameView().setText(songs.get(position).getSongName());
-        songViewHolder.getArtistNameView().setText(songs.get(position).getArtist().getArtistName());
+        songViewHolder.getArtistNameView().setText(songs.get(position).getArtistName());
         songViewHolder.getTrackDurationView().setText(getSongTimeString(songs.get(position)));
 
         // implementing onClick() in RecyclerView https://stackoverflow.com/a/38090900

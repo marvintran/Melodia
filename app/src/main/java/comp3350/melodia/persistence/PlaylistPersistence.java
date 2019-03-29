@@ -7,9 +7,9 @@ public interface PlaylistPersistence {
 
     List<Playlist> getAllPlaylists();
 
-    Playlist insertPlaylist(Playlist currentPlaylist);
+    void insertPlaylist(String playlistName);
 
-    Playlist updatePlaylist(Playlist currentPlaylist);
+    void updatePlaylist(int playlistID, int songID);
 
     void deletePlaylist(Playlist currentPlaylist);
 

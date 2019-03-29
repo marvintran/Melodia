@@ -18,6 +18,7 @@ import java.util.List;
 
 import comp3350.melodia.R;
 import comp3350.melodia.logic.AccessPlaylist;
+import comp3350.melodia.logic.AccessSong;
 import comp3350.melodia.objects.Playlist;
 import comp3350.melodia.objects.Song;
 
@@ -28,7 +29,7 @@ public class PlaylistSongsFragment extends Fragment
                                               PlaylistSongsAdapter.OnStartDragListener,
                                               View.OnCreateContextMenuListener {
 
-    private List<Song> songList;
+    private List<Song> playlistSongs;
     private Playlist thePlaylist;
     private Toast toastMessage;
     private ItemTouchHelper touchHelper;
@@ -45,8 +46,6 @@ public class PlaylistSongsFragment extends Fragment
         AccessPlaylist accessPlaylist = new AccessPlaylist();
         List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
         thePlaylist = allPlaylists.get(playlistIndex);
-
-        songList = thePlaylist.getSongs();
 
         return inflater.inflate(
                 R.layout.fragment_playlist_songs, container, false);
@@ -71,7 +70,10 @@ public class PlaylistSongsFragment extends Fragment
         myLinearLayout = new LinearLayoutManager(getActivity());
         myRecyclerView.setLayoutManager(myLinearLayout);
 
-        myAdapter = new PlaylistSongsAdapter(songList, this, this, this);
+        AccessSong accessSong = new AccessSong();
+        playlistSongs = accessSong.getPlaylistSongs(thePlaylist.getPlaylistID());
+
+        myAdapter = new PlaylistSongsAdapter(playlistSongs, this, this, this);
         myRecyclerView.setAdapter(myAdapter);
 
         SwipeAndDragHelper swipeAndDragHelper = new SwipeAndDragHelper(myAdapter);
@@ -133,14 +135,11 @@ public class PlaylistSongsFragment extends Fragment
                 List<Playlist> allPlaylists2 = accessPlaylist2.getPlaylists();
 
                 Playlist playlistClicked2 = allPlaylists2.get(item.getItemId());
-                List<Song> playlistSongs2 = playlistClicked2.getSongs();
-
-                playlistSongs2.add(songClicked);
-                playlistClicked2.setSongs(playlistSongs2);
+                int playlistID = playlistClicked2.getPlaylistID();
+                accessPlaylist2.updatePlaylist(playlistID, songClicked.getSongID());
 
                 String songTitle2 = songClicked.getSongName();
                 String title2 = playlistClicked2.getPlaylistName();
-                accessPlaylist2.updatePlaylist(playlistClicked2);
 
                 toastMessage = Toast.makeText(getActivity(),
                                          songTitle2 + " added to " + title2,

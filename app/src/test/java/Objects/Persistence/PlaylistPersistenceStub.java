@@ -1,4 +1,4 @@
-package comp3350.melodia.persistence.stubs;
+package Objects.Persistence;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,13 +19,13 @@ public class PlaylistPersistenceStub implements PlaylistPersistence {
 
         List<Song> someSongs = new ArrayList<>();
 
-        Song someSong = new Song(
+        Song someSong = new Song(1,
                 "halfmoon",
                 229,
-                new Artist(
+                new Artist(1,
                         "Dean",
                         new ArrayList<Album>()),
-                new Album(
+                new Album(1,
                         "130 mood: TRBL",
                         new ArrayList<Song>(),
                         new Genre("R&B")),
@@ -34,19 +34,19 @@ public class PlaylistPersistenceStub implements PlaylistPersistence {
 
         someSongs.add(someSong);
 
-        playlists.add(0, new Playlist(
+        playlists.add(0, new Playlist(1,
                 "Playlist 1",
                 2400,
                 10,
                 someSongs,
                 ""));
-        playlists.add(1, new Playlist(
+        playlists.add(1, new Playlist(2,
                 "Playlist 2",
                 480,
                 2,
                 someSongs,
                 ""));
-        playlists.add(2, new Playlist(
+        playlists.add(2, new Playlist(3,
                 "Playlist Test",
                 1200,
                 5,
@@ -84,3 +84,4 @@ public class PlaylistPersistenceStub implements PlaylistPersistence {
         }
     }
 }
+

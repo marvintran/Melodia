@@ -9,7 +9,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import comp3350.melodia.objects.Album;
 import comp3350.melodia.objects.Artist;
 import comp3350.melodia.persistence.ArtistPersistence;
 
@@ -26,13 +25,12 @@ public class ArtistPersistenceHSQLDB implements ArtistPersistence{
     }
 
     private Artist fromResultSet(final ResultSet rs) throws SQLException {
+
+        final int artistID = rs.getInt("artistID");
         final String artistName = rs.getString("artistName");
         final String albums = rs.getString("albums");
 
-        //return new Artist(artistName, albums);
-
-        return null;
-
+        return new Artist(artistID, artistName, null);
     }
 
     @Override
@@ -41,7 +39,7 @@ public class ArtistPersistenceHSQLDB implements ArtistPersistence{
 
         try (final Connection c = connection()) {
             final Statement st = c.createStatement();
-            final ResultSet rs = st.executeQuery("SELECT * FROM artists");
+            final ResultSet rs = st.executeQuery("SELECT * FROM ARTIST");
             while (rs.next())
             {
                 final Artist artist = fromResultSet(rs);
@@ -63,9 +61,9 @@ public class ArtistPersistenceHSQLDB implements ArtistPersistence{
     public Artist insertArtist(Artist currentArtist) {
 
         try (final Connection c = connection()) {
-            final PreparedStatement st = c.prepareStatement("INSERT INTO artists VALUES(?, ?)");
-            st.setString(1, currentArtist.getArtistName());
-            //st.setString(2, currentArtist.getAlbums());
+            final PreparedStatement st = c.prepareStatement("INSERT INTO ARTIST VALUES(?, ?)");
+            st.setInt(1, currentArtist.getArtistID());
+            st.setString(2, currentArtist.getArtistName());
 
             st.executeUpdate();
 
@@ -79,9 +77,9 @@ public class ArtistPersistenceHSQLDB implements ArtistPersistence{
     public Artist updateArtist(Artist currentArtist) {
 
         try (final Connection c = connection()) {
-            final PreparedStatement st = c.prepareStatement("UPDATE artists SET name = ? WHERE artistName = ?");
+            final PreparedStatement st = c.prepareStatement("UPDATE ARTIST SET name = ? WHERE ARTISTID = ?");
             st.setString(1, currentArtist.getArtistName());
-            st.setObject(2, currentArtist.getAlbums());
+            st.setInt(2, currentArtist.getArtistID());
 
             st.executeUpdate();
 
@@ -95,8 +93,8 @@ public class ArtistPersistenceHSQLDB implements ArtistPersistence{
     public void deleteArtist(Artist currentArtist) {
 
         try (final Connection c = connection()) {
-            final PreparedStatement sc = c.prepareStatement("DELETE FROM artists WHERE artistName = ?");
-            sc.setString(1, currentArtist.getArtistName());
+            final PreparedStatement sc = c.prepareStatement("DELETE FROM ARTIST WHERE ARTISTID = ?");
+            sc.setInt(1, currentArtist.getArtistID());
             sc.executeUpdate();
         } catch (final SQLException e) {
             throw new PersistenceException(e);

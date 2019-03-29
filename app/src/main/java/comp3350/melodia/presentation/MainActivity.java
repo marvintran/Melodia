@@ -20,10 +20,12 @@ public class MainActivity extends AppCompatActivity
                                      ShareFragment.OnRegisterClickedListener,
                                      ShareFragment.OnLoginClickedListener,
                                      SongFragment.onQueueButtonClickedListener,
-                                     QueueFragment.onPlayerButtonClickedListener{
+                                     QueueFragment.onPlayerButtonClickedListener,
+                                     LibrarySongsFragment.RefreshInterface{
+
 
     final Fragment homeNav = LibrarySongsFragment.newInstance();
-    final Fragment playlistNav = PlaylistFragment.newInstance();
+    final PlaylistFragment playlistNav = PlaylistFragment.newInstance();
     final Fragment shareNav = ShareFragment.newInstance();
     final Fragment songNav = SongFragment.newInstance();
     final Fragment radioNav = RadioFragment.newInstance();
@@ -142,8 +144,14 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onShowPlayer(){
+    public void onShowPlayer() {
         fm.beginTransaction().hide(active).show(songNav).commit();
         active = songNav;
+    }
+
+    public void refreshPlaylists() {
+        //PlaylistFragment fragm = (PlaylistFragment)fm.findFragmentById(R.id.playlistNav);
+        //fragm.updatePlaylists();
+        playlistNav.updatePlaylists();
     }
 }
