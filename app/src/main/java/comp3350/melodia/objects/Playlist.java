@@ -13,19 +13,17 @@ public class Playlist{
     private File playlistData;
 
     public Playlist(int playlistID, String playlistName, int playlistTime,
-                    int numberOfSongs, List<Song> songs, File playlistData) {
+                    int numberOfSongs, List<Song> songs) {
         this.playlistID = playlistID;
         this.playlistName = playlistName;
         this.playlistTime = playlistTime;
         this.numberOfSongs = numberOfSongs;
         this.songs = songs;
-        this.playlistData = playlistData;
     }
 
     public Playlist(int playlistID, String playlistName, int playlistTime, int numberOfSongs,
                     List<Song> songs, String playlistLocation) {
-        this(playlistID, playlistName, playlistTime, numberOfSongs, songs,
-                new File(playlistLocation));
+        this(playlistID, playlistName, playlistTime, numberOfSongs, songs);
     }
 
     public int getPlaylistID() { return playlistID;}

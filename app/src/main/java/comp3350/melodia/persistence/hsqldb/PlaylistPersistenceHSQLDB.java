@@ -29,11 +29,8 @@ public class PlaylistPersistenceHSQLDB implements PlaylistPersistence {
 
         final int playlistID = rs.getInt("playlistID");
         final String playlistName = rs.getString("playlistName");
-        final String playlistPath = rs.getString("playlistPath");
 
-        File playlist = new File(playlistPath);
-
-        return new Playlist(playlistID, playlistName, 0, 0, null, playlist);
+        return new Playlist(playlistID, playlistName, 0, 0, null);
 
     }
 
