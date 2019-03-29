@@ -44,7 +44,7 @@ public class QueueAdapter
         songViewHolder.getSongNameView().setText(
                 songs.get(position).getSongName());
         songViewHolder.getArtistNameView().setText(
-                songs.get(position).getArtist().getArtistName());
+                songs.get(position).getArtistName());
         songViewHolder.getTrackDurationView().setText(
                 getSongTimeString(songs.get(position)));
 

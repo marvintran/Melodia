@@ -20,6 +20,7 @@ import java.util.List;
 
 import comp3350.melodia.R;
 import comp3350.melodia.logic.AccessPlaylist;
+import comp3350.melodia.logic.AccessSong;
 import comp3350.melodia.objects.Playlist;
 import comp3350.melodia.objects.Song;
 
@@ -39,6 +40,12 @@ public class QueueFragment extends Fragment
 
     public interface onPlayerButtonClickedListener {
         public void onShowPlayer();
+    }
+
+    RefreshInterface listener;
+
+    public interface RefreshInterface{
+        public void refreshPlaylists();
     }
 
     @Override
@@ -61,7 +68,11 @@ public class QueueFragment extends Fragment
         List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
         Playlist thePlaylist = allPlaylists.get(0);
 
-        songList = thePlaylist.getSongs();
+        // display songs in the library
+        AccessSong accessSong = new AccessSong();
+        songList = accessSong.getSongs();
+
+        //songList = thePlaylist.getSongs();
 
         View v = inflater.inflate(R.layout.queue_fragment, container, false);
 
@@ -141,22 +152,26 @@ public class QueueFragment extends Fragment
                 toastMessage.show();
                 return true;
             default:
-                AccessPlaylist accessPlaylist2 = new AccessPlaylist();
-                List<Playlist> allPlaylists2 = accessPlaylist2.getPlaylists();
+                AccessPlaylist accessPlaylist = new AccessPlaylist();
+                List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
 
-                Playlist playlistClicked2 = allPlaylists2.get(item.getItemId());
-                List<Song> playlistSongs2 = playlistClicked2.getSongs();
+                Playlist playlistClicked = allPlaylists.get(item.getItemId());
+                int playlistID = playlistClicked.getPlaylistID();
+                accessPlaylist.updatePlaylist(playlistID, songClicked.getSongID());
 
-                playlistSongs2.add(songClicked);
-                playlistClicked2.setSongs(playlistSongs2);
+                listener.refreshPlaylists();
+                /*
+                FragmentManager fm = getFragmentManager();
+                PlaylistFragment fragm = (PlaylistFragment)fm.findFragmentById(R.id.playlistNav);
+                fragm.updatePlaylists();
+*/
+                String songTItle = songClicked.getSongName();
+                String title = playlistClicked.getPlaylistName();
 
-                String songTitle2 = songClicked.getSongName();
-                String title2 = playlistClicked2.getPlaylistName();
-                accessPlaylist2.updatePlaylist(playlistClicked2);
 
                 toastMessage = Toast.makeText(getActivity(),
-                                         songTitle2 + " added to " + title2,
-                                              Toast.LENGTH_SHORT);
+                        songTItle + " added to " + title,
+                        Toast.LENGTH_SHORT);
                 toastMessage.show();
                 return super.onContextItemSelected(item);
         }
