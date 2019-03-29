@@ -18,6 +18,7 @@ import java.util.List;
 
 import comp3350.melodia.R;
 import comp3350.melodia.logic.AccessPlaylist;
+import comp3350.melodia.logic.AccessSong;
 import comp3350.melodia.objects.Playlist;
 import comp3350.melodia.objects.Song;
 import comp3350.melodia.objects.SongViewHolder;
@@ -29,7 +30,7 @@ public class PlaylistSongsFragment extends Fragment
                                               PlaylistSongsAdapter.OnStartDragListener,
                                               View.OnCreateContextMenuListener {
 
-    private List<Song> songList;
+    private List<Song> playlistSongs;
     private Playlist thePlaylist;
     private Toast toastMessage;
     private ItemTouchHelper touchHelper;
@@ -46,8 +47,6 @@ public class PlaylistSongsFragment extends Fragment
         AccessPlaylist accessPlaylist = new AccessPlaylist();
         List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
         thePlaylist = allPlaylists.get(playlistIndex);
-
-        //songList = thePlaylist.getSongs();
 
         return inflater.inflate(
                 R.layout.fragment_playlist_songs, container, false);
@@ -72,7 +71,10 @@ public class PlaylistSongsFragment extends Fragment
         myLinearLayout = new LinearLayoutManager(getActivity());
         myRecyclerView.setLayoutManager(myLinearLayout);
 
-        myAdapter = new PlaylistSongsAdapter(songList, this, this, this);
+        AccessSong accessSong = new AccessSong();
+        playlistSongs = accessSong.getPlaylistSongs(thePlaylist.getPlaylistID());
+
+        myAdapter = new PlaylistSongsAdapter(playlistSongs, this, this, this);
         myRecyclerView.setAdapter(myAdapter);
 
         SwipeAndDragHelper swipeAndDragHelper = new SwipeAndDragHelper(myAdapter);

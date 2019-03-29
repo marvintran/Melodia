@@ -28,4 +28,8 @@ public class AccessSong {
         return Collections.unmodifiableList(songs);
     }
 
+    public List<Song> getPlaylistSongs(int playlistID){
+        songs = songPersistence.getPlaylistSongs(playlistID);
+        return Collections.unmodifiableList(songs);
+    }
 }

@@ -120,5 +120,32 @@ public class SongPersistenceHSQLDB implements SongPersistence {
             throw new PersistenceException(e);
         }
     }
+
+    @Override
+    public List<Song> getPlaylistSongs(int playlistID) {
+        final List<Song> songs = new ArrayList<>();
+
+        try (final Connection c = connection()) {
+
+            final Statement st = c.createStatement();
+            final ResultSet rs = st.executeQuery("SELECT * FROM PLAYLIST_SONGS WHERE PLAYLISTID = " + playlistID);
+            while (rs.next())
+            {
+                final Statement st2 = c.createStatement();
+                final ResultSet songIDs = st2.executeQuery("SELECT * FROM SONG WHERE SONGID = " + rs.getInt("songID"));
+                songIDs.next();
+                final Song song = fromResultSet(songIDs);
+                songs.add(song);
+            }
+            rs.close();
+            st.close();
+        }
+        catch (final SQLException e)
+        {
+            throw new PersistenceException(e);
+        }
+
+        return songs;
+    }
 }
 

@@ -123,7 +123,7 @@ public class PlaylistFragment
 
             // create a new playlist with this playlist title
             accessPlaylist.insertPlaylist(title);
-            //allPlaylists.clear();
+
             allPlaylists = accessPlaylist.getPlaylists();
             myAdapter.updateItems(allPlaylists);
             }
