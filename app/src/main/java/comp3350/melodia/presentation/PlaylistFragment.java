@@ -124,8 +124,7 @@ public class PlaylistFragment
             // create a new playlist with this playlist title
             accessPlaylist.insertPlaylist(title);
 
-            allPlaylists = accessPlaylist.getPlaylists();
-            myAdapter.updateItems(allPlaylists);
+            updatePlaylists();
             }
         });
         AlertDialog dialog = alert.create();

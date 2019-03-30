@@ -22,7 +22,8 @@ public class MainActivity extends AppCompatActivity
                                      SongFragment.onQueueButtonClickedListener,
                                      QueueFragment.onPlayerButtonClickedListener,
                                      LibrarySongsFragment.RefreshInterface,
-                                     QueueFragment.RefreshInterface{
+                                     QueueFragment.RefreshInterface,
+                                     PlaylistSongsFragment.RefreshInterface{
 
 
     final Fragment homeNav = LibrarySongsFragment.newInstance();

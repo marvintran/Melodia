@@ -43,8 +43,8 @@ public class LibrarySongsFragment
     private Toast toastMessage;
     private Song songClicked;
     private LibrarySongsAdapter myAdapter;
-
-    RefreshInterface listener;
+    private AccessPlaylist accessPlaylist;
+    private RefreshInterface listener;
 
     public interface RefreshInterface{
         public void refreshPlaylists();
@@ -67,7 +67,7 @@ public class LibrarySongsFragment
                               Bundle savedInstanceState) {
 
         copyDatabaseToDevice();
-
+        accessPlaylist = new AccessPlaylist();
         AccessSong accessSong = new AccessSong();
 
         songList = accessSong.getSongs();
@@ -92,7 +92,6 @@ public class LibrarySongsFragment
                     List<Song> newSongList = accessSong.getSongs();
                     myAdapter.updateList(newSongList);
                 } else if( filterSelection.equals("Artist")) {
-                    AccessPlaylist accessPlaylist = new AccessPlaylist();
                     List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
                     Playlist thePlaylist = allPlaylists.get(0);
                     AccessSong accessSong = new AccessSong();
@@ -152,7 +151,6 @@ public class LibrarySongsFragment
         MenuItem menuItem = menu.findItem(R.id.add_to_playlist);
         SubMenu subMenu = menuItem.getSubMenu();
 
-        AccessPlaylist accessPlaylist = new AccessPlaylist();
         List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
 
         int count = 0;
@@ -173,7 +171,7 @@ public class LibrarySongsFragment
                                          "Add to Queue: " + songTitle,
                                               Toast.LENGTH_SHORT);
                 toastMessage.show();
-                // Todo: Add the song that was long clicked to the queue.
+                accessPlaylist.updatePlaylist(0, songClicked.getSongID());
 
                 return true;
             case R.id.add_to_playlist:
@@ -183,19 +181,13 @@ public class LibrarySongsFragment
                 toastMessage.show();
                 return true;
             default:
-                AccessPlaylist accessPlaylist = new AccessPlaylist();
                 List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
-
                 Playlist playlistClicked = allPlaylists.get(item.getItemId());
                 int playlistID = playlistClicked.getPlaylistID();
                 accessPlaylist.updatePlaylist(playlistID, songClicked.getSongID());
 
                 listener.refreshPlaylists();
-                /*
-                FragmentManager fm = getFragmentManager();
-                PlaylistFragment fragm = (PlaylistFragment)fm.findFragmentById(R.id.playlistNav);
-                fragm.updatePlaylists();
-*/
+
                 String songTItle = songClicked.getSongName();
                 String title = playlistClicked.getPlaylistName();
 
@@ -221,9 +213,6 @@ public class LibrarySongsFragment
 
         toastMessage = Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT);
         toastMessage.show();
-
-        // Todo: Add this song to the current queue and play it.
-
     }
 
     public void onSongLongClicked(Song theSong)

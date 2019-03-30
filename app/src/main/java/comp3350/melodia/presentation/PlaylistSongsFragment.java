@@ -1,5 +1,6 @@
 package comp3350.melodia.presentation;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -34,16 +35,34 @@ public class PlaylistSongsFragment extends Fragment
     private Toast toastMessage;
     private ItemTouchHelper touchHelper;
     private Song songClicked;
+    private AccessPlaylist accessPlaylist;
+    private RefreshInterface listener;
+
+    public interface RefreshInterface{
+        public void refreshPlaylists();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            listener = (RefreshInterface) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(
+                    context.toString() + " must implement OnArticleSelectedListener");
+        }
+    }
 
     @Override
     public View onCreateView (LayoutInflater inflater,
                               ViewGroup container,
                               Bundle savedInstanceState) {
 
+        accessPlaylist = new AccessPlaylist();
+
         Bundle b = getArguments();
         int playlistIndex = b.getInt("exampleInt");
 
-        AccessPlaylist accessPlaylist = new AccessPlaylist();
         List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
         thePlaylist = allPlaylists.get(playlistIndex);
 
@@ -98,7 +117,6 @@ public class PlaylistSongsFragment extends Fragment
         MenuItem menuItem = menu.findItem(R.id.add_to_playlist);
         SubMenu subMenu = menuItem.getSubMenu();
 
-        AccessPlaylist accessPlaylist = new AccessPlaylist();
         List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
 
         int count = 0;
@@ -120,8 +138,7 @@ public class PlaylistSongsFragment extends Fragment
                                          "Add to Queue: " + songTitle,
                                               Toast.LENGTH_SHORT);
                 toastMessage.show();
-
-                // Todo: Add the song that was long clicked to the queue.
+                accessPlaylist.updatePlaylist(0, songClicked.getSongID());
 
                 return true;
             case R.id.add_to_playlist:
@@ -131,19 +148,20 @@ public class PlaylistSongsFragment extends Fragment
                 toastMessage.show();
                 return true;
             default:
-                AccessPlaylist accessPlaylist2 = new AccessPlaylist();
-                List<Playlist> allPlaylists2 = accessPlaylist2.getPlaylists();
+                List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
+                Playlist playlistClicked = allPlaylists.get(item.getItemId());
+                int playlistID = playlistClicked.getPlaylistID();
+                accessPlaylist.updatePlaylist(playlistID, songClicked.getSongID());
 
-                Playlist playlistClicked2 = allPlaylists2.get(item.getItemId());
-                int playlistID = playlistClicked2.getPlaylistID();
-                accessPlaylist2.updatePlaylist(playlistID, songClicked.getSongID());
+                listener.refreshPlaylists();
 
-                String songTitle2 = songClicked.getSongName();
-                String title2 = playlistClicked2.getPlaylistName();
+                String songTItle = songClicked.getSongName();
+                String title = playlistClicked.getPlaylistName();
+
 
                 toastMessage = Toast.makeText(getActivity(),
-                                         songTitle2 + " added to " + title2,
-                                              Toast.LENGTH_SHORT);
+                        songTItle + " added to " + title,
+                        Toast.LENGTH_SHORT);
                 toastMessage.show();
                 return super.onContextItemSelected(item);
         }
@@ -177,4 +195,6 @@ public class PlaylistSongsFragment extends Fragment
     public void onStartDrag(SongViewHolder viewHolder) {
         touchHelper.startDrag(viewHolder);
     }
+
+
 }

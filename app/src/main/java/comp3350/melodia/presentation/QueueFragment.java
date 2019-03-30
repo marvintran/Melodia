@@ -35,14 +35,14 @@ public class QueueFragment extends Fragment
     private Toast toastMessage;
     private ItemTouchHelper touchHelper;
     private Song songClicked;
+    private AccessPlaylist accessPlaylist;
 
+    private RefreshInterface listener;
     private onPlayerButtonClickedListener playerButtonListener;
 
     public interface onPlayerButtonClickedListener {
         public void onShowPlayer();
     }
-
-    RefreshInterface listener;
 
     public interface RefreshInterface{
         public void refreshPlaylists();
@@ -53,6 +53,7 @@ public class QueueFragment extends Fragment
         super.onAttach(context);
         try {
             playerButtonListener = (onPlayerButtonClickedListener) context;
+            listener = (RefreshInterface) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(
                     context.toString() + " must implement OnArticleSelectedListener");
@@ -63,16 +64,11 @@ public class QueueFragment extends Fragment
     public View onCreateView (LayoutInflater inflater,
                               ViewGroup container,
                               Bundle savedInstanceState) {
+        accessPlaylist = new AccessPlaylist();
 
-        AccessPlaylist accessPlaylist = new AccessPlaylist();
-        List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
-        Playlist thePlaylist = allPlaylists.get(0);
-
-        // display songs in the library
+        // the current playing queue has playlistID 0
         AccessSong accessSong = new AccessSong();
-        songList = accessSong.getSongs();
-
-        //songList = thePlaylist.getSongs();
+        songList = accessSong.getPlaylistSongs(0);
 
         View v = inflater.inflate(R.layout.queue_fragment, container, false);
 
@@ -129,7 +125,6 @@ public class QueueFragment extends Fragment
         MenuItem menuItem = menu.findItem(R.id.add_to_playlist);
         SubMenu subMenu = menuItem.getSubMenu();
 
-        AccessPlaylist accessPlaylist = new AccessPlaylist();
         List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
 
         int count = 0;
@@ -152,19 +147,13 @@ public class QueueFragment extends Fragment
                 toastMessage.show();
                 return true;
             default:
-                AccessPlaylist accessPlaylist = new AccessPlaylist();
                 List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
-
                 Playlist playlistClicked = allPlaylists.get(item.getItemId());
                 int playlistID = playlistClicked.getPlaylistID();
                 accessPlaylist.updatePlaylist(playlistID, songClicked.getSongID());
 
                 listener.refreshPlaylists();
-                /*
-                FragmentManager fm = getFragmentManager();
-                PlaylistFragment fragm = (PlaylistFragment)fm.findFragmentById(R.id.playlistNav);
-                fragm.updatePlaylists();
-*/
+
                 String songTItle = songClicked.getSongName();
                 String title = playlistClicked.getPlaylistName();
 
