@@ -28,21 +28,17 @@ public class SongPersistenceHSQLDB implements SongPersistence {
     }
 
     private Song fromResultSet(final ResultSet rs) throws SQLException {
-
-        final int songID = rs.getInt("songID");
-        final String songName = rs.getString("songName");
-        final int songTime = rs.getInt("songTime");
-        final int albumID = rs.getInt("albumID");
-        final String albumName = rs.getString("albumName");
-        final int artistID = rs.getInt("artistID");
-        final String artistName = rs.getString("artistName");
-        final int trackNumber = rs.getInt("trackNumber");
-        final String songDataPath = rs.getString("songPath");
-
-        File song = new File(songDataPath);
-
-        return new Song(songID, songName, songTime, albumID, albumName, artistID, artistName, trackNumber, song);
-
+        return new Song.Builder()
+                .withSongID(rs.getInt("songID"))
+                .withSongName(rs.getString("songName"))
+                .withSongTime(rs.getInt("songTime"))
+                .withAlbumID(rs.getInt("albumID"))
+                .withAlbumName(rs.getString("albumName"))
+                .withArtistID(rs.getInt("artistID"))
+                .withArtistName(rs.getString("artistName"))
+                .withTrackNumber(rs.getInt("trackNumber"))
+                .withSongData(rs.getString("songPath"))
+                .build();
     }
 
     @Override
