@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.List;
 
 import comp3350.melodia.R;
+import comp3350.melodia.objects.Playlist;
 import comp3350.melodia.objects.Song;
 
 public class PlaylistSongsAdapter
@@ -100,5 +101,10 @@ public class PlaylistSongsAdapter
         }
         notifyItemMoved(fromPosition, toPosition);
         return true;
+    }
+
+    void updateSongList(List<Song> playlistSongs){
+        songs = playlistSongs;
+        notifyDataSetChanged();
     }
 }

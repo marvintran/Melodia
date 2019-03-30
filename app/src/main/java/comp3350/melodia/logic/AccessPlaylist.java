@@ -38,4 +38,8 @@ public class AccessPlaylist {
     public void deletePlaylist(int playlistID) {
         playlistPersistence.deletePlaylist(playlistID);
     }
+
+    public void deletePlaylistSong(int playlistID, int songID) {
+        playlistPersistence.deletePlaylistSong(playlistID, songID);
+    }
 }

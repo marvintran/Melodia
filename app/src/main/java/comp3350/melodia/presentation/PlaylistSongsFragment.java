@@ -35,6 +35,9 @@ public class PlaylistSongsFragment extends Fragment
     private ItemTouchHelper touchHelper;
     private Song songClicked;
     private AccessPlaylist accessPlaylist;
+    private AccessSong accessSong;
+    private PlaylistSongsAdapter myAdapter;
+
     private RefreshInterface listener;
 
     public interface RefreshInterface{
@@ -79,7 +82,6 @@ public class PlaylistSongsFragment extends Fragment
         super.onActivityCreated(savedInstanceState);
 
         RecyclerView myRecyclerView;
-        PlaylistSongsAdapter myAdapter;
         RecyclerView.LayoutManager myLinearLayout;
 
         myRecyclerView = (RecyclerView)getView().findViewById(R.id.playlist_songs_recycler_view);
@@ -88,7 +90,7 @@ public class PlaylistSongsFragment extends Fragment
         myLinearLayout = new LinearLayoutManager(getActivity());
         myRecyclerView.setLayoutManager(myLinearLayout);
 
-        AccessSong accessSong = new AccessSong();
+        accessSong = new AccessSong();
         playlistSongs = accessSong.getPlaylistSongs(thePlaylist.getPlaylistID());
 
         myAdapter = new PlaylistSongsAdapter(playlistSongs, this, this, this);
@@ -107,7 +109,7 @@ public class PlaylistSongsFragment extends Fragment
                                     ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getActivity().getMenuInflater();
-        inflater.inflate(R.menu.library_context_menu, menu);
+        inflater.inflate(R.menu.playlist_songs_context_menu, menu);
 
         String songTitle = songClicked.getSongName();
         menu.setHeaderTitle(songTitle);
@@ -130,9 +132,9 @@ public class PlaylistSongsFragment extends Fragment
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
+        String songTitle = songClicked.getSongName();
         switch (item.getItemId()) {
             case R.id.queue:
-                String songTitle = songClicked.getSongName();
                 toastMessage = Toast.makeText(getActivity(),
                                          "Add to Queue: " + songTitle,
                                               Toast.LENGTH_SHORT);
@@ -146,6 +148,16 @@ public class PlaylistSongsFragment extends Fragment
                                               Toast.LENGTH_SHORT);
                 toastMessage.show();
                 return true;
+            case R.id.delete:
+                toastMessage = Toast.makeText(getActivity(),
+                        "Deleted " + songTitle,
+                        Toast.LENGTH_SHORT);
+                toastMessage.show();
+                accessPlaylist.deletePlaylistSong(thePlaylist.getPlaylistID(), songClicked.getSongID());
+                updateSongList();
+                listener.refreshPlaylists();
+
+                return true;
             default:
                 List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
                 Playlist playlistClicked = allPlaylists.get(item.getOrder());
@@ -154,12 +166,10 @@ public class PlaylistSongsFragment extends Fragment
 
                 listener.refreshPlaylists();
 
-                String songTItle = songClicked.getSongName();
-                String title = playlistClicked.getPlaylistName();
-
+                String playlistName = playlistClicked.getPlaylistName();
 
                 toastMessage = Toast.makeText(getActivity(),
-                        songTItle + " added to " + title,
+                        songTitle + " added to " + playlistName,
                         Toast.LENGTH_SHORT);
                 toastMessage.show();
                 return super.onContextItemSelected(item);
@@ -195,5 +205,10 @@ public class PlaylistSongsFragment extends Fragment
         touchHelper.startDrag(viewHolder);
     }
 
+    public void updateSongList()
+    {
+        playlistSongs = accessSong.getPlaylistSongs(thePlaylist.getPlaylistID());
+        myAdapter.updateSongList(playlistSongs);
+    }
 
 }

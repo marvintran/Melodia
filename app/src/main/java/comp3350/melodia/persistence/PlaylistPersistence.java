@@ -13,4 +13,5 @@ public interface PlaylistPersistence {
 
     void deletePlaylist(int playlistID);
 
+    void deletePlaylistSong(int playlistID, int songID);
 }
