@@ -132,7 +132,7 @@ public class QueueFragment extends Fragment
 
             // For every playlist, make a submenu item.
             String playlistTitle = currentPlaylist.getPlaylistName();
-            subMenu.add(menu.NONE, count, menu.NONE, playlistTitle);
+            subMenu.add(menu.NONE, menu.NONE, count, playlistTitle);
             count++;
         }
     }
@@ -148,7 +148,7 @@ public class QueueFragment extends Fragment
                 return true;
             default:
                 List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
-                Playlist playlistClicked = allPlaylists.get(item.getItemId());
+                Playlist playlistClicked = allPlaylists.get(item.getOrder());
                 int playlistID = playlistClicked.getPlaylistID();
                 accessPlaylist.updatePlaylist(playlistID, songClicked.getSongID());
 
@@ -181,11 +181,6 @@ public class QueueFragment extends Fragment
     public void onSongLongClicked(Song theSong)
     {
         songClicked = theSong;
-
-        toastMessage = Toast.makeText(getActivity(),
-                                 "Long Clicked: Open Context Menu",
-                                      Toast.LENGTH_SHORT);
-        toastMessage.show();
     }
 
     @Override

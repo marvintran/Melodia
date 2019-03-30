@@ -156,8 +156,7 @@ public class LibrarySongsFragment
         int count = 0;
         for(Playlist currentPlaylist: allPlaylists) {
             String playlistTitle = currentPlaylist.getPlaylistName();
-            String titleNoSpaces = playlistTitle.replaceAll(" ", "_");
-            subMenu.add(menu.NONE, count, menu.NONE, playlistTitle);
+            subMenu.add(menu.NONE, menu.NONE, count, playlistTitle);
             count++;
         }
     }
@@ -182,7 +181,7 @@ public class LibrarySongsFragment
                 return true;
             default:
                 List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
-                Playlist playlistClicked = allPlaylists.get(item.getItemId());
+                Playlist playlistClicked = allPlaylists.get(item.getOrder());
                 int playlistID = playlistClicked.getPlaylistID();
                 accessPlaylist.updatePlaylist(playlistID, songClicked.getSongID());
 
@@ -218,11 +217,6 @@ public class LibrarySongsFragment
     public void onSongLongClicked(Song theSong)
     {
         songClicked = theSong;
-
-        toastMessage = Toast.makeText(getActivity(),
-                                 "Long Clicked: Open Context Menu",
-                                      Toast.LENGTH_SHORT);
-        toastMessage.show();
     }
 
     private void copyDatabaseToDevice() {
