@@ -35,7 +35,8 @@ public class MainActivity extends AppCompatActivity
     Fragment active = homeNav;
 
     private TextView mTextMessage;
-    //tutorial for NavigationBar found at https://code.tutsplus.com/tutorials/how-to-code-a-bottom-navigation-bar-for-an-android-app--cms-30305
+    // Tutorial for NavigationBar found at:
+    // https://code.tutsplus.com/tutorials/how-to-code-a-bottom-navigation-bar-for-an-android-app--cms-30305
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -88,12 +89,9 @@ public class MainActivity extends AppCompatActivity
         navigation.setSelectedItemId(R.id.homeNav);
     }
 
-    // creates a new fragment to display the songs in that playlist
-    // we pass the index of the playlist that we want to display songs from
-    // the fragment will index into the List<Playlist> to get the playlist we want
     public void onPlaylistClicked(int playlistIndex) {
 
-        // passing data (integer) from activity to fragment using Bundles
+        // Passing data (integer) from activity to fragment using Bundles.
         // https://stackoverflow.com/a/17063584
         Bundle args = new Bundle();
         args.putInt("exampleInt", playlistIndex);
@@ -152,8 +150,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void refreshPlaylists() {
-        //PlaylistFragment fragm = (PlaylistFragment)fm.findFragmentById(R.id.playlistNav);
-        //fragm.updatePlaylists();
         playlistNav.updatePlaylists();
     }
 }

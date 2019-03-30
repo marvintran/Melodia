@@ -23,7 +23,6 @@ import comp3350.melodia.logic.AccessSong;
 import comp3350.melodia.objects.Playlist;
 import comp3350.melodia.objects.Song;
 
-// the screen for viewing songs in a playlist
 public class PlaylistSongsFragment extends Fragment
                                    implements PlaylistSongsAdapter.OnSongClickedListener,
                                               PlaylistSongsAdapter.OnSongLongClickedListener,
@@ -167,7 +166,7 @@ public class PlaylistSongsFragment extends Fragment
         }
     }
 
-    // passing data from Adapter to Fragment
+    // Passing data from Adapter to Fragment.
     // https://developer.android.com/guide/components/fragments.html#EventCallbacks
     // https://stackoverflow.com/a/52830847
     public void onSongClicked(Song theSong)

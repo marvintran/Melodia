@@ -80,7 +80,7 @@ public class LibrarySongsFragment
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinner.setAdapter(adapter);
 
-        // Spinner click listener https://stackoverflow.com/a/40465646
+        // Spinner click listener. https://stackoverflow.com/a/40465646
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
@@ -200,7 +200,7 @@ public class LibrarySongsFragment
         }
     }
 
-    // passing data from Adapter to Fragment
+    // Passing data from Adapter to Fragment.
     // https://developer.android.com/guide/components/fragments.html#EventCallbacks
     // https://stackoverflow.com/a/52830847
     public void onSongClicked(Song theSong)

@@ -75,14 +75,4 @@ public class ShareFragment extends Fragment implements View.OnClickListener {
         ShareFragment fragment = new ShareFragment();
         return fragment;
     }
-
-
-    private void openFragment(Fragment fragment) {
-        FragmentManager manager = getFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction().hide(this);
-        transaction.replace(R.id.frameLayout, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
-
 }

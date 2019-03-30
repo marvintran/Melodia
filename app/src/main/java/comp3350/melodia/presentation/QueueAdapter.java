@@ -48,7 +48,8 @@ public class QueueAdapter
         songViewHolder.getTrackDurationView().setText(
                 getSongTimeString(songs.get(position)));
 
-        // implementing onClick() in RecyclerView https://stackoverflow.com/a/38090900
+        // Implementing onClick() in RecyclerView.
+        // https://stackoverflow.com/a/38090900
         songViewHolder.getLinearlayout().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,7 +80,7 @@ public class QueueAdapter
         });
     }
 
-    // These are the methods for implementing SwipeAndDragHelper.ItemDraggingListener
+    // These are the methods for implementing SwipeAndDragHelper.ItemDraggingListener.
     @Override
     public void onItemDismiss(int position) {
         songs.remove(position);

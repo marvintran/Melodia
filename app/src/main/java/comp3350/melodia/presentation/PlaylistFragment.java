@@ -23,7 +23,6 @@ import comp3350.melodia.logic.AccessPlaylist;
 import comp3350.melodia.objects.Playlist;
 import comp3350.melodia.objects.Song;
 
-// the screen for viewing all of the playlists
 public class PlaylistFragment
         extends Fragment
         implements PlaylistAdapter.OnPlaylistClickedListener,
@@ -115,13 +114,10 @@ public class PlaylistFragment
             @Override
             public void onClick(DialogInterface dialog, int which) {
             String title = playlistTitle.getText().toString();
-            // print out Toast message to give user feedback
             toastMessage = Toast.makeText(getActivity(),
                                      "Created Playlist: " + title,
                                           Toast.LENGTH_SHORT);
             toastMessage.show();
-
-            // create a new playlist with this playlist title
             accessPlaylist.insertPlaylist(title);
 
             updatePlaylists();
@@ -133,7 +129,7 @@ public class PlaylistFragment
     };
 
 
-    // passing data from Adapter to Fragment
+    // Passing data from Adapter to Fragment.
     // https://developer.android.com/guide/components/fragments.html#EventCallbacks
     // https://stackoverflow.com/a/52830847
     public void onPlaylistClicked(int playlistIndex) {

@@ -3,7 +3,7 @@ package comp3350.melodia.presentation;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
-// RecyclerView reordering items
+// RecyclerView reordering items.
 // https://medium.com/@ipaulpro/drag-and-swipe-with-recyclerview-b9456d2b1aaf
 // https://medium.com/@ipaulpro/drag-and-swipe-with-recyclerview-6a6f0c422efd
 // https://therubberduckdev.wordpress.com/2017/10/24/android-recyclerview-drag-and-drop-and-swipe-to-dismiss/

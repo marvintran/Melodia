@@ -66,7 +66,7 @@ public class QueueFragment extends Fragment
                               Bundle savedInstanceState) {
         accessPlaylist = new AccessPlaylist();
 
-        // the current playing queue has playlistID 0
+        // The current playing queue has playlistID = 0.
         AccessSong accessSong = new AccessSong();
         songList = accessSong.getPlaylistSongs(0);
 
@@ -166,7 +166,7 @@ public class QueueFragment extends Fragment
         }
     }
 
-    // passing data from Adapter to Fragment
+    // Passing data from Adapter to Fragment.
     // https://developer.android.com/guide/components/fragments.html#EventCallbacks
     // https://stackoverflow.com/a/52830847
     public void onSongClicked(Song theSong)

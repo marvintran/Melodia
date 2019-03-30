@@ -11,7 +11,9 @@ import comp3350.melodia.R;
 public class RadioFragment extends Fragment{
 
     @Override
-    public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView (LayoutInflater inflater,
+                              ViewGroup container,
+                              Bundle savedInstanceState) {
 
         return inflater.inflate(R.layout.fragment_radio, container, false);
     }

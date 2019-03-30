@@ -24,8 +24,6 @@ public class PlaylistAdapter
     private OnPlaylistClickedListener listenerClick;
     private OnPlaylistLongClickedListener listenerLongClick;
 
-    // PlaylistFragment must implement these interfaces.
-    // This lets the adapter send data back to the fragment.
     public interface OnPlaylistClickedListener {
         void onPlaylistClicked(int playlistIndex);
     }
@@ -49,7 +47,6 @@ public class PlaylistAdapter
         }
     }
 
-    // constructor
     public PlaylistAdapter(List<Playlist> playlists,
                            OnPlaylistClickedListener listenerClick,
                            OnPlaylistLongClickedListener listenerLongClick) {
@@ -94,7 +91,8 @@ public class PlaylistAdapter
         playlistViewHolder.playlistTitle.setText(
                 playlists.get(viewType).getPlaylistName());
 
-        // implementing onClick() in RecyclerView https://stackoverflow.com/a/38090900
+        // Implementing onClick() in RecyclerView,
+        // https://stackoverflow.com/a/38090900
         playlistViewHolder.linearlayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

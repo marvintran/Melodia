@@ -131,9 +131,6 @@ public class SongFragment extends Fragment {
         } catch(Exception e) {
             System.out.println("Error:" + e);
         }
-
-
-
     }
 
     private void createSeekbar(final SeekBar seekbar){
