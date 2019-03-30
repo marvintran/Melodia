@@ -35,4 +35,7 @@ public class AccessPlaylist {
         playlistPersistence.updatePlaylist(playlistID, songID);
     }
 
+    public void deletePlaylist(int playlistID) {
+        playlistPersistence.deletePlaylist(playlistID);
+    }
 }

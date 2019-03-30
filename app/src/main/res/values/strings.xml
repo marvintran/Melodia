@@ -22,7 +22,8 @@
     <string name="wip">This feature is currently a work in progress.</string>
     <string name="title_activity_settings">Settings</string>
     <string name="settings">Settings</string>
-
+    <string name="add_tracks_to_playlist">Add Tracks to Playlist</string>
+    <string name="delete">Delete</string>
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->

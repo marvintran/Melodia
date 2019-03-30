@@ -100,12 +100,17 @@ public class PlaylistPersistenceHSQLDB implements PlaylistPersistence {
     }
 
     @Override
-    public void deletePlaylist(Playlist currentPlaylist) {
+    public void deletePlaylist(int playlistID) {
 
         try (final Connection c = connection()) {
             final PreparedStatement sc = c.prepareStatement("DELETE FROM PLAYLIST WHERE PLAYLISTID = ?");
-            sc.setInt(1, currentPlaylist.getPlaylistID());
+            sc.setInt(1, playlistID);
             sc.executeUpdate();
+
+            final PreparedStatement sc2 = c.prepareStatement("DELETE FROM PLAYLIST_SONGS WHERE PLAYLISTID = ?");
+            sc2.setInt(1, playlistID);
+            sc2.executeUpdate();
+
         } catch (final SQLException e) {
             throw new PersistenceException(e);
         }

@@ -104,6 +104,8 @@ public class PlaylistAdapter
             @Override
             public boolean onLongClick(View v) {
                 listenerLongClick.onPlaylistLongClicked(viewType);
+
+                v.showContextMenu();
                 return true;
             }
         });

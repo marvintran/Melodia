@@ -8,9 +8,14 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -32,7 +37,9 @@ public class PlaylistFragment
     private AccessPlaylist accessPlaylist;
     private Toast toastMessage;
     private OnPlaylistClickedListener listener;
-    PlaylistAdapter myAdapter;
+    private Playlist playlistClicked;
+    private PlaylistAdapter myAdapter;
+
     public interface OnPlaylistClickedListener {
         public void onPlaylistClicked(int playlistIndex);
     }
@@ -84,6 +91,79 @@ public class PlaylistFragment
 
         myAdapter = new PlaylistAdapter(allPlaylists, this, this);
         myRecyclerView.setAdapter(myAdapter);
+
+        registerForContextMenu(myRecyclerView);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu,
+                                    View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.playlist_context_menu, menu);
+
+        String playlistTitle = playlistClicked.getPlaylistName();
+        menu.setHeaderTitle(playlistTitle);
+
+        MenuItem menuItem = menu.findItem(R.id.add_tracks_to_playlist);
+        SubMenu subMenu = menuItem.getSubMenu();
+
+        int count = 0;
+        for(Playlist currentPlaylist: allPlaylists) {
+            String currPlaylistTitle = currentPlaylist.getPlaylistName();
+            subMenu.add(menu.NONE, menu.NONE, count, currPlaylistTitle);
+            count++;
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        String playlistTitle = playlistClicked.getPlaylistName();
+        int numSongs = playlistClicked.getNumberOfSongs();
+        String songOrSongs;
+
+        if(numSongs == 1)
+            songOrSongs = "song";
+        else
+            songOrSongs = "songs";
+
+        switch (item.getItemId()) {
+            case R.id.queue:
+                toastMessage = Toast.makeText(getActivity(),
+                        "Queued " + playlistTitle,
+                        Toast.LENGTH_SHORT);
+                toastMessage.show();
+
+                return true;
+            case R.id.add_tracks_to_playlist:
+
+
+                return true;
+            case R.id.delete:
+                toastMessage = Toast.makeText(getActivity(),
+                        "Deleted " + playlistTitle,
+                        Toast.LENGTH_SHORT);
+                toastMessage.show();
+
+                accessPlaylist.deletePlaylist(playlistClicked.getPlaylistID());
+                updatePlaylists();
+
+                return true;
+            default:
+                List<Playlist> allPlaylists2 = accessPlaylist.getPlaylists();
+                Playlist submenuPlaylistClicked = allPlaylists2.get(item.getOrder());
+                int playlistID = submenuPlaylistClicked.getPlaylistID();
+
+                //accessPlaylist.queuePlaylist(playlistID);
+
+                toastMessage = Toast.makeText(getActivity(),
+                        String.format("%d %s added to %s",
+                                numSongs, songOrSongs, playlistTitle),
+                        Toast.LENGTH_SHORT);
+                toastMessage.show();
+                return super.onContextItemSelected(item);
+        }
     }
 
     // https://stackoverflow.com/questions/25251876/onclick-fragments-could-not-find-method
@@ -133,21 +213,11 @@ public class PlaylistFragment
     // https://developer.android.com/guide/components/fragments.html#EventCallbacks
     // https://stackoverflow.com/a/52830847
     public void onPlaylistClicked(int playlistIndex) {
-        String playlistName = allPlaylists.get(playlistIndex).getPlaylistName();
-        toastMessage = Toast.makeText(getActivity(),
-                                 " Open the songs in playlist \"" +
-                                         playlistName +"\"",
-                                      Toast.LENGTH_SHORT);
-        toastMessage.show();
-
         listener.onPlaylistClicked(playlistIndex);
     }
 
     public void onPlaylistLongClicked(int playlistIndex) {
-        toastMessage = Toast.makeText(getActivity(),
-                                 "Long Clicked: Open Context Menu",
-                                      Toast.LENGTH_SHORT);
-        toastMessage.show();
+        playlistClicked = allPlaylists.get(playlistIndex);
     }
 
     public void updatePlaylists()
