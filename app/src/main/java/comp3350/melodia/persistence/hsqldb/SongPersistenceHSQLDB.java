@@ -10,8 +10,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import comp3350.melodia.objects.Album;
-import comp3350.melodia.objects.Artist;
 import comp3350.melodia.objects.Song;
 import comp3350.melodia.persistence.SongPersistence;
 
@@ -42,7 +40,6 @@ public class SongPersistenceHSQLDB implements SongPersistence {
         File song = new File(songDataPath);
 
         return new Song(songID, songName, songTime, albumID, albumName, artistID, artistName, trackNumber, song);
-
     }
 
     @Override
@@ -69,20 +66,53 @@ public class SongPersistenceHSQLDB implements SongPersistence {
         }
     }
 
+    public Song getSong(int songID){
+        String query = "SELECT " + songID + " FROM SONG";
+
+        try (final Connection c = connection()) {
+
+            final Statement st = c.createStatement();
+            final ResultSet rs = st.executeQuery(query);
+
+            if(!rs.next()){
+                throw new RuntimeException("No songs found with ID " + songID);
+            }
+
+            String songName = rs.getString(1);
+            int songTime = rs.getInt(2);
+            int albumID = rs.getInt(3);
+            String albumName = rs.getString(4);
+            int artistID = rs.getInt(5);
+            String artistName = rs.getString(6);
+            int trackNumber = rs.getInt(7);
+            String filePath = rs.getString(8);
+
+            rs.close();
+            st.close();
+
+            return new Song(songID, songName, songTime, albumID, albumName, artistID, artistName, trackNumber, new File(filePath));
+        }
+        catch (final SQLException e)
+        {
+            throw new PersistenceException(e);
+        }
+
+    }
 
     @Override
     public Song insertSong(Song currentSong) {
 
         try (final Connection c = connection()) {
-            final PreparedStatement st = c.prepareStatement("INSERT INTO SONG VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
-            st.setInt(1, currentSong.getSongID());
-            st.setString(2, currentSong.getSongName());
-            st.setInt(3, currentSong.getSongTime());
-            st.setInt(4, currentSong.getAlbumID());
-            st.setString(5, currentSong.getAlbumName());
-            st.setInt(6, currentSong.getArtistID());
-            st.setString(7, currentSong.getArtistName());
-            st.setInt(8, currentSong.getTrackNumber());
+            final PreparedStatement st = c.prepareStatement("INSERT INTO SONG VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            st.setInt(0, currentSong.getSongID());
+            st.setString(1, currentSong.getSongName());
+            st.setInt(2, currentSong.getSongTime());
+            st.setInt(3, currentSong.getAlbumID());
+            st.setString(4, currentSong.getAlbumName());
+            st.setInt(5, currentSong.getArtistID());
+            st.setString(6, currentSong.getArtistName());
+            st.setInt(7, currentSong.getTrackNumber());
+            st.setString(8, currentSong.getSongData().getPath());
 
             st.executeUpdate();
 
@@ -96,10 +126,16 @@ public class SongPersistenceHSQLDB implements SongPersistence {
     public Song updateSong(Song currentSong) {
 
         try (final Connection c = connection()) {
-            final PreparedStatement st = c.prepareStatement("UPDATE SONG SET name = ? WHERE SONGID = ?");
+            final PreparedStatement st = c.prepareStatement("INSERT INTO SONG VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            st.setInt(0, currentSong.getSongID());
             st.setString(1, currentSong.getSongName());
-            st.setInt(2, currentSong.getSongID());
-
+            st.setInt(2, currentSong.getSongTime());
+            st.setInt(3, currentSong.getAlbumID());
+            st.setString(4, currentSong.getAlbumName());
+            st.setInt(5, currentSong.getArtistID());
+            st.setString(6, currentSong.getArtistName());
+            st.setInt(7, currentSong.getTrackNumber());
+            st.setString(8, currentSong.getSongData().getPath());
 
             st.executeUpdate();
 

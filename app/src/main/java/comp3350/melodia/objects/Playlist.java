@@ -10,22 +10,14 @@ public class Playlist{
     private int playlistTime;
     private int numberOfSongs;
     private List<Song> songs;
-    private File playlistData;
 
     public Playlist(int playlistID, String playlistName, int playlistTime,
-                    int numberOfSongs, List<Song> songs, File playlistData) {
+                    int numberOfSongs, List<Song> songs) {
         this.playlistID = playlistID;
         this.playlistName = playlistName;
         this.playlistTime = playlistTime;
         this.numberOfSongs = numberOfSongs;
         this.songs = songs;
-        this.playlistData = playlistData;
-    }
-
-    public Playlist(int playlistID, String playlistName, int playlistTime, int numberOfSongs,
-                    List<Song> songs, String playlistLocation) {
-        this(playlistID, playlistName, playlistTime, numberOfSongs, songs,
-                new File(playlistLocation));
     }
 
     public int getPlaylistID() { return playlistID;}

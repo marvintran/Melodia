@@ -10,15 +10,20 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import comp3350.melodia.application.Services;
 import comp3350.melodia.objects.Playlist;
+import comp3350.melodia.objects.Song;
 import comp3350.melodia.persistence.PlaylistPersistence;
+import comp3350.melodia.persistence.SongPersistence;
 
 public class PlaylistPersistenceHSQLDB implements PlaylistPersistence {
 
     private final String dbPath;
+    private SongPersistence songPersistence;
 
     public PlaylistPersistenceHSQLDB(final String dbPath) {
         this.dbPath = dbPath;
+        this.songPersistence = Services.getSongPersistence();
     }
 
     private Connection connection() throws SQLException {
@@ -29,12 +34,50 @@ public class PlaylistPersistenceHSQLDB implements PlaylistPersistence {
 
         final int playlistID = rs.getInt("playlistID");
         final String playlistName = rs.getString("playlistName");
-        final String playlistPath = rs.getString("playlistPath");
+        ArrayList<Integer> songIDs = getSongsForPlaylist(playlistID);
+        List<Song> songs = getSongsFromDB(songIDs);
 
-        File playlist = new File(playlistPath);
+        int totalTime = 0;
 
-        return new Playlist(playlistID, playlistName, 0, 0, null, playlist);
+        for(Song song : songs){
+            totalTime += song.getSongTime();
+        }
 
+        return new Playlist(playlistID, playlistName, totalTime, songs.size(), songs);
+
+    }
+
+    private ArrayList<Integer> getSongsForPlaylist(int playlistID){
+        ArrayList<Integer> songs = new ArrayList<>();
+        String query = "SELECT " + playlistID + " FROM PLAYLIST_SONGS";
+
+        try (final Connection c = connection()) {
+
+            final Statement st = c.createStatement();
+            final ResultSet rs = st.executeQuery(query);
+            while (rs.next())
+            {
+                final int songID = rs.getInt(1);
+                songs.add(songID);
+            }
+            rs.close();
+            st.close();
+
+            return songs;
+        }
+        catch (final SQLException e)
+        {
+            throw new PersistenceException(e);
+        }
+    }
+
+    private ArrayList<Song> getSongsFromDB(ArrayList<Integer> songIDs){
+        ArrayList<Song> songs = new ArrayList<>();
+
+        for(Integer songID : songIDs){
+            songs.add(songPersistence.getSong(songID));
+        }
+        return songs;
     }
 
     @Override
@@ -44,7 +87,7 @@ public class PlaylistPersistenceHSQLDB implements PlaylistPersistence {
         try (final Connection c = connection()) {
 
             final Statement st = c.createStatement();
-            final ResultSet rs = st.executeQuery("SELECT * FROM PLAYLIST");
+            final ResultSet rs = st.executeQuery("SELECT * FROM PLAYLIST_DATA");
             while (rs.next())
             {
                 final Playlist playlist = fromResultSet(rs);
@@ -65,7 +108,7 @@ public class PlaylistPersistenceHSQLDB implements PlaylistPersistence {
     public Playlist insertPlaylist(Playlist currentPlaylist) {
 
         try (final Connection c = connection()) {
-            final PreparedStatement st = c.prepareStatement("INSERT INTO PLAYLIST VALUES(?, ?)");
+            final PreparedStatement st = c.prepareStatement("INSERT INTO PLAYLIST_DATA VALUES(?, ?)");
             st.setInt(1, currentPlaylist.getPlaylistID());
             st.setString(2, currentPlaylist.getPlaylistName());
 
@@ -81,7 +124,7 @@ public class PlaylistPersistenceHSQLDB implements PlaylistPersistence {
     public Playlist updatePlaylist(Playlist currentPlaylist) {
 
         try (final Connection c = connection()) {
-            final PreparedStatement st = c.prepareStatement("UPDATE PLAYLIST SET name = ? WHERE PLAYLISTID = ?");
+            final PreparedStatement st = c.prepareStatement("UPDATE PLAYLIST_DATA SET name = ? WHERE PLAYLISTID = ?");
             st.setString(1, currentPlaylist.getPlaylistName());
             st.setInt(2, currentPlaylist.getPlaylistID());
 
@@ -97,7 +140,7 @@ public class PlaylistPersistenceHSQLDB implements PlaylistPersistence {
     public void deletePlaylist(Playlist currentPlaylist) {
 
         try (final Connection c = connection()) {
-            final PreparedStatement sc = c.prepareStatement("DELETE FROM PLAYLIST WHERE PLAYLISTID = ?");
+            final PreparedStatement sc = c.prepareStatement("DELETE FROM PLAYLIST_DATA WHERE PLAYLISTID = ?");
             sc.setInt(1, currentPlaylist.getPlaylistID());
             sc.executeUpdate();
         } catch (final SQLException e) {
