@@ -18,18 +18,23 @@ public class AccessSong {
         songs = null;
         song = null;
     }
-    public AccessSong(final SongPersistenceHSQLDB songPersistence){
+    public AccessSong(final SongPersistenceHSQLDB songPersistence) {
         this();
         this.songPersistence = songPersistence;
     }
 
-    public List<Song> getSongs(){
-        songs = songPersistence.getAllSongs();
+    public List<Song> getSongsSortedTrackName() {
+        songs = songPersistence.getSongsSortedTrackName();
         return Collections.unmodifiableList(songs);
     }
 
-    public List<Song> getPlaylistSongs(int playlistID){
+    public List<Song> getPlaylistSongs(int playlistID) {
         songs = songPersistence.getPlaylistSongs(playlistID);
+        return Collections.unmodifiableList(songs);
+    }
+
+    public List<Song> getSongsSortedArtist() {
+        songs = songPersistence.getSongsSortedArtist();
         return Collections.unmodifiableList(songs);
     }
 }

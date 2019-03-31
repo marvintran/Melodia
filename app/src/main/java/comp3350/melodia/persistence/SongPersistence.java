@@ -5,7 +5,9 @@ import comp3350.melodia.objects.Song;
 
 public interface SongPersistence {
 
-    List<Song> getAllSongs();
+    List<Song> getSongsSortedTrackName();
+
+    List<Song> getSongsSortedArtist();
 
     List<Song> getPlaylistSongs(int playlistID);
 
@@ -14,5 +16,4 @@ public interface SongPersistence {
     Song updateSong(Song currentSong);
 
     void deleteSong(Song currentSong);
-
 }

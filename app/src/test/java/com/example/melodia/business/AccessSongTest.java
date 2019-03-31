@@ -22,7 +22,7 @@ public class AccessSongTest {
 
     @Test
     public void accessSongTest(){
-        List<Song> songs = accessSong.getSongs();
+        List<Song> songs = accessSong.getSongsSortedTrackName();
         System.out.println("\nStarting test AccessSong");
         assertNotNull("The list of songs should not be null", songs);
         assertTrue(songs.get(0).getSongName().equals("All that"));

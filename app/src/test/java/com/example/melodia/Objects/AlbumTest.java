@@ -23,7 +23,7 @@ public class AlbumTest {
         assertNotNull(album);
         assertEquals("AlbumName", (album.getAlbumName()));
         assertNotNull(album.getAlbumGenre());
-        assertNotNull(album.getSongs());
+        assertNotNull(album.getSongsSortedTrackName());
 
         System.out.println("Finished AlbumTest");
     }

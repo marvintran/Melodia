@@ -42,13 +42,13 @@ public class SongPersistenceHSQLDB implements SongPersistence {
     }
 
     @Override
-    public List<Song> getAllSongs() {
+    public List<Song> getSongsSortedTrackName() {
         final List<Song> songs = new ArrayList<>();
 
         try (final Connection c = connection()) {
 
             final Statement st = c.createStatement();
-            final ResultSet rs = st.executeQuery("SELECT * FROM SONG");
+            final ResultSet rs = st.executeQuery("SELECT * FROM SONG ORDER BY SONGNAME ASC");
             while (rs.next())
             {
                 final Song song = fromResultSet(rs);
@@ -65,6 +65,29 @@ public class SongPersistenceHSQLDB implements SongPersistence {
         }
     }
 
+    @Override
+    public List<Song> getSongsSortedArtist() {
+        final List<Song> songs = new ArrayList<>();
+
+        try (final Connection c = connection()) {
+
+            final Statement st = c.createStatement();
+            final ResultSet rs = st.executeQuery("SELECT * FROM SONG ORDER BY ARTISTNAME, SONGNAME ASC");
+            while (rs.next())
+            {
+                final Song song = fromResultSet(rs);
+                songs.add(song);
+            }
+            rs.close();
+            st.close();
+
+            return songs;
+        }
+        catch (final SQLException e)
+        {
+            throw new PersistenceException(e);
+        }
+    }
 
     @Override
     public Song insertSong(Song currentSong) {

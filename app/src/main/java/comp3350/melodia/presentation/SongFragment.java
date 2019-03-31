@@ -52,7 +52,7 @@ public class SongFragment extends Fragment {
                              ViewGroup container,
                              Bundle savedInstanceState){
         AccessSong accessSong = new AccessSong();
-        songList = accessSong.getSongs();
+        songList = accessSong.getSongsSortedTrackName();
         currSong = 0;
         player = new MediaPlayer();
         seekbarHandler = new Handler();

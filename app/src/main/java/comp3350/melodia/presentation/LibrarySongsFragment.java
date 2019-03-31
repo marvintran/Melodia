@@ -44,6 +44,7 @@ public class LibrarySongsFragment
     private Song songClicked;
     private LibrarySongsAdapter myAdapter;
     private AccessPlaylist accessPlaylist;
+    private AccessSong accessSong;
     private RefreshInterface listener;
 
     public interface RefreshInterface{
@@ -68,9 +69,9 @@ public class LibrarySongsFragment
 
         copyDatabaseToDevice();
         accessPlaylist = new AccessPlaylist();
-        AccessSong accessSong = new AccessSong();
+        accessSong = new AccessSong();
 
-        songList = accessSong.getSongs();
+        songList = accessSong.getSongsSortedTrackName();
 
         View v = inflater.inflate(R.layout.fragment_library, container, false);
 
@@ -86,22 +87,14 @@ public class LibrarySongsFragment
                                        int position, long id) {
 
                 String filterSelection = parent.getItemAtPosition(position).toString();
-
-                if( filterSelection.equals("Track Name")) {
-                    AccessSong accessSong = new AccessSong();
-                    List<Song> newSongList = accessSong.getSongs();
+                List<Song> newSongList;
+                if(filterSelection.equals("Track Name")) {
+                    newSongList = accessSong.getSongsSortedTrackName();
                     myAdapter.updateList(newSongList);
-                } else if( filterSelection.equals("Artist")) {
-                    List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
-                    Playlist thePlaylist = allPlaylists.get(0);
-                    AccessSong accessSong = new AccessSong();
-                    List<Song> newSongList = accessSong.getSongs();// track name
-                    //List<Song> newSongList = accessSong.getPlaylistSongs(thePlaylist.getPlaylistID());
+                } else if(filterSelection.equals("Artist")) {
+                    newSongList = accessSong.getSongsSortedArtist();
                     myAdapter.updateList(newSongList);
                 }
-
-                Toast.makeText(parent.getContext(), "Selected: " + filterSelection, Toast.LENGTH_LONG).show();
-
             }
 
             @Override

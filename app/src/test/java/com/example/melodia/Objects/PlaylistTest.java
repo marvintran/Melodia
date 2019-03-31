@@ -24,7 +24,7 @@ public class PlaylistTest {
         assertEquals("Playlist5", (playlist.getPlaylistName()));
         assertEquals(2000, playlist.getPlaylistTime());
         assertEquals(8, playlist.getNumberOfSongs());
-        assertNotNull(playlist.getSongs());
+        assertNotNull(playlist.getSongsSortedTrackName());
 
         System.out.println("Finished PlaylistTest");
     }

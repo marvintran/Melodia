@@ -211,7 +211,7 @@ public class SongPersistenceStub implements SongPersistence {
     }
 
     @Override
-    public List<Song> getAllSongs() {
+    public List<Song> getSongsSortedTrackName() {
         return Collections.unmodifiableList(songs);
     }
 
