@@ -5,6 +5,7 @@ import java.util.List;
 
 import comp3350.melodia.application.Services;
 import comp3350.melodia.objects.Playlist;
+import comp3350.melodia.objects.Song;
 import comp3350.melodia.persistence.PlaylistPersistence;
 
 public class AccessPlaylist {
@@ -41,5 +42,18 @@ public class AccessPlaylist {
 
     public void deletePlaylistSong(int playlistID, int songID) {
         playlistPersistence.deletePlaylistSong(playlistID, songID);
+    }
+
+    public void replaceQueueWithPlaylist(List<Song> songsReplacingQueue,
+                                         List<Song> queueSongs) {
+
+        for(int i = 0; i < queueSongs.size(); i++) {
+            playlistPersistence.deletePlaylistSong(0, queueSongs.get(i).getSongID());
+        }
+
+
+        for(int i = 0; i < songsReplacingQueue.size(); i++) {
+            playlistPersistence.updatePlaylist(0, songsReplacingQueue.get(i).getSongID());
+        }
     }
 }

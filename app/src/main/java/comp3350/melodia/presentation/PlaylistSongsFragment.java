@@ -39,9 +39,14 @@ public class PlaylistSongsFragment extends Fragment
     private PlaylistSongsAdapter myAdapter;
 
     private RefreshInterface listener;
+    private ShowPlayer playerListener;
 
     public interface RefreshInterface{
         public void refreshPlaylists();
+    }
+
+    public interface ShowPlayer {
+        public void onShowPlayer();
     }
 
     @Override
@@ -49,6 +54,7 @@ public class PlaylistSongsFragment extends Fragment
         super.onAttach(context);
         try {
             listener = (RefreshInterface) context;
+            playerListener = (ShowPlayer) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(
                     context.toString() + " must implement OnArticleSelectedListener");
@@ -182,6 +188,14 @@ public class PlaylistSongsFragment extends Fragment
         String message =
                 String.format("Playing playlist \"%s\" at song \"%s\"",
                         playlistName, songTitle);
+
+        int currPlaylistID = thePlaylist.getPlaylistID();
+        List<Song> currPlaylistSongs = accessSong.getPlaylistSongs(currPlaylistID);
+        List<Song> queueSongs = accessSong.getPlaylistSongs(0);
+        accessPlaylist.replaceQueueWithPlaylist(currPlaylistSongs, queueSongs);
+
+        playerListener.onShowPlayer();
+
         toastMessage = Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT);
         toastMessage.show();
     }
