@@ -197,6 +197,8 @@ public class LibrarySongsFragment
         if(toastMessage != null)
             toastMessage.cancel();
 
+        accessPlaylist.updatePlaylist(0, theSong.getSongID());
+
         toastMessage = Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT);
         toastMessage.show();
     }
