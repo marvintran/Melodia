@@ -156,9 +156,9 @@ public class LibrarySongsFragment
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
+        String songTitle = songClicked.getSongName();
         switch (item.getItemId()) {
             case R.id.queue:
-                String songTitle = songClicked.getSongName();
                 toastMessage = Toast.makeText(getActivity(),
                                          "Add to Queue: " + songTitle,
                                               Toast.LENGTH_SHORT);
@@ -167,10 +167,7 @@ public class LibrarySongsFragment
 
                 return true;
             case R.id.add_to_playlist:
-                toastMessage = Toast.makeText(getActivity(),
-                                         "Add to Playlist",
-                                              Toast.LENGTH_SHORT);
-                toastMessage.show();
+
                 return true;
             default:
                 List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
@@ -180,12 +177,9 @@ public class LibrarySongsFragment
 
                 listener.refreshPlaylists();
 
-                String songTItle = songClicked.getSongName();
-                String title = playlistClicked.getPlaylistName();
-
-
+                String playlistTitle = playlistClicked.getPlaylistName();
                 toastMessage = Toast.makeText(getActivity(),
-                                         songTItle + " added to " + title,
+                                              songTitle + " added to " + playlistTitle,
                                               Toast.LENGTH_SHORT);
                 toastMessage.show();
                 return super.onContextItemSelected(item);

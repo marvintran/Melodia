@@ -7,4 +7,6 @@
             <!-- empty submenu, filled with playlist titles -->
         </menu>
     </item>
+    <item android:id="@+id/remove_from_queue"
+        android:title="@string/remove_from_queue" />
 </menu>

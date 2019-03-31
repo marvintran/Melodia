@@ -9,6 +9,6 @@
             <!-- empty submenu, filled with playlist titles -->
         </menu>
     </item>
-    <item android:id="@+id/delete"
-        android:title="@string/delete" />
+    <item android:id="@+id/removed_from_playlist"
+        android:title="@string/removed_from_playlist" />
 </menu>

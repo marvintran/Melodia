@@ -143,20 +143,16 @@ public class PlaylistSongsFragment extends Fragment
 
                 return true;
             case R.id.add_to_playlist:
-                toastMessage = Toast.makeText(getActivity(),
-                                         "Add to Playlist",
-                                              Toast.LENGTH_SHORT);
-                toastMessage.show();
+
                 return true;
-            case R.id.delete:
-                toastMessage = Toast.makeText(getActivity(),
-                        "Deleted " + songTitle,
-                        Toast.LENGTH_SHORT);
-                toastMessage.show();
+            case R.id.removed_from_playlist:
                 accessPlaylist.deletePlaylistSong(thePlaylist.getPlaylistID(), songClicked.getSongID());
                 updateSongList();
                 listener.refreshPlaylists();
-
+                toastMessage = Toast.makeText(getActivity(),
+                        "Removed " + songTitle,
+                        Toast.LENGTH_SHORT);
+                toastMessage.show();
                 return true;
             default:
                 List<Playlist> allPlaylists = accessPlaylist.getPlaylists();

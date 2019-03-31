@@ -101,4 +101,9 @@ public class QueueAdapter
         notifyItemMoved(fromPosition, toPosition);
         return true;
     }
+
+    void updateSongList(List<Song> playlistSongs){
+        songs = playlistSongs;
+        notifyDataSetChanged();
+    }
 }
