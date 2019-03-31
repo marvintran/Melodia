@@ -1,6 +1,5 @@
 package comp3350.melodia.persistence.hsqldb;
 
-import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -11,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import comp3350.melodia.objects.Playlist;
-import comp3350.melodia.objects.Song;
 import comp3350.melodia.persistence.PlaylistPersistence;
 
 public class PlaylistPersistenceHSQLDB implements PlaylistPersistence {
@@ -42,7 +40,7 @@ public class PlaylistPersistenceHSQLDB implements PlaylistPersistence {
         try (final Connection c = connection()) {
 
             final Statement st = c.createStatement();
-            final ResultSet rs = st.executeQuery("SELECT * FROM PLAYLIST");
+            final ResultSet rs = st.executeQuery("SELECT * FROM PLAYLIST ORDER BY PLAYLISTNAME ASC");
             while (rs.next())
             {
                 final Playlist playlist = fromResultSet(rs);
@@ -63,10 +61,9 @@ public class PlaylistPersistenceHSQLDB implements PlaylistPersistence {
     public void insertPlaylist(String playlistName) {
 
         try (final Connection c = connection()) {
-            //final PreparedStatement st = c.prepareStatement("INSERT INTO PLAYLIST VALUES(?, ?)");
-            final PreparedStatement st = c.prepareStatement("INSERT INTO PLAYLIST (PLAYLISTNAME, NUMSONGS) VALUES('"+playlistName+"', 0)");
-            //st.setString(1, playlistName);
-            //st.setInt(2, 0);// a new playlist has 0 songs to start
+            final PreparedStatement st = c.prepareStatement("INSERT INTO PLAYLIST (PLAYLISTNAME, NUMSONGS) VALUES(?, ?)");
+            st.setString(1, playlistName);
+            st.setInt(2, 0);// a new playlist has 0 songs to start
             st.executeUpdate();
 
         } catch (final SQLException e) {
