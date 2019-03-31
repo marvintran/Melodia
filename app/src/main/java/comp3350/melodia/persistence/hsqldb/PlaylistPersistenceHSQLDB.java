@@ -87,7 +87,9 @@ public class PlaylistPersistenceHSQLDB implements PlaylistPersistence {
         try (final Connection c = connection()) {
 
             final Statement st = c.createStatement();
+
             final ResultSet rs = st.executeQuery("SELECT * FROM PLAYLIST_DATA");
+
             while (rs.next())
             {
                 final Playlist playlist = fromResultSet(rs);
@@ -124,16 +126,26 @@ public class PlaylistPersistenceHSQLDB implements PlaylistPersistence {
     public Playlist updatePlaylist(Playlist currentPlaylist) {
 
         try (final Connection c = connection()) {
-            final PreparedStatement st = c.prepareStatement("UPDATE PLAYLIST_DATA SET name = ? WHERE PLAYLISTID = ?");
-            st.setString(1, currentPlaylist.getPlaylistName());
-            st.setInt(2, currentPlaylist.getPlaylistID());
 
+            // insert song into playlist
+            final PreparedStatement st = c.prepareStatement("INSERT INTO PLAYLIST_SONGS VALUES(?, ?)");
+            st.setInt(1, playlistID);
+            st.setInt(2, songID);
             st.executeUpdate();
 
-            return currentPlaylist;
+            // update the number of songs in this playlist
+            final Statement st2 = c.createStatement();
+            final ResultSet rs = st2.executeQuery("SELECT * FROM PLAYLIST WHERE PLAYLISTID = " + playlistID);
+            rs.next();
+
+            int numSongsPlusOne = rs.getInt("NUMSONGS") + 1;
+            final PreparedStatement st3 = c.prepareStatement("UPDATE PLAYLIST SET NUMSONGS = "+numSongsPlusOne+" WHERE PLAYLISTID = "+playlistID);
+            st3.executeUpdate();
+
         } catch (final SQLException e) {
             throw new PersistenceException(e);
         }
+
     }
 
     @Override

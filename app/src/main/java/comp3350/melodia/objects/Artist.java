@@ -7,6 +7,10 @@ public class Artist {
     private String artistName;
     private Collection<Album> albums;
 
+    public Artist(int artistID) {
+        this.artistID = artistID;
+    }
+
     public Artist(int artistID, String artistName, Collection<Album> albums) {
         this.artistID = artistID;
         this.artistName = artistName;
