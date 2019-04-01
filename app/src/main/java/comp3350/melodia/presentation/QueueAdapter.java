@@ -102,6 +102,11 @@ public class QueueAdapter
         return true;
     }
 
+    @Override
+    public int currPlaylistID() {
+        return 0;
+    }
+
     void updateSongList(List<Song> playlistSongs){
         songs = playlistSongs;
         notifyDataSetChanged();

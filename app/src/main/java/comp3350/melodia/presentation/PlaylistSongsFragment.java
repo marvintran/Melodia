@@ -28,6 +28,7 @@ public class PlaylistSongsFragment
        implements PlaylistSongsAdapter.OnSongClickedListener,
                   PlaylistSongsAdapter.OnSongLongClickedListener,
                   PlaylistSongsAdapter.OnStartDragListener,
+                  PlaylistSongsAdapter.GetPlaylistIDListener,
                   View.OnCreateContextMenuListener {
 
     private List<Song> playlistSongs;
@@ -102,7 +103,8 @@ public class PlaylistSongsFragment
         accessSong = new AccessSong();
         playlistSongs = accessSong.getPlaylistSongs(thePlaylist.getPlaylistID());
 
-        myAdapter = new PlaylistSongsAdapter(playlistSongs, this, this, this);
+        myAdapter = new PlaylistSongsAdapter(
+                playlistSongs, this, this, this, this);
         myRecyclerView.setAdapter(myAdapter);
 
         SwipeAndDragHelper swipeAndDragHelper = new SwipeAndDragHelper(myAdapter);
@@ -234,4 +236,7 @@ public class PlaylistSongsFragment
         myAdapter.updateSongList(playlistSongs);
     }
 
+    public int getPlaylistSelectedID() {
+        return thePlaylist.getPlaylistID();
+    }
 }

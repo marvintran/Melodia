@@ -93,6 +93,23 @@ public class PlaylistPersistenceHSQLDB implements PlaylistPersistence {
     }
 
     @Override
+    public void deletePlaylist(int playlistID) {
+
+        try (final Connection c = connection()) {
+            final PreparedStatement sc = c.prepareStatement("DELETE FROM PLAYLIST WHERE PLAYLISTID = ?");
+            sc.setInt(1, playlistID);
+            sc.executeUpdate();
+
+            final PreparedStatement sc2 = c.prepareStatement("DELETE FROM PLAYLIST_SONGS WHERE PLAYLISTID = ?");
+            sc2.setInt(1, playlistID);
+            sc2.executeUpdate();
+
+        } catch (final SQLException e) {
+            throw new PersistenceException(e);
+        }
+    }
+
+    @Override
     public void insertPlaylistSong(int playlistID, int songID, int position) {
         System.out.println("Insert at Position: "+position);
         try (final Connection c = connection()) {
@@ -123,22 +140,6 @@ public class PlaylistPersistenceHSQLDB implements PlaylistPersistence {
         }
     }
 
-    @Override
-    public void deletePlaylist(int playlistID) {
-
-        try (final Connection c = connection()) {
-            final PreparedStatement sc = c.prepareStatement("DELETE FROM PLAYLIST WHERE PLAYLISTID = ?");
-            sc.setInt(1, playlistID);
-            sc.executeUpdate();
-
-            final PreparedStatement sc2 = c.prepareStatement("DELETE FROM PLAYLIST_SONGS WHERE PLAYLISTID = ?");
-            sc2.setInt(1, playlistID);
-            sc2.executeUpdate();
-
-        } catch (final SQLException e) {
-            throw new PersistenceException(e);
-        }
-    }
 
     @Override
     public void deletePlaylistSong(int playlistID, int position) {

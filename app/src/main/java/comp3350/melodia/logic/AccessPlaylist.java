@@ -35,12 +35,12 @@ public class AccessPlaylist {
         playlistPersistence.insertPlaylist(playlistName);
     }
 
-    public void insertPlaylistSong(int playlistID, int songID, int position) {
-        playlistPersistence.insertPlaylistSong(playlistID, songID, position);
-    }
-
     public void deletePlaylist(int playlistID) {
         playlistPersistence.deletePlaylist(playlistID);
+    }
+
+    public void insertPlaylistSong(int playlistID, int songID, int position) {
+        playlistPersistence.insertPlaylistSong(playlistID, songID, position);
     }
 
     public void deletePlaylistSong(int playlistID, int position) {
@@ -58,5 +58,16 @@ public class AccessPlaylist {
         for(int i = 0; i < songsReplacingQueue.size(); i++) {
             playlistPersistence.insertPlaylistSong(0, songsReplacingQueue.get(i).getSongID(), i);
         }
+    }
+
+    public void updateOrder(int playlistID, int fromPosition, int toPosition) {
+        System.out.println("From position: " + fromPosition +" To Position: " + toPosition);
+        AccessSong accessSong = new AccessSong();
+        List<Song> playlistSongs = accessSong.getPlaylistSongs(playlistID);
+        Song songToAdd = playlistSongs.get(fromPosition);
+        int songID = songToAdd.getSongID();
+
+        deletePlaylistSong(playlistID, fromPosition);
+        insertPlaylistSong(playlistID, songID, toPosition);
     }
 }

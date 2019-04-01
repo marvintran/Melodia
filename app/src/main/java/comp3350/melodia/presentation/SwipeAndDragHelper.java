@@ -3,6 +3,8 @@ package comp3350.melodia.presentation;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
+import comp3350.melodia.logic.AccessPlaylist;
+
 // RecyclerView reordering items.
 // https://medium.com/@ipaulpro/drag-and-swipe-with-recyclerview-b9456d2b1aaf
 // https://medium.com/@ipaulpro/drag-and-swipe-with-recyclerview-6a6f0c422efd
@@ -10,10 +12,13 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 public class SwipeAndDragHelper extends ItemTouchHelper.Callback {
 
     private final ItemDraggingListener theAdapterListening;
+    private int fromPosition;
+    private int toPosition;
 
     public interface ItemDraggingListener {
         boolean onItemMove(int fromPosition, int toPosition);
         void onItemDismiss(int position);
+        int currPlaylistID();
     }
 
     public SwipeAndDragHelper(ItemDraggingListener adapterListeningForDragging) {
@@ -36,6 +41,7 @@ public class SwipeAndDragHelper extends ItemTouchHelper.Callback {
                                 RecyclerView.ViewHolder viewHolder) {
         int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
         int swipeFlags = ItemTouchHelper.START | ItemTouchHelper.END;
+        fromPosition = viewHolder.getAdapterPosition();
         return makeMovementFlags(dragFlags, swipeFlags);
     }
 
@@ -53,4 +59,18 @@ public class SwipeAndDragHelper extends ItemTouchHelper.Callback {
         theAdapterListening.onItemDismiss(viewHolder.getAdapterPosition());
     }
 
+    @Override
+    public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+        toPosition = viewHolder.getAdapterPosition();
+
+        AccessPlaylist accessPlaylist = new AccessPlaylist();
+        //AccessSong accessSong = new AccessSong();
+        if(fromPosition != toPosition) {
+            //accessPlaylist.deletePlaylistSong(theAdapterListening.getPlaylistID(), fromPosition);
+
+            accessPlaylist.updateOrder(theAdapterListening.currPlaylistID(), fromPosition, toPosition);
+        }
+        //Playlist thePlaylist = accessPlaylist.getSpecificPlaylist(theAdapterListening.getPlaylistID());
+        //theAdapterListening.updateSongs(accessSong.getPlaylistSongs(thePlaylist.getPlaylistID()));
+    }
 }

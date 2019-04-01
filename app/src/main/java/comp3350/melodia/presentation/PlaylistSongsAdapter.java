@@ -13,21 +13,28 @@ import comp3350.melodia.objects.Playlist;
 import comp3350.melodia.objects.Song;
 
 public class PlaylistSongsAdapter
-        extends AbstractSongsAdapter
-        implements SwipeAndDragHelper.ItemDraggingListener {
+       extends AbstractSongsAdapter
+       implements SwipeAndDragHelper.ItemDraggingListener {
 
     private OnStartDragListener theFragmentListening;
+    private GetPlaylistIDListener playlistIDListener;
 
     public interface OnStartDragListener {
         void onStartDrag(SongViewHolder viewHolder);
     }
 
+    public interface GetPlaylistIDListener {
+        int getPlaylistSelectedID();
+    }
+
     public PlaylistSongsAdapter(List<Song> songs,
                                 OnSongClickedListener listenerClick,
                                 OnSongLongClickedListener listenerLongClick,
-                                OnStartDragListener dragStartListener) {
+                                OnStartDragListener dragStartListener,
+                                GetPlaylistIDListener playlistIDListener) {
         super(songs, listenerClick, listenerLongClick);
         this.theFragmentListening = dragStartListener;
+        this.playlistIDListener = playlistIDListener;
     }
 
     @Override
@@ -101,6 +108,11 @@ public class PlaylistSongsAdapter
         }
         notifyItemMoved(fromPosition, toPosition);
         return true;
+    }
+
+    @Override
+    public int currPlaylistID() {
+        return playlistIDListener.getPlaylistSelectedID();
     }
 
     void updateSongList(List<Song> playlistSongs){
