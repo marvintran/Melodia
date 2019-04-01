@@ -24,7 +24,15 @@ public class AccessPlaylist {
     }
 
     public List<Playlist> getPlaylists(){
-        return playlistPersistence.getAllPlaylists();
+        List<Playlist> allPlaylists = playlistPersistence.getAllPlaylists();
+        int count = 0;
+        for(Playlist currentPlaylist: allPlaylists) {
+
+            if(currentPlaylist.getPlaylistID() == 0)
+                allPlaylists.remove(count);
+            count++;
+        }
+        return allPlaylists;
     }
 
     public Playlist getSpecificPlaylist(int playlistID) {
