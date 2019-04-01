@@ -54,7 +54,7 @@ public class QueueAdapter
             @Override
             public void onClick(View v) {
                 Song songClicked = songs.get(position);
-                listenerClick.onSongClicked(songClicked);
+                listenerClick.onSongClicked(songClicked, position);
             }
         });
 
@@ -62,7 +62,7 @@ public class QueueAdapter
             @Override
             public boolean onLongClick(View v) {
                 Song songClicked = songs.get(position);
-                listenerLongClick.onSongLongClicked(songClicked);
+                listenerLongClick.onSongLongClicked(songClicked, position);
 
                 v.showContextMenu();
                 return true;

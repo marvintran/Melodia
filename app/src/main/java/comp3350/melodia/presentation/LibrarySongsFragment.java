@@ -34,14 +34,15 @@ import comp3350.melodia.application.Main;
 
 
 public class LibrarySongsFragment
-        extends Fragment
-        implements LibrarySongsAdapter.OnSongClickedListener,
-                   LibrarySongsAdapter.OnSongLongClickedListener,
-                   View.OnCreateContextMenuListener{
+       extends Fragment
+       implements LibrarySongsAdapter.OnSongClickedListener,
+                  LibrarySongsAdapter.OnSongLongClickedListener,
+                  View.OnCreateContextMenuListener{
 
     private List<Song> songList;
     private Toast toastMessage;
     private Song songClicked;
+    private int positionSongClicked;
     private LibrarySongsAdapter myAdapter;
     private AccessPlaylist accessPlaylist;
     private AccessSong accessSong;
@@ -118,7 +119,8 @@ public class LibrarySongsFragment
 
         RecyclerView.LayoutManager myLinearLayout;
 
-        myRecyclerView = (RecyclerView)getView().findViewById(R.id.library_recycler_view);
+        myRecyclerView = (RecyclerView)getView()
+                .findViewById(R.id.library_recycler_view);
         myRecyclerView.setHasFixedSize(true);
 
         myLinearLayout = new LinearLayoutManager(getActivity());
@@ -157,13 +159,18 @@ public class LibrarySongsFragment
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         String songTitle = songClicked.getSongName();
+        int playlistNumSongs;
         switch (item.getItemId()) {
             case R.id.queue:
                 toastMessage = Toast.makeText(getActivity(),
-                                         "Add to Queue: " + songTitle,
+                                              "Add to Queue: " + songTitle,
                                               Toast.LENGTH_SHORT);
                 toastMessage.show();
-                accessPlaylist.updatePlaylist(0, songClicked.getSongID());
+                Playlist queuePlaylist = accessPlaylist.getSpecificPlaylist(0);
+                playlistNumSongs = queuePlaylist.getNumberOfSongs();
+                accessPlaylist.insertPlaylistSong(0,
+                                                  songClicked.getSongID(),
+                                                  playlistNumSongs);
 
                 return true;
             case R.id.add_to_playlist:
@@ -173,13 +180,15 @@ public class LibrarySongsFragment
                 List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
                 Playlist playlistClicked = allPlaylists.get(item.getOrder());
                 int playlistID = playlistClicked.getPlaylistID();
-                accessPlaylist.updatePlaylist(playlistID, songClicked.getSongID());
-
+                playlistNumSongs = playlistClicked.getNumberOfSongs();
+                accessPlaylist.insertPlaylistSong(playlistID,
+                                                  songClicked.getSongID(),
+                                                  playlistNumSongs);
                 listener.refreshPlaylists();
 
                 String playlistTitle = playlistClicked.getPlaylistName();
                 toastMessage = Toast.makeText(getActivity(),
-                                              songTitle + " added to " + playlistTitle,
+                                                songTitle + " added to " + playlistTitle,
                                               Toast.LENGTH_SHORT);
                 toastMessage.show();
                 return super.onContextItemSelected(item);
@@ -189,23 +198,28 @@ public class LibrarySongsFragment
     // Passing data from Adapter to Fragment.
     // https://developer.android.com/guide/components/fragments.html#EventCallbacks
     // https://stackoverflow.com/a/52830847
-    public void onSongClicked(Song theSong)
+    public void onSongClicked(Song theSong, int position)
     {
+        positionSongClicked = position;
         String songTitle = theSong.getSongName();
         String message =
                 String.format("Added \"%s\" to the queue", songTitle);
         if(toastMessage != null)
             toastMessage.cancel();
-
-        accessPlaylist.updatePlaylist(0, theSong.getSongID());
+        Playlist queuePlaylist = accessPlaylist.getSpecificPlaylist(0);
+        int playlistNumSongs = queuePlaylist.getNumberOfSongs();
+        accessPlaylist.insertPlaylistSong(0,
+                                          theSong.getSongID(),
+                                          playlistNumSongs);
 
         toastMessage = Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT);
         toastMessage.show();
     }
 
-    public void onSongLongClicked(Song theSong)
+    public void onSongLongClicked(Song theSong, int position)
     {
         songClicked = theSong;
+        positionSongClicked = position;
     }
 
     private void copyDatabaseToDevice() {

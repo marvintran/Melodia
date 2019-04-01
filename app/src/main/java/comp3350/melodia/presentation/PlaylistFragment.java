@@ -29,9 +29,9 @@ import comp3350.melodia.objects.Playlist;
 import comp3350.melodia.objects.Song;
 
 public class PlaylistFragment
-        extends Fragment
-        implements PlaylistAdapter.OnPlaylistClickedListener,
-                   PlaylistAdapter.OnPlaylistLongClickedListener {
+       extends Fragment
+       implements PlaylistAdapter.OnPlaylistClickedListener,
+                  PlaylistAdapter.OnPlaylistLongClickedListener {
 
     private List<Playlist> allPlaylists;
     private AccessPlaylist accessPlaylist;
@@ -83,7 +83,8 @@ public class PlaylistFragment
         accessPlaylist = new AccessPlaylist();
         allPlaylists = accessPlaylist.getPlaylists();
 
-        myRecyclerView = (RecyclerView)getView().findViewById(R.id.playlist_recycler_view);
+        myRecyclerView = (RecyclerView)getView()
+                .findViewById(R.id.playlist_recycler_view);
         myRecyclerView.setHasFixedSize(true);
 
         myLinearLayout = new LinearLayoutManager(getActivity());
@@ -171,40 +172,40 @@ public class PlaylistFragment
         // Alert dialog
         // http://android.pcsalt.com/create-alertdialog-with-custom-layout-using-xml-layout/
         public void onClick(View v) {
-        LayoutInflater inflater = getLayoutInflater();
-        View alertLayout = inflater.inflate(
-                R.layout.new_playlist_dialog, null);
-        final EditText playlistTitle = alertLayout.findViewById(
-                R.id.playlist_title);
+            LayoutInflater inflater = getLayoutInflater();
+            View alertLayout = inflater.inflate(
+                    R.layout.new_playlist_dialog, null);
+            final EditText playlistTitle = alertLayout.findViewById(
+                    R.id.playlist_title);
 
-        AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-        alert.setTitle("Create new Playlist");
-        alert.setView(alertLayout);
+            AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+            alert.setTitle("Create new Playlist");
+            alert.setView(alertLayout);
 
-        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
 
-            }
-        });
+                }
+            });
 
-        alert.setPositiveButton("Create", new DialogInterface.OnClickListener() {
+            alert.setPositiveButton("Create", new DialogInterface.OnClickListener() {
 
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            String title = playlistTitle.getText().toString();
-            toastMessage = Toast.makeText(getActivity(),
-                                     "Created Playlist: " + title,
-                                          Toast.LENGTH_SHORT);
-            toastMessage.show();
-            accessPlaylist.insertPlaylist(title);
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    String title = playlistTitle.getText().toString();
+                    toastMessage = Toast.makeText(getActivity(),
+                                                   "Created Playlist: "+title,
+                                                  Toast.LENGTH_SHORT);
+                    toastMessage.show();
+                    accessPlaylist.insertPlaylist(title);
 
-            updatePlaylists();
-            }
-        });
-        AlertDialog dialog = alert.create();
-        dialog.show();
+                    updatePlaylists();
+                }
+            });
+            AlertDialog dialog = alert.create();
+            dialog.show();
         }
     };
 

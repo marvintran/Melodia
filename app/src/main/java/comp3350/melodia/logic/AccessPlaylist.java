@@ -1,6 +1,5 @@
 package comp3350.melodia.logic;
 
-import java.util.Collections;
 import java.util.List;
 
 import comp3350.melodia.application.Services;
@@ -28,32 +27,36 @@ public class AccessPlaylist {
         return playlistPersistence.getAllPlaylists();
     }
 
+    public Playlist getSpecificPlaylist(int playlistID) {
+        return playlistPersistence.getSpecificPlaylist(playlistID);
+    }
+
     public void insertPlaylist(String playlistName){
         playlistPersistence.insertPlaylist(playlistName);
     }
 
-    public void updatePlaylist(int playlistID, int songID) {
-        playlistPersistence.updatePlaylist(playlistID, songID);
+    public void insertPlaylistSong(int playlistID, int songID, int position) {
+        playlistPersistence.insertPlaylistSong(playlistID, songID, position);
     }
 
     public void deletePlaylist(int playlistID) {
         playlistPersistence.deletePlaylist(playlistID);
     }
 
-    public void deletePlaylistSong(int playlistID, int songID) {
-        playlistPersistence.deletePlaylistSong(playlistID, songID);
+    public void deletePlaylistSong(int playlistID, int position) {
+        playlistPersistence.deletePlaylistSong(playlistID, position);
     }
 
     public void replaceQueueWithPlaylist(List<Song> songsReplacingQueue,
                                          List<Song> queueSongs) {
 
         for(int i = 0; i < queueSongs.size(); i++) {
-            playlistPersistence.deletePlaylistSong(0, queueSongs.get(i).getSongID());
+            playlistPersistence.deletePlaylistSong(0, 0);
         }
 
 
         for(int i = 0; i < songsReplacingQueue.size(); i++) {
-            playlistPersistence.updatePlaylist(0, songsReplacingQueue.get(i).getSongID());
+            playlistPersistence.insertPlaylistSong(0, songsReplacingQueue.get(i).getSongID(), i);
         }
     }
 }

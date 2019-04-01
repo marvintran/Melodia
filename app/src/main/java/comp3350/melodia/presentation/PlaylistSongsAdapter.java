@@ -55,7 +55,7 @@ public class PlaylistSongsAdapter
             @Override
             public void onClick(View v) {
                 Song songClicked = songs.get(position);
-                listenerClick.onSongClicked(songClicked);
+                listenerClick.onSongClicked(songClicked, position);
             }
         });
 
@@ -63,7 +63,7 @@ public class PlaylistSongsAdapter
             @Override
             public boolean onLongClick(View v) {
                 Song songClicked = songs.get(position);
-                listenerLongClick.onSongLongClicked(songClicked);
+                listenerLongClick.onSongLongClicked(songClicked, position);
 
                 v.showContextMenu();
                 return true;

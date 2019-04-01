@@ -23,17 +23,19 @@ import comp3350.melodia.logic.AccessSong;
 import comp3350.melodia.objects.Playlist;
 import comp3350.melodia.objects.Song;
 
-public class PlaylistSongsFragment extends Fragment
-                                   implements PlaylistSongsAdapter.OnSongClickedListener,
-                                              PlaylistSongsAdapter.OnSongLongClickedListener,
-                                              PlaylistSongsAdapter.OnStartDragListener,
-                                              View.OnCreateContextMenuListener {
+public class PlaylistSongsFragment
+       extends Fragment
+       implements PlaylistSongsAdapter.OnSongClickedListener,
+                  PlaylistSongsAdapter.OnSongLongClickedListener,
+                  PlaylistSongsAdapter.OnStartDragListener,
+                  View.OnCreateContextMenuListener {
 
     private List<Song> playlistSongs;
     private Playlist thePlaylist;
     private Toast toastMessage;
     private ItemTouchHelper touchHelper;
     private Song songClicked;
+    private int positionSongClicked;
     private AccessPlaylist accessPlaylist;
     private AccessSong accessSong;
     private PlaylistSongsAdapter myAdapter;
@@ -90,7 +92,8 @@ public class PlaylistSongsFragment extends Fragment
         RecyclerView myRecyclerView;
         RecyclerView.LayoutManager myLinearLayout;
 
-        myRecyclerView = (RecyclerView)getView().findViewById(R.id.playlist_songs_recycler_view);
+        myRecyclerView = (RecyclerView)getView()
+                .findViewById(R.id.playlist_songs_recycler_view);
         myRecyclerView.setHasFixedSize(true);
 
         myLinearLayout = new LinearLayoutManager(getActivity());
@@ -139,32 +142,41 @@ public class PlaylistSongsFragment extends Fragment
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         String songTitle = songClicked.getSongName();
+        int playlistNumSongs;
         switch (item.getItemId()) {
             case R.id.queue:
                 toastMessage = Toast.makeText(getActivity(),
-                                         "Add to Queue: " + songTitle,
+                                              "Add to Queue: " + songTitle,
                                               Toast.LENGTH_SHORT);
                 toastMessage.show();
-                accessPlaylist.updatePlaylist(0, songClicked.getSongID());
+                Playlist queuePlaylist = accessPlaylist.getSpecificPlaylist(0);
+                playlistNumSongs = queuePlaylist.getNumberOfSongs();
+                accessPlaylist.insertPlaylistSong(0,
+                                                  songClicked.getSongID(),
+                                                  playlistNumSongs);
 
                 return true;
             case R.id.add_to_playlist:
 
                 return true;
             case R.id.removed_from_playlist:
-                accessPlaylist.deletePlaylistSong(thePlaylist.getPlaylistID(), songClicked.getSongID());
+                accessPlaylist.deletePlaylistSong(thePlaylist.getPlaylistID(),
+                                                  positionSongClicked);
                 updateSongList();
                 listener.refreshPlaylists();
                 toastMessage = Toast.makeText(getActivity(),
-                        "Removed " + songTitle,
-                        Toast.LENGTH_SHORT);
+                                              "Removed " + songTitle,
+                                              Toast.LENGTH_SHORT);
                 toastMessage.show();
                 return true;
             default:
                 List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
                 Playlist playlistClicked = allPlaylists.get(item.getOrder());
                 int playlistID = playlistClicked.getPlaylistID();
-                accessPlaylist.updatePlaylist(playlistID, songClicked.getSongID());
+                playlistNumSongs = playlistClicked.getNumberOfSongs();
+                accessPlaylist.insertPlaylistSong(playlistID,
+                                                  songClicked.getSongID(),
+                                                  playlistNumSongs);
 
                 listener.refreshPlaylists();
 
@@ -181,8 +193,9 @@ public class PlaylistSongsFragment extends Fragment
     // Passing data from Adapter to Fragment.
     // https://developer.android.com/guide/components/fragments.html#EventCallbacks
     // https://stackoverflow.com/a/52830847
-    public void onSongClicked(Song theSong)
+    public void onSongClicked(Song theSong, int position)
     {
+        positionSongClicked = position;
         String songTitle = theSong.getSongName();
         String playlistName = thePlaylist.getPlaylistName();
         String message =
@@ -200,13 +213,13 @@ public class PlaylistSongsFragment extends Fragment
         toastMessage.show();
     }
 
-    public void onSongLongClicked(Song theSong)
+    public void onSongLongClicked(Song theSong, int position)
     {
         songClicked = theSong;
-
+        positionSongClicked = position;
         toastMessage = Toast.makeText(getActivity(),
-                                 "Long Clicked: Open Context Menu",
-                                      Toast.LENGTH_SHORT);
+                "Long Clicked: Open Context Menu",
+                Toast.LENGTH_SHORT);
         toastMessage.show();
     }
 

@@ -25,16 +25,18 @@ import comp3350.melodia.objects.Playlist;
 import comp3350.melodia.objects.Song;
 
 // the screen for viewing songs in a playlist
-public class QueueFragment extends Fragment
-                           implements QueueAdapter.OnSongClickedListener,
-                           QueueAdapter.OnSongLongClickedListener,
-                           QueueAdapter.OnStartDragListener,
-                           View.OnCreateContextMenuListener {
+public class QueueFragment
+       extends Fragment
+       implements QueueAdapter.OnSongClickedListener,
+                  QueueAdapter.OnSongLongClickedListener,
+                  QueueAdapter.OnStartDragListener,
+                  View.OnCreateContextMenuListener {
 
     private List<Song> songList;
     private Toast toastMessage;
     private ItemTouchHelper touchHelper;
     private Song songClicked;
+    private int positionSongClicked;
     private AccessPlaylist accessPlaylist;
     private AccessSong accessSong;
     private QueueAdapter myAdapter;
@@ -145,25 +147,26 @@ public class QueueFragment extends Fragment
 
                 return true;
             case R.id.remove_from_queue:
-                accessPlaylist.deletePlaylistSong(0, songClicked.getSongID());
+                accessPlaylist.deletePlaylistSong(0, positionSongClicked);
                 updateSongList();
                 toastMessage = Toast.makeText(getActivity(),
-                        "Removed " + songTitle,
-                        Toast.LENGTH_SHORT);
+                                              "Removed " + songTitle,
+                                              Toast.LENGTH_SHORT);
                 toastMessage.show();
                 return true;
             default:
                 List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
                 Playlist playlistClicked = allPlaylists.get(item.getOrder());
                 int playlistID = playlistClicked.getPlaylistID();
-                accessPlaylist.updatePlaylist(playlistID, songClicked.getSongID());
+                int playlistNumSongs = playlistClicked.getNumberOfSongs();
+                accessPlaylist.insertPlaylistSong(playlistID, songClicked.getSongID(), playlistNumSongs);
 
                 listener.refreshPlaylists();
 
                 String playlistTitle = playlistClicked.getPlaylistName();
                 toastMessage = Toast.makeText(getActivity(),
-                                              songTitle + " added to " + playlistTitle,
-                                              Toast.LENGTH_SHORT);
+                        String.format("%s added to %s", songTitle, playlistTitle),
+                        Toast.LENGTH_SHORT);
                 toastMessage.show();
                 return super.onContextItemSelected(item);
         }
@@ -172,8 +175,9 @@ public class QueueFragment extends Fragment
     // Passing data from Adapter to Fragment.
     // https://developer.android.com/guide/components/fragments.html#EventCallbacks
     // https://stackoverflow.com/a/52830847
-    public void onSongClicked(Song theSong)
+    public void onSongClicked(Song theSong, int position)
     {
+        positionSongClicked = position;
         String songTitle = theSong.getSongName();
         String message = "Playing " + songTitle;
 
@@ -181,9 +185,10 @@ public class QueueFragment extends Fragment
         toastMessage.show();
     }
 
-    public void onSongLongClicked(Song theSong)
+    public void onSongLongClicked(Song theSong, int position)
     {
         songClicked = theSong;
+        positionSongClicked = position;
     }
 
     @Override
@@ -201,8 +206,8 @@ public class QueueFragment extends Fragment
     private View.OnClickListener shuffleButtonListener = new View.OnClickListener() {
         public void onClick(View v) {
             toastMessage = Toast.makeText(getActivity(),
-                      "Shuffled Songs",
-                           Toast.LENGTH_SHORT);
+                    "Shuffled Songs",
+                    Toast.LENGTH_SHORT);
             toastMessage.show();
         }
     };

@@ -20,10 +20,10 @@ public abstract class AbstractSongsAdapter extends RecyclerView.Adapter<SongView
     protected OnSongLongClickedListener listenerLongClick;
 
     public interface OnSongClickedListener {
-        public void onSongClicked(Song theSong);
+        public void onSongClicked(Song theSong, int position);
     }
     public interface OnSongLongClickedListener {
-        public void onSongLongClicked(Song theSong);
+        public void onSongLongClicked(Song theSong, int position);
     }
 
     public AbstractSongsAdapter(List<Song> songs, OnSongClickedListener listenerClick,
@@ -59,7 +59,7 @@ public abstract class AbstractSongsAdapter extends RecyclerView.Adapter<SongView
             @Override
             public void onClick(View v) {
                 Song songClicked = songs.get(position);
-                listenerClick.onSongClicked(songClicked);
+                listenerClick.onSongClicked(songClicked, position);
             }
         });
 
@@ -67,7 +67,7 @@ public abstract class AbstractSongsAdapter extends RecyclerView.Adapter<SongView
             @Override
             public boolean onLongClick(View v) {
                 Song songClicked = songs.get(position);
-                listenerLongClick.onSongLongClicked(songClicked);
+                listenerLongClick.onSongLongClicked(songClicked, position);
 
                 v.showContextMenu();
                 return true;

@@ -147,7 +147,7 @@ public class SongPersistenceHSQLDB implements SongPersistence {
         try (final Connection c = connection()) {
 
             final Statement st = c.createStatement();
-            final ResultSet rs = st.executeQuery("SELECT * FROM PLAYLIST_SONGS WHERE PLAYLISTID = " + playlistID);
+            final ResultSet rs = st.executeQuery("SELECT * FROM PLAYLIST_SONGS WHERE PLAYLISTID = " + playlistID +" ORDER BY POSITION ASC");
             while (rs.next())
             {
                 final Statement st2 = c.createStatement();
