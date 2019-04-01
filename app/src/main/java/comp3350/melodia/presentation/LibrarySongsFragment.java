@@ -159,11 +159,12 @@ public class LibrarySongsFragment
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         String songTitle = songClicked.getSongName();
+        List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
         int playlistNumSongs;
         switch (item.getItemId()) {
             case R.id.queue:
                 toastMessage = Toast.makeText(getActivity(),
-                                              "Add to Queue: " + songTitle,
+                                              "Queued " + songTitle,
                                               Toast.LENGTH_SHORT);
                 toastMessage.show();
                 Playlist queuePlaylist = accessPlaylist.getSpecificPlaylist(0);
@@ -175,9 +176,14 @@ public class LibrarySongsFragment
                 return true;
             case R.id.add_to_playlist:
 
+                if(allPlaylists.size() == 0) {
+                    toastMessage = Toast.makeText(getActivity(),
+                            "No playlists have been created",
+                            Toast.LENGTH_SHORT);
+                    toastMessage.show();
+                }
                 return true;
             default:
-                List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
                 Playlist playlistClicked = allPlaylists.get(item.getOrder());
                 int playlistID = playlistClicked.getPlaylistID();
                 playlistNumSongs = playlistClicked.getNumberOfSongs();
@@ -202,8 +208,7 @@ public class LibrarySongsFragment
     {
         positionSongClicked = position;
         String songTitle = theSong.getSongName();
-        String message =
-                String.format("Added \"%s\" to the queue", songTitle);
+        String message = String.format("Queued %s", songTitle);
         if(toastMessage != null)
             toastMessage.cancel();
         Playlist queuePlaylist = accessPlaylist.getSpecificPlaylist(0);

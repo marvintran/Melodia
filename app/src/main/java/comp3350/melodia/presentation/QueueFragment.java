@@ -142,9 +142,15 @@ public class QueueFragment
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         String songTitle = songClicked.getSongName();
+        List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
         switch (item.getItemId()) {
             case R.id.add_to_playlist:
-
+                if(allPlaylists.size() == 0) {
+                    toastMessage = Toast.makeText(getActivity(),
+                            "No playlists have been created",
+                            Toast.LENGTH_SHORT);
+                    toastMessage.show();
+                }
                 return true;
             case R.id.remove_from_queue:
                 accessPlaylist.deletePlaylistSong(0, positionSongClicked);
@@ -155,7 +161,6 @@ public class QueueFragment
                 toastMessage.show();
                 return true;
             default:
-                List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
                 Playlist playlistClicked = allPlaylists.get(item.getOrder());
                 int playlistID = playlistClicked.getPlaylistID();
                 int playlistNumSongs = playlistClicked.getNumberOfSongs();

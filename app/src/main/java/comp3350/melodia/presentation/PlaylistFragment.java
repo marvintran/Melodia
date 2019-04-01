@@ -121,6 +121,7 @@ public class PlaylistFragment
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         String playlistTitle = playlistClicked.getPlaylistName();
+        List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
         int numSongs = playlistClicked.getNumberOfSongs();
         String songOrSongs;
 
@@ -138,8 +139,12 @@ public class PlaylistFragment
 
                 return true;
             case R.id.add_tracks_to_playlist:
-
-
+                if(allPlaylists.size() == 0) {
+                    toastMessage = Toast.makeText(getActivity(),
+                            "No playlists have been created",
+                            Toast.LENGTH_SHORT);
+                    toastMessage.show();
+                }
                 return true;
             case R.id.delete:
                 toastMessage = Toast.makeText(getActivity(),
@@ -152,8 +157,7 @@ public class PlaylistFragment
 
                 return true;
             default:
-                List<Playlist> allPlaylists2 = accessPlaylist.getPlaylists();
-                Playlist submenuPlaylistClicked = allPlaylists2.get(item.getOrder());
+                Playlist submenuPlaylistClicked = allPlaylists.get(item.getOrder());
                 int playlistID = submenuPlaylistClicked.getPlaylistID();
 
                 //accessPlaylist.queuePlaylist(playlistID);
@@ -195,13 +199,12 @@ public class PlaylistFragment
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     String title = playlistTitle.getText().toString();
+                    accessPlaylist.insertPlaylist(title);
+                    updatePlaylists();
                     toastMessage = Toast.makeText(getActivity(),
-                                                   "Created Playlist: "+title,
+                                                  "Created playlist "+title,
                                                   Toast.LENGTH_SHORT);
                     toastMessage.show();
-                    accessPlaylist.insertPlaylist(title);
-
-                    updatePlaylists();
                 }
             });
             AlertDialog dialog = alert.create();

@@ -69,7 +69,6 @@ public class AccessPlaylist {
     }
 
     public void updateOrder(int playlistID, int fromPosition, int toPosition) {
-        System.out.println("From position: " + fromPosition +" To Position: " + toPosition);
         AccessSong accessSong = new AccessSong();
         List<Song> playlistSongs = accessSong.getPlaylistSongs(playlistID);
         Song songToAdd = playlistSongs.get(fromPosition);

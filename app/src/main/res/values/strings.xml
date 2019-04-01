@@ -26,6 +26,8 @@
     <string name="delete">Delete</string>
     <string name="removed_from_playlist">Remove from Playlist</string>
     <string name="remove_from_queue">Remove from Queue</string>
+    <string name="play">Play</string>
+
     remove_from_queue
     <!-- Strings related to Settings -->
 

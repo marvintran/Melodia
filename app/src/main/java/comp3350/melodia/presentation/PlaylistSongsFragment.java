@@ -144,11 +144,21 @@ public class PlaylistSongsFragment
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         String songTitle = songClicked.getSongName();
+        List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
         int playlistNumSongs;
         switch (item.getItemId()) {
+            case R.id.play:
+                int currPlaylistID = thePlaylist.getPlaylistID();
+                List<Song> currPlaylistSongs = accessSong.getPlaylistSongs(currPlaylistID);
+                List<Song> queueSongs = accessSong.getPlaylistSongs(0);
+                accessPlaylist.replaceQueueWithPlaylist(currPlaylistSongs, queueSongs);
+
+                playerListener.onShowPlayer();
+
+                return true;
             case R.id.queue:
                 toastMessage = Toast.makeText(getActivity(),
-                                              "Add to Queue: " + songTitle,
+                                              "Queued " + songTitle,
                                               Toast.LENGTH_SHORT);
                 toastMessage.show();
                 Playlist queuePlaylist = accessPlaylist.getSpecificPlaylist(0);
@@ -159,7 +169,12 @@ public class PlaylistSongsFragment
 
                 return true;
             case R.id.add_to_playlist:
-
+                if(allPlaylists.size() == 0) {
+                    toastMessage = Toast.makeText(getActivity(),
+                            "No playlists have been created",
+                            Toast.LENGTH_SHORT);
+                    toastMessage.show();
+                }
                 return true;
             case R.id.removed_from_playlist:
                 accessPlaylist.deletePlaylistSong(thePlaylist.getPlaylistID(),
@@ -172,7 +187,6 @@ public class PlaylistSongsFragment
                 toastMessage.show();
                 return true;
             default:
-                List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
                 Playlist playlistClicked = allPlaylists.get(item.getOrder());
                 int playlistID = playlistClicked.getPlaylistID();
                 playlistNumSongs = playlistClicked.getNumberOfSongs();
@@ -185,8 +199,8 @@ public class PlaylistSongsFragment
                 String playlistName = playlistClicked.getPlaylistName();
 
                 toastMessage = Toast.makeText(getActivity(),
-                        songTitle + " added to " + playlistName,
-                        Toast.LENGTH_SHORT);
+                                              songTitle + " added to " + playlistName,
+                                              Toast.LENGTH_SHORT);
                 toastMessage.show();
                 return super.onContextItemSelected(item);
         }

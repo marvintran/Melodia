@@ -111,7 +111,6 @@ public class PlaylistPersistenceHSQLDB implements PlaylistPersistence {
 
     @Override
     public void insertPlaylistSong(int playlistID, int songID, int position) {
-        System.out.println("Insert at Position: "+position);
         try (final Connection c = connection()) {
 
             final PreparedStatement st = c.prepareStatement("UPDATE PLAYLIST_SONGS SET POSITION = POSITION + 1 WHERE PLAYLISTID = ? AND POSITION >= ?");
