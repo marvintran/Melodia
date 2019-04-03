@@ -1,11 +1,10 @@
 package comp3350.melodia.persistence;
 
-import java.util.List;
 import comp3350.melodia.objects.Account;
 
 public interface AccountPersistence {
 
-    List<Account> getAllAccounts();
+    Account getAccount(String userName);
 
     Account insertAccount(Account currentAccount);
 
@@ -13,4 +12,7 @@ public interface AccountPersistence {
 
     void deleteAccount(Account currentAccount);
 
+    void addFavouritePlaylists(String userName, int playlistID, int position);
+
+    void deleteFavouritePlaylist(int playlistID, int position);
 }

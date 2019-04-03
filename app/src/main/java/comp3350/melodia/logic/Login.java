@@ -1,23 +1,18 @@
 package comp3350.melodia.logic;
 
+import comp3350.melodia.application.Services;
+import comp3350.melodia.persistence.AccountPersistence;
+import comp3350.melodia.objects.Account;
+
 public class Login{
-    private String loginID;
-    private String password;
-    private String[] securityQues;
-    private String[] securityAws;
-    private int numOfQuestion;
-    private boolean secondPwSetted;
-    private String secondPassword;
+    private AccountPersistence accountPersistence;
 
-    public Login(String loginID, String password){
-        this.password = password;
-        this.loginID = loginID;
-        this.secondPassword = password;
-        numOfQuestion = 0;
-        secondPwSetted = false;
-        securityQues = new String[3];
-        securityAws = new String[3];
-
+    public Login(){
+        accountPersistence = Services.getAccountPersistence();
     }
 
+    public boolean checkCredentials(String userName, String password) {
+        Account account = this.accountPersistence.getAccount(userName);
+        return account.comparePassword(password);
+    }
 }
