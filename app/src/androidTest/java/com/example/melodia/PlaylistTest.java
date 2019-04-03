@@ -29,34 +29,33 @@ public class PlaylistTest {
     public ActivityTestRule<MainActivity> activityRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void createPlaylist() {
-        onView(withId(R.id.playlistNav)).perform(click());
+    public void addSongToPlaylist() {
 
-        // create the playlist
+        // Create the playlist.
+        onView(withId(R.id.playlistNav)).perform(click());
         onView(withId(R.id.new_playlist)).perform(click());
         onView(withId(R.id.playlist_title))
-                .perform(typeText("Awesome Playlist"));
+                .perform(typeText("Playlist 1"));
         onView(withText("Create")).perform(click());
 
-        // verify that it was added
+        // Verify that it was added.
         onView(withId(R.id.playlist_recycler_view))
-                .check(matches(hasDescendant(withText("Awesome Playlist"))));
+                .check(matches(hasDescendant(withText("Playlist 1"))));
 
-        // go to library and add song to the playlist
+        // Go to library and add song to the playlist.
         onView(withId(R.id.homeNav)).perform(click());
         onView(withId(R.id.library_recycler_view))
                 .perform(RecyclerViewActions.actionOnItem(
                         hasDescendant(withText("All that")), longClick()));
         onView(withText("Add to Playlist")).perform(click());
-        onView(withText("Awesome Playlist")).perform(click());
+        onView(withText("Playlist 1")).perform(click());
 
-        // verify that it was added
+        // Verify that it was added.
         onView(withId(R.id.playlistNav)).perform(click());
         onView(withId(R.id.playlist_recycler_view))
                 .perform(RecyclerViewActions.actionOnItem(
-                        hasDescendant(withText("Awesome Playlist")), click()));
+                        hasDescendant(withText("Playlist 1")), click()));
         onView(withId(R.id.library_recycler_view))
                 .check(matches(hasDescendant(withText("All that"))));
-
     }
 }
