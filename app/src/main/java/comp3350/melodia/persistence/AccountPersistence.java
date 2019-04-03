@@ -8,8 +8,6 @@ public interface AccountPersistence {
 
     Account insertAccount(Account currentAccount);
 
-    Account updateAccount(Account currentAccount);
-
     void deleteAccount(Account currentAccount);
 
     void addFavouritePlaylists(String userName, int playlistID, int position);

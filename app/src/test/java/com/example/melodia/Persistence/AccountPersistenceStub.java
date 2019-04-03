@@ -44,18 +44,6 @@ public class AccountPersistenceStub implements AccountPersistence {
     }
 
     @Override
-    public Account updateAccount(Account currentAccount) {
-        int index;
-
-        index = accounts.indexOf(currentAccount);
-        if (index >= 0)
-        {
-            accounts.set(index, currentAccount);
-        }
-        return currentAccount;
-    }
-
-    @Override
     public void deleteAccount(Account currentAccount) {
         int index;
 

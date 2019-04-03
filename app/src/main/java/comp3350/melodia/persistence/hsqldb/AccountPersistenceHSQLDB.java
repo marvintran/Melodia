@@ -58,29 +58,12 @@ public class AccountPersistenceHSQLDB implements AccountPersistence {
     public Account insertAccount(Account currentAccount) {
 
         try (final Connection c = connection()) {
-            final PreparedStatement st = c.prepareStatement("INSERT INTO ACCOUNT VALUES(?, ?, ?, ?)");
+            final PreparedStatement st = c.prepareStatement("INSERT INTO ACCOUNT VALUES(?, ?, ?, ?, ?)");
             st.setString(1, currentAccount.getFullName());
             st.setString(2, currentAccount.getUserName());
-            st.setString(3, currentAccount.getPasswordHash());
-            st.setString(4, currentAccount.getEmail());
-
-            st.executeUpdate();
-
-            return currentAccount;
-        } catch (final SQLException e) {
-            throw new PersistenceException(e);
-        }
-    }
-
-    @Override
-    public Account updateAccount(Account currentAccount) {
-
-        try (final Connection c = connection()) {
-            final PreparedStatement st = c.prepareStatement("UPDATE ACCOUNT SET name = ? WHERE fullName = ? WHERE email = ? ");
-            st.setString(0, currentAccount.getFullName());
-            st.setString(1, currentAccount.getUserName());
-            st.setString(2, "password");
-            st.setString(3, currentAccount.getEmail());
+            st.setString(3, currentAccount.getAccountSalt());
+            st.setString(4, currentAccount.getPasswordHash());
+            st.setString(5, currentAccount.getEmail());
 
             st.executeUpdate();
 

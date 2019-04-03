@@ -116,7 +116,6 @@ public class SongPersistenceHSQLDB implements SongPersistence {
             st.setString(1, currentSong.getSongName());
             st.setInt(2, currentSong.getSongID());
 
-
             st.executeUpdate();
 
             return currentSong;
