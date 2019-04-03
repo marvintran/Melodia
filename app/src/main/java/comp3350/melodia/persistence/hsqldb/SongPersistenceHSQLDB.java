@@ -1,6 +1,5 @@
 package comp3350.melodia.persistence.hsqldb;
 
-import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -10,8 +9,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import comp3350.melodia.objects.Album;
-import comp3350.melodia.objects.Artist;
 import comp3350.melodia.objects.Song;
 import comp3350.melodia.persistence.SongPersistence;
 
