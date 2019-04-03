@@ -1,4 +1,4 @@
-package com.example.melodia.logic;
+package com.example.melodia.business;
 
 import org.junit.Before;
 import org.junit.Test;

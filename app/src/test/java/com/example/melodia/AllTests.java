@@ -5,7 +5,7 @@ import org.junit.runners.Suite;
 
 import com.example.melodia.Objects.*;
 
-import com.example.melodia.logic.AccessPlaylistTest;
+import com.example.melodia.business.AccessPlaylistTest;
 import com.example.melodia.business.AccessSongTest;
 
 @RunWith(Suite.class)
