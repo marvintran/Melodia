@@ -19,6 +19,7 @@ import java.io.File;
 import java.util.List;
 
 import comp3350.melodia.R;
+import comp3350.melodia.application.Services;
 import comp3350.melodia.logic.AccessSong;
 import comp3350.melodia.objects.Song;
 
@@ -51,7 +52,7 @@ public class SongFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState){
-        AccessSong accessSong = new AccessSong();
+        AccessSong accessSong = new AccessSong(Services.getSongPersistence());
         songList = accessSong.getSongsSortedTrackName();
         currSong = 0;
         player = new MediaPlayer();

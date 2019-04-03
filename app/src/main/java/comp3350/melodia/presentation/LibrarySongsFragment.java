@@ -26,6 +26,7 @@ import java.io.InputStreamReader;
 import java.util.List;
 
 import comp3350.melodia.R;
+import comp3350.melodia.application.Services;
 import comp3350.melodia.logic.AccessPlaylist;
 import comp3350.melodia.logic.AccessSong;
 import comp3350.melodia.objects.Playlist;
@@ -69,8 +70,8 @@ public class LibrarySongsFragment
                               Bundle savedInstanceState) {
 
         copyDatabaseToDevice();
-        accessPlaylist = new AccessPlaylist();
-        accessSong = new AccessSong();
+        accessPlaylist = new AccessPlaylist(Services.getPlaylistPersistence());
+        accessSong = new AccessSong(Services.getSongPersistence());
 
         songList = accessSong.getSongsSortedTrackName();
 

@@ -3,6 +3,7 @@ package comp3350.melodia.presentation;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
+import comp3350.melodia.application.Services;
 import comp3350.melodia.logic.AccessPlaylist;
 
 // RecyclerView reordering items.
@@ -63,14 +64,9 @@ public class SwipeAndDragHelper extends ItemTouchHelper.Callback {
     public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
         toPosition = viewHolder.getAdapterPosition();
 
-        AccessPlaylist accessPlaylist = new AccessPlaylist();
-        //AccessSong accessSong = new AccessSong();
+        AccessPlaylist accessPlaylist = new AccessPlaylist(Services.getPlaylistPersistence());
         if(fromPosition != toPosition) {
-            //accessPlaylist.deletePlaylistSong(theAdapterListening.getPlaylistID(), fromPosition);
-
             accessPlaylist.updateOrder(theAdapterListening.currPlaylistID(), fromPosition, toPosition);
         }
-        //Playlist thePlaylist = accessPlaylist.getSpecificPlaylist(theAdapterListening.getPlaylistID());
-        //theAdapterListening.updateSongs(accessSong.getPlaylistSongs(thePlaylist.getPlaylistID()));
     }
 }

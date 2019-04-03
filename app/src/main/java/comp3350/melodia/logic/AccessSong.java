@@ -11,12 +11,8 @@ public class AccessSong {
     private SongPersistence songPersistence;
     private List<Song> songs;
 
-    public AccessSong(){
-        this(Services.getSongPersistence());
-    }
-
     public AccessSong(SongPersistence songPersistence) {
-        this.songPersistence=songPersistence;
+        this.songPersistence = songPersistence;
     }
 
     public List<Song> getSongsSortedTrackName() {

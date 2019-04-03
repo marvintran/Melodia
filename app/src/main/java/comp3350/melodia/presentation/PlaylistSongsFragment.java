@@ -18,6 +18,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import comp3350.melodia.R;
+import comp3350.melodia.application.Services;
 import comp3350.melodia.logic.AccessPlaylist;
 import comp3350.melodia.logic.AccessSong;
 import comp3350.melodia.objects.Playlist;
@@ -69,7 +70,7 @@ public class PlaylistSongsFragment
                               ViewGroup container,
                               Bundle savedInstanceState) {
 
-        accessPlaylist = new AccessPlaylist();
+        accessPlaylist = new AccessPlaylist(Services.getPlaylistPersistence());
 
         Bundle b = getArguments();
         int playlistIndex = b.getInt("exampleInt");
@@ -100,7 +101,7 @@ public class PlaylistSongsFragment
         myLinearLayout = new LinearLayoutManager(getActivity());
         myRecyclerView.setLayoutManager(myLinearLayout);
 
-        accessSong = new AccessSong();
+        accessSong = new AccessSong(Services.getSongPersistence());
         playlistSongs = accessSong.getPlaylistSongs(thePlaylist.getPlaylistID());
 
         myAdapter = new PlaylistSongsAdapter(

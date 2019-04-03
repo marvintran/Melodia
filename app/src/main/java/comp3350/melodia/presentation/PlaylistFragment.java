@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import comp3350.melodia.R;
+import comp3350.melodia.application.Services;
 import comp3350.melodia.logic.AccessPlaylist;
 import comp3350.melodia.objects.Playlist;
 import comp3350.melodia.objects.Song;
@@ -80,7 +81,7 @@ public class PlaylistFragment
 
         RecyclerView.LayoutManager myLinearLayout;
 
-        accessPlaylist = new AccessPlaylist();
+        accessPlaylist = new AccessPlaylist(Services.getPlaylistPersistence());
         allPlaylists = accessPlaylist.getPlaylists();
 
         myRecyclerView = (RecyclerView)getView()

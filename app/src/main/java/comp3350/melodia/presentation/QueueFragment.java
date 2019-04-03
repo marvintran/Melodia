@@ -19,6 +19,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import comp3350.melodia.R;
+import comp3350.melodia.application.Services;
 import comp3350.melodia.logic.AccessPlaylist;
 import comp3350.melodia.logic.AccessSong;
 import comp3350.melodia.objects.Playlist;
@@ -67,10 +68,10 @@ public class QueueFragment
     public View onCreateView (LayoutInflater inflater,
                               ViewGroup container,
                               Bundle savedInstanceState) {
-        accessPlaylist = new AccessPlaylist();
+        accessPlaylist = new AccessPlaylist(Services.getPlaylistPersistence());
 
         // The current playing queue has playlistID = 0.
-        accessSong = new AccessSong();
+        accessSong = new AccessSong(Services.getSongPersistence());
         songList = accessSong.getPlaylistSongs(0);
 
         View v = inflater.inflate(R.layout.queue_fragment, container, false);

@@ -10,11 +10,8 @@ import comp3350.melodia.persistence.PlaylistPersistence;
 public class AccessPlaylist {
     private PlaylistPersistence playlistPersistence;
 
-    public AccessPlaylist(){
-        this(Services.getPlaylistPersistence());
-    }
     public AccessPlaylist(PlaylistPersistence playlistPersistence){
-        this.playlistPersistence=playlistPersistence;
+        this.playlistPersistence = playlistPersistence;
     }
 
     public List<Playlist> getPlaylists(){
@@ -63,7 +60,7 @@ public class AccessPlaylist {
     }
 
     public void updateOrder(int playlistID, int fromPosition, int toPosition) {
-        AccessSong accessSong = new AccessSong();
+        AccessSong accessSong = new AccessSong(Services.getSongPersistence());
         List<Song> playlistSongs = accessSong.getPlaylistSongs(playlistID);
         Song songToAdd = playlistSongs.get(fromPosition);
         int songID = songToAdd.getSongID();
