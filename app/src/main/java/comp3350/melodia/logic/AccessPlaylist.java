@@ -9,18 +9,9 @@ import comp3350.melodia.persistence.PlaylistPersistence;
 
 public class AccessPlaylist {
     private PlaylistPersistence playlistPersistence;
-    private List<Playlist> playlists;
-    private Playlist playlist;
 
     public AccessPlaylist(){
         playlistPersistence = Services.getPlaylistPersistence();
-        playlists = null;
-        playlist = null;
-    }
-
-    public AccessPlaylist(final PlaylistPersistence playlistPersistence) {
-        this();
-        this.playlistPersistence = playlistPersistence;
     }
 
     public List<Playlist> getPlaylists(){
