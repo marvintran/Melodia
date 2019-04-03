@@ -10,9 +10,6 @@ import com.example.melodia.business.AccessSongTest;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        AlbumTest.class,
-        ArtistTest.class,
-        GenreTest.class,
         PlaylistTest.class,
         SongTest.class,
         AccountTest.class,

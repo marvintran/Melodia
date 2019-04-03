@@ -7,7 +7,7 @@ import java.util.List;
 
 import comp3350.melodia.logic.AccessSong;
 import comp3350.melodia.objects.Song;
-import comp3350.melodia.persistence.stubs.SongPersistenceStub;
+import com.example.melodia.Persistence.SongPersistenceStub;
 
 import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertTrue;

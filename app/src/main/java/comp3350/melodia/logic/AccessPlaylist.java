@@ -11,7 +11,10 @@ public class AccessPlaylist {
     private PlaylistPersistence playlistPersistence;
 
     public AccessPlaylist(){
-        playlistPersistence = Services.getPlaylistPersistence();
+        this(Services.getPlaylistPersistence());
+    }
+    public AccessPlaylist(PlaylistPersistence playlistPersistence){
+        this.playlistPersistence=playlistPersistence;
     }
 
     public List<Playlist> getPlaylists(){

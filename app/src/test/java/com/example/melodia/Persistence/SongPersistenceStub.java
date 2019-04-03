@@ -15,7 +15,7 @@ public class SongPersistenceStub implements SongPersistence {
 
         songs.add(0, new Song.Builder()
                 .withSongID(1)
-                .withSongName("allthat")
+                .withSongName("All that")
                 .withSongTime(177)
                 .withAlbumID(1)
                 .withAlbumName("bensound")

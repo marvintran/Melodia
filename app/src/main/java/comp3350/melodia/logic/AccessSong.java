@@ -12,7 +12,11 @@ public class AccessSong {
     private List<Song> songs;
 
     public AccessSong(){
-        songPersistence = Services.getSongPersistence();
+        this(Services.getSongPersistence());
+    }
+
+    public AccessSong(SongPersistence songPersistence) {
+        this.songPersistence=songPersistence;
     }
 
     public List<Song> getSongsSortedTrackName() {
