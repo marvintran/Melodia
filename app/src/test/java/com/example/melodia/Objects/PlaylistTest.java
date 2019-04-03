@@ -1,15 +1,9 @@
 package com.example.melodia.Objects;
-
 import org.junit.Test;
-import java.util.ArrayList;
-
-import comp3350.melodia.objects.Song;
 import comp3350.melodia.objects.Playlist;
-
-
 import static org.junit.Assert.*;
 
-public class PlaylistTest {
+public class PlaylistTest{
     @Test
     public void PlaylistTest1() {
         Playlist playlist;
@@ -17,14 +11,13 @@ public class PlaylistTest {
         System.out.println("\nStarting PlaylistTest");
 
         //hardcoded a playlist for testing
-        playlist = new Playlist("Playlist5", 2000, 8, new ArrayList<Song>(),"");
+        playlist = new Playlist(1, "Playlist5",  8);
 
         //asserts
         assertNotNull(playlist);
+        assertNotNull(playlist.getPlaylistID());
         assertEquals("Playlist5", (playlist.getPlaylistName()));
-        assertEquals(2000, playlist.getPlaylistTime());
         assertEquals(8, playlist.getNumberOfSongs());
-        assertNotNull(playlist.getSongsSortedTrackName());
 
         System.out.println("Finished PlaylistTest");
     }
