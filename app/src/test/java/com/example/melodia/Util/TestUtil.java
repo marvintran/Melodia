@@ -8,11 +8,11 @@ import java.io.IOException;
 import comp3350.melodia.application.Main;
 
 public class TestUtil {
-    private static final File DB_SRC = new File("src/main/assets/db/MusicDB.script");
+    private static final File DB_music = new File("src/main/assets/db/MusicDB.script");
 
     public static File copyDB() throws IOException {
         final File target = File.createTempFile("temp-db", ".script");
-        Files.copy(DB_SRC, target);
+        Files.copy(DB_music, target);
         Main.setDBPathName(target.getAbsolutePath().replace(".script", ""));
         return target;
     }
