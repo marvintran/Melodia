@@ -19,8 +19,9 @@ public class AccessPlaylist {
         int count = 0;
         for(Playlist currentPlaylist: allPlaylists) {
 
-            if(currentPlaylist.getPlaylistID() == 0)
+            if(currentPlaylist.getPlaylistID() == 0) {
                 allPlaylists.remove(count);
+            }
             count++;
         }
         return allPlaylists;
