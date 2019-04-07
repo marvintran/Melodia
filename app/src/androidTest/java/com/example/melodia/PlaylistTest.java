@@ -21,6 +21,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.core.IsNot.not;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -57,5 +58,24 @@ public class PlaylistTest {
                         hasDescendant(withText("Playlist 2")), click()));
         onView(withId(R.id.library_recycler_view))
                 .check(matches(hasDescendant(withText("All that"))));
+    }
+
+    @Test
+    public void removeSongsFromPlaylist() {
+
+        // Delete a song from Playlist 1.
+        onView(withId(R.id.playlistNav)).perform(click());
+        onView(withId(R.id.playlist_recycler_view))
+                .perform(RecyclerViewActions.actionOnItem(
+                        hasDescendant(withText("Playlist 1")), click()));
+        onView(withId(R.id.playlist_songs_recycler_view))
+                .perform(RecyclerViewActions.actionOnItem(
+                        hasDescendant(withText("All that")), longClick()));
+        onView(withText("Remove from Playlist")).perform(click());
+
+
+        // Verify that it was removed.
+        onView(withId(R.id.playlist_songs_recycler_view))
+                .check(matches(not(hasDescendant(withText("All that")))));
     }
 }
