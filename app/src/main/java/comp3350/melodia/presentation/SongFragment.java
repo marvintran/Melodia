@@ -52,8 +52,8 @@ public class SongFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState){
-        AccessSong accessSong = new AccessSong(Services.getSongPersistence());
-        songList = accessSong.getSongsSortedTrackName();
+        //AccessSong accessSong = new AccessSong(Services.getSongPersistence());
+        //songList = accessSong.getSongsSortedTrackName();
         currSong = 0;
         player = new MediaPlayer();
         seekbarHandler = new Handler();
@@ -65,6 +65,11 @@ public class SongFragment extends Fragment {
         newPlaylist.setOnClickListener(mButtonClickListener);
 
         return v;
+    }
+
+    public void updateSongList(){
+        AccessSong accessSong = new AccessSong(Services.getSongPersistence());
+        songList = accessSong.getPlaylistSongs(0);
     }
 
     @Override
