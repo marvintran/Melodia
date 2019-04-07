@@ -97,15 +97,6 @@ public class PlaylistSongsAdapter
 
     @Override
     public boolean onItemMove(int fromPosition, int toPosition) {
-        if (fromPosition < toPosition) {
-            for (int i = fromPosition; i < toPosition; i++) {
-                Collections.swap(songs, i, i + 1);
-            }
-        } else {
-            for (int i = fromPosition; i > toPosition; i--) {
-                Collections.swap(songs, i, i - 1);
-            }
-        }
         notifyItemMoved(fromPosition, toPosition);
         return true;
     }
