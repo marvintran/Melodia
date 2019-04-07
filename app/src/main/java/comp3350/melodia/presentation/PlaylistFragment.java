@@ -26,6 +26,7 @@ import java.util.List;
 import comp3350.melodia.R;
 import comp3350.melodia.application.Services;
 import comp3350.melodia.logic.AccessPlaylist;
+import comp3350.melodia.logic.AccessSong;
 import comp3350.melodia.objects.Playlist;
 import comp3350.melodia.objects.Song;
 
@@ -121,9 +122,12 @@ public class PlaylistFragment
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
+        List<Song> playlistClickedSongs;
+        AccessSong accessSong = new AccessSong(Services.getSongPersistence());
         String playlistTitle = playlistClicked.getPlaylistName();
         List<Playlist> allPlaylists = accessPlaylist.getPlaylists();
         int numSongs = playlistClicked.getNumberOfSongs();
+        int playlistClickedID = playlistClicked.getPlaylistID();
         String songOrSongs;
 
         if(numSongs == 1)
@@ -133,6 +137,14 @@ public class PlaylistFragment
 
         switch (item.getItemId()) {
             case R.id.queue:
+                playlistClickedSongs = accessSong.getPlaylistSongs(playlistClickedID);
+                Playlist queuePlaylist = accessPlaylist.getSpecificPlaylist(0);
+                for(int i = 0; i< playlistClickedSongs.size(); i++) {
+                    accessPlaylist.insertPlaylistSong(0,
+                            playlistClickedSongs.get(i).getSongID(),
+                            queuePlaylist.getNumberOfSongs());
+                }
+
                 toastMessage = Toast.makeText(getActivity(),
                         "Queued " + playlistTitle,
                         Toast.LENGTH_SHORT);
@@ -159,15 +171,22 @@ public class PlaylistFragment
                 return true;
             default:
                 Playlist submenuPlaylistClicked = allPlaylists.get(item.getOrder());
-                int playlistID = submenuPlaylistClicked.getPlaylistID();
+                int submenuPlaylistID = submenuPlaylistClicked.getPlaylistID();
 
-                //accessPlaylist.queuePlaylist(playlistID);
+                playlistClickedSongs = accessSong.getPlaylistSongs(playlistClickedID);
+                for(int i = 0; i< playlistClickedSongs.size(); i++) {
+                    accessPlaylist.insertPlaylistSong(submenuPlaylistID,
+                            playlistClickedSongs.get(i).getSongID(),
+                            playlistClicked.getNumberOfSongs());
+                }
+                updatePlaylists();
 
                 toastMessage = Toast.makeText(getActivity(),
                         String.format("%d %s added to %s",
                                 numSongs, songOrSongs, playlistTitle),
                         Toast.LENGTH_SHORT);
                 toastMessage.show();
+
                 return super.onContextItemSelected(item);
         }
     }
