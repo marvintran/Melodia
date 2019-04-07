@@ -15,6 +15,7 @@ import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 
@@ -95,8 +96,9 @@ public class SongFragment extends Fragment {
                     currSong++;
                     playSong();
                     seekBar.setMax(player.getDuration());
+                    updateText();
                 }
-                updateText();
+
 
                 }
             });
@@ -107,8 +109,9 @@ public class SongFragment extends Fragment {
                     currSong--;
                     playSong();
                     seekBar.setMax(player.getDuration());
+                    updateText();
                 }
-                updateText();
+
 
                 }
             });
@@ -118,6 +121,7 @@ public class SongFragment extends Fragment {
                 try{
                     if(player.isPlaying() && player.getCurrentPosition() > 1){
                         player.pause();
+
                     }
                     else if(player.getCurrentPosition() > 1){
                         player.start();
@@ -127,10 +131,11 @@ public class SongFragment extends Fragment {
                         seekBar.setMax(player.getDuration());
                     }
 
+
                 }catch (Exception e){
                     System.out.println("Error: " + e);
                 }
-                updateText();
+                    updateText();
                 }
             });
             player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -221,19 +226,24 @@ public class SongFragment extends Fragment {
         }
     }
     private void updateText(){
-        TextView t1 = getActivity().findViewById(R.id.textSongName);
-        t1.setText(songList.get(currSong).getSongName());
+        try{
+            TextView t1 = getActivity().findViewById(R.id.textSongName);
+            t1.setText(songList.get(currSong).getSongName());
 
 
-        TextView t2 = getActivity().findViewById(R.id.textArtist);
-        t2.setText(songList.get(currSong).getArtistName());
+            TextView t2 = getActivity().findViewById(R.id.textArtist);
+            t2.setText(songList.get(currSong).getArtistName());
 
-        TextView t3 = getActivity().findViewById(R.id.textSongTime);
-        String songTimeText = String.format("%02d : %02d : %02d ",
-                songList.get(currSong).getHours(),
-                songList.get(currSong).getMinutes(),
-                songList.get(currSong).getSeconds());
-        t3.setText(songTimeText);
+            TextView t3 = getActivity().findViewById(R.id.textSongTime);
+            String songTimeText = String.format("%02d : %02d : %02d ",
+                    songList.get(currSong).getHours(),
+                    songList.get(currSong).getMinutes(),
+                    songList.get(currSong).getSeconds());
+            t3.setText(songTimeText);
+        }catch (Exception e){
+            System.out.println("Error " + e);
+        }
+
 
         Button play_pause = getActivity().findViewById(R.id.buttonPlay);
 
