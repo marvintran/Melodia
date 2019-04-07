@@ -11,9 +11,5 @@ public interface PlaylistPersistence {
 
     void insertPlaylist(String playlistName);
 
-    void insertPlaylistSong(int playlistID, int songID, int position);
-
     void deletePlaylist(int playlistID);
-
-    void deletePlaylistSong(int playlistID, int position);
 }

@@ -140,7 +140,7 @@ public class PlaylistFragment
                 playlistClickedSongs = accessSong.getPlaylistSongs(playlistClickedID);
                 Playlist queuePlaylist = accessPlaylist.getSpecificPlaylist(0);
                 for(int i = 0; i< playlistClickedSongs.size(); i++) {
-                    accessPlaylist.insertPlaylistSong(0,
+                    accessSong.insertPlaylistSong(0,
                             playlistClickedSongs.get(i).getSongID(),
                             queuePlaylist.getNumberOfSongs());
                 }
@@ -175,7 +175,7 @@ public class PlaylistFragment
 
                 playlistClickedSongs = accessSong.getPlaylistSongs(playlistClickedID);
                 for(int i = 0; i< playlistClickedSongs.size(); i++) {
-                    accessPlaylist.insertPlaylistSong(submenuPlaylistID,
+                    accessSong.insertPlaylistSong(submenuPlaylistID,
                             playlistClickedSongs.get(i).getSongID(),
                             playlistClicked.getNumberOfSongs());
                 }

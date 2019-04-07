@@ -170,7 +170,7 @@ public class LibrarySongsFragment
                 toastMessage.show();
                 Playlist queuePlaylist = accessPlaylist.getSpecificPlaylist(0);
                 playlistNumSongs = queuePlaylist.getNumberOfSongs();
-                accessPlaylist.insertPlaylistSong(0,
+                accessSong.insertPlaylistSong(0,
                                                   songClicked.getSongID(),
                                                   playlistNumSongs);
 
@@ -188,7 +188,7 @@ public class LibrarySongsFragment
                 Playlist playlistClicked = allPlaylists.get(item.getOrder());
                 int playlistID = playlistClicked.getPlaylistID();
                 playlistNumSongs = playlistClicked.getNumberOfSongs();
-                accessPlaylist.insertPlaylistSong(playlistID,
+                accessSong.insertPlaylistSong(playlistID,
                                                   songClicked.getSongID(),
                                                   playlistNumSongs);
                 listener.refreshPlaylists();
@@ -214,7 +214,7 @@ public class LibrarySongsFragment
             toastMessage.cancel();
         Playlist queuePlaylist = accessPlaylist.getSpecificPlaylist(0);
         int playlistNumSongs = queuePlaylist.getNumberOfSongs();
-        accessPlaylist.insertPlaylistSong(0,
+        accessSong.insertPlaylistSong(0,
                                           theSong.getSongID(),
                                           playlistNumSongs);
 

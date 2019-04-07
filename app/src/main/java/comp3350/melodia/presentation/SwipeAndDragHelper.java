@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
 import comp3350.melodia.application.Services;
-import comp3350.melodia.logic.AccessPlaylist;
+import comp3350.melodia.logic.AccessSong;
 
 // RecyclerView reordering items.
 // https://medium.com/@ipaulpro/drag-and-swipe-with-recyclerview-b9456d2b1aaf
@@ -64,9 +64,9 @@ public class SwipeAndDragHelper extends ItemTouchHelper.Callback {
     public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
         toPosition = viewHolder.getAdapterPosition();
 
-        AccessPlaylist accessPlaylist = new AccessPlaylist(Services.getPlaylistPersistence());
+        AccessSong accessSong = new AccessSong(Services.getSongPersistence());
         if(fromPosition != toPosition) {
-            accessPlaylist.updateOrder(theAdapterListening.currPlaylistID(), fromPosition, toPosition);
+            accessSong.updateOrder(theAdapterListening.currPlaylistID(), fromPosition, toPosition);
         }
     }
 }

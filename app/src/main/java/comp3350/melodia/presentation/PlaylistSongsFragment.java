@@ -152,7 +152,7 @@ public class PlaylistSongsFragment
                 int currPlaylistID = thePlaylist.getPlaylistID();
                 List<Song> currPlaylistSongs = accessSong.getPlaylistSongs(currPlaylistID);
                 List<Song> queueSongs = accessSong.getPlaylistSongs(0);
-                accessPlaylist.replaceQueueWithPlaylist(currPlaylistSongs, queueSongs);
+                accessSong.replaceQueueWithPlaylist(currPlaylistSongs, queueSongs);
 
                 playerListener.onShowPlayer();
 
@@ -164,7 +164,7 @@ public class PlaylistSongsFragment
                 toastMessage.show();
                 Playlist queuePlaylist = accessPlaylist.getSpecificPlaylist(0);
                 playlistNumSongs = queuePlaylist.getNumberOfSongs();
-                accessPlaylist.insertPlaylistSong(0,
+                accessSong.insertPlaylistSong(0,
                                                   songClicked.getSongID(),
                                                   playlistNumSongs);
 
@@ -178,7 +178,7 @@ public class PlaylistSongsFragment
                 }
                 return true;
             case R.id.removed_from_playlist:
-                accessPlaylist.deletePlaylistSong(thePlaylist.getPlaylistID(),
+                accessSong.deletePlaylistSong(thePlaylist.getPlaylistID(),
                                                   positionSongClicked);
                 updateSongList();
                 listener.refreshPlaylists();
@@ -191,7 +191,7 @@ public class PlaylistSongsFragment
                 Playlist playlistClicked = allPlaylists.get(item.getOrder());
                 int playlistID = playlistClicked.getPlaylistID();
                 playlistNumSongs = playlistClicked.getNumberOfSongs();
-                accessPlaylist.insertPlaylistSong(playlistID,
+                accessSong.insertPlaylistSong(playlistID,
                                                   songClicked.getSongID(),
                                                   playlistNumSongs);
 
@@ -222,7 +222,7 @@ public class PlaylistSongsFragment
         int currPlaylistID = thePlaylist.getPlaylistID();
         List<Song> currPlaylistSongs = accessSong.getPlaylistSongs(currPlaylistID);
         List<Song> queueSongs = accessSong.getPlaylistSongs(0);
-        accessPlaylist.replaceQueueWithPlaylist(currPlaylistSongs, queueSongs);
+        accessSong.replaceQueueWithPlaylist(currPlaylistSongs, queueSongs);
 
         playerListener.onShowPlayer();
 

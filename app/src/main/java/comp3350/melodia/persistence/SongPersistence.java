@@ -11,6 +11,10 @@ public interface SongPersistence {
 
     List<Song> getPlaylistSongs(int playlistID);
 
+    void insertPlaylistSong(int playlistID, int songID, int position);
+
+    void deletePlaylistSong(int playlistID, int position);
+
     Song insertSong(Song currentSong);
 
     Song updateSong(Song currentSong);

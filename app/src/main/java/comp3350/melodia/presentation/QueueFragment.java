@@ -154,7 +154,7 @@ public class QueueFragment
                 }
                 return true;
             case R.id.remove_from_queue:
-                accessPlaylist.deletePlaylistSong(0, positionSongClicked);
+                accessSong.deletePlaylistSong(0, positionSongClicked);
                 updateSongList();
                 toastMessage = Toast.makeText(getActivity(),
                                               "Removed " + songTitle,
@@ -165,7 +165,7 @@ public class QueueFragment
                 Playlist playlistClicked = allPlaylists.get(item.getOrder());
                 int playlistID = playlistClicked.getPlaylistID();
                 int playlistNumSongs = playlistClicked.getNumberOfSongs();
-                accessPlaylist.insertPlaylistSong(playlistID, songClicked.getSongID(), playlistNumSongs);
+                accessSong.insertPlaylistSong(playlistID, songClicked.getSongID(), playlistNumSongs);
 
                 listener.refreshPlaylists();
 
