@@ -35,12 +35,12 @@ public class PlaylistTest {
         onView(withId(R.id.playlistNav)).perform(click());
         onView(withId(R.id.new_playlist)).perform(click());
         onView(withId(R.id.playlist_title))
-                .perform(typeText("Playlist 1"));
+                .perform(typeText("Playlist 2"));
         onView(withText("Create")).perform(click());
 
         // Verify that it was added.
         onView(withId(R.id.playlist_recycler_view))
-                .check(matches(hasDescendant(withText("Playlist 1"))));
+                .check(matches(hasDescendant(withText("Playlist 2"))));
 
         // Go to library and add song to the playlist.
         onView(withId(R.id.homeNav)).perform(click());
@@ -48,13 +48,13 @@ public class PlaylistTest {
                 .perform(RecyclerViewActions.actionOnItem(
                         hasDescendant(withText("All that")), longClick()));
         onView(withText("Add to Playlist")).perform(click());
-        onView(withText("Playlist 1")).perform(click());
+        onView(withText("Playlist 2")).perform(click());
 
         // Verify that it was added.
         onView(withId(R.id.playlistNav)).perform(click());
         onView(withId(R.id.playlist_recycler_view))
                 .perform(RecyclerViewActions.actionOnItem(
-                        hasDescendant(withText("Playlist 1")), click()));
+                        hasDescendant(withText("Playlist 2")), click()));
         onView(withId(R.id.library_recycler_view))
                 .check(matches(hasDescendant(withText("All that"))));
     }
