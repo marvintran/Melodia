@@ -24,7 +24,7 @@ public class AccessSongTest {
     Song songZ;
 
     @Before
-    public void setup(){
+    public void setup() {
         songPersistence = mock(SongPersistence.class);
         accessSong = new AccessSong(songPersistence);
         mockSongs = new ArrayList<>();
@@ -56,7 +56,7 @@ public class AccessSongTest {
     }
 
     @Test
-    public void getSongsSortedTrackName(){
+    public void getSongsSortedTrackName() {
         final List<Song> songs;
 
         System.out.println("\nStarting test getSongsSortedTrackName");
@@ -75,7 +75,7 @@ public class AccessSongTest {
     }
 
     @Test
-    public void getSongsSortedArtist(){
+    public void getSongsSortedArtist() {
         final List<Song> songs;
 
         System.out.println("\nStarting test getSongsSortedArtist");
@@ -94,7 +94,7 @@ public class AccessSongTest {
     }
 
     @Test
-    public void getPlaylistSongs(){
+    public void getPlaylistSongs() {
         final List<Song> songs;
 
         System.out.println("\nStarting test getPlaylistSongs");

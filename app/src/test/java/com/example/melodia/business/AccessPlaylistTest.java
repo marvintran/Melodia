@@ -28,8 +28,7 @@ public class AccessPlaylistTest {
     }
 
     @Test
-    public void getPlaylistsTest()
-    {
+    public void getPlaylistsTest() {
         final List<Playlist> playlists;
 
         System.out.println("\nStarting test getPlaylistsTest");
@@ -48,8 +47,7 @@ public class AccessPlaylistTest {
     }
 
     @Test
-    public void getSpecificPlaylist()
-    {
+    public void getSpecificPlaylist() {
         final Playlist playlist;
 
         System.out.println("\nStarting test getSpecificPlaylist");

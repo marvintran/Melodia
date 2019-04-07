@@ -3,7 +3,6 @@ package comp3350.melodia.logic;
 import java.util.Collections;
 import java.util.List;
 
-import comp3350.melodia.application.Services;
 import comp3350.melodia.objects.Song;
 import comp3350.melodia.persistence.SongPersistence;
 
@@ -20,13 +19,13 @@ public class AccessSong {
         return Collections.unmodifiableList(songs);
     }
 
-    public List<Song> getPlaylistSongs(int playlistID) {
-        songs = songPersistence.getPlaylistSongs(playlistID);
+    public List<Song> getSongsSortedArtist() {
+        songs = songPersistence.getSongsSortedArtist();
         return Collections.unmodifiableList(songs);
     }
 
-    public List<Song> getSongsSortedArtist() {
-        songs = songPersistence.getSongsSortedArtist();
+    public List<Song> getPlaylistSongs(int playlistID) {
+        songs = songPersistence.getPlaylistSongs(playlistID);
         return Collections.unmodifiableList(songs);
     }
 }
