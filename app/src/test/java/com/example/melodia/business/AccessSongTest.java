@@ -66,7 +66,7 @@ public class AccessSongTest {
         assertNotNull("The list of songs should not be null", songs);
         assertEquals("'A Song' was supposed to be the first in the list",
                 "A Song", songs.get(0).getSongName());
-        assertEquals("'A Song' was supposed to be the second in the list",
+        assertEquals("'Z Song' was supposed to be the second in the list",
                 "Z Song", songs.get(1).getSongName());
 
         verify(songPersistence).getSongsSortedTrackName();
@@ -104,7 +104,7 @@ public class AccessSongTest {
         assertNotNull("The list of songs should not be null", songs);
         assertEquals("'A Song' was supposed to be the first in the list",
                 "A Song", songs.get(0).getSongName());
-        assertEquals("'A Song' was supposed to be the second in the list",
+        assertEquals("'Z Song' was supposed to be the second in the list",
                 "Z Song", songs.get(1).getSongName());
 
         verify(songPersistence).getPlaylistSongs(1);
