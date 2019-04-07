@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity
     final Fragment homeNav = LibrarySongsFragment.newInstance();
     final PlaylistFragment playlistNav = PlaylistFragment.newInstance();
     final Fragment shareNav = ShareFragment.newInstance();
-    final SongFragment songNav = SongFragment.newInstance();
+    final Fragment songNav = SongFragment.newInstance();
     final Fragment radioNav = RadioFragment.newInstance();
     final FragmentManager fm = getSupportFragmentManager();
     Fragment active = homeNav;
@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity
                     return true;
                 case R.id.songNav:
                     fm.beginTransaction().hide(active).show(songNav).commit();
-                    songNav.updateSongList();
                     active = songNav;
                     return true;
                 case R.id.radioNav:
