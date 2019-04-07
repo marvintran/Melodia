@@ -73,6 +73,7 @@ public class SongFragment extends Fragment {
         super.onHiddenChanged(hidden);
         AccessSong accessSong = new AccessSong(Services.getSongPersistence());
         songList = accessSong.getPlaylistSongs(0);
+        updateText();
     }
 
     @Override
