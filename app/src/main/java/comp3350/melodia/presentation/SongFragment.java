@@ -126,6 +126,17 @@ public class SongFragment extends Fragment {
                 updateText();
                 }
             });
+            player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    if(currSong+1 < songList.size()){
+                        currSong++;
+                        playSong();
+                        seekBar.setMax(player.getDuration());
+                    }
+                    updateText();
+                }
+            });
 
             createSeekbar(seekBar);
 
