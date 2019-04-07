@@ -17,13 +17,18 @@ public class AccessPlaylist {
     public List<Playlist> getPlaylists(){
         List<Playlist> allPlaylists = playlistPersistence.getAllPlaylists();
         int count = 0;
-        for(Playlist currentPlaylist: allPlaylists) {
+        boolean sawQueuePlaylist = false;
 
+        while(!sawQueuePlaylist && count < allPlaylists.size())
+        {
+            Playlist currentPlaylist = allPlaylists.get(count);
             if(currentPlaylist.getPlaylistID() == 0) {
+                sawQueuePlaylist = true;
                 allPlaylists.remove(count);
             }
             count++;
         }
+
         return allPlaylists;
     }
 
@@ -37,36 +42,5 @@ public class AccessPlaylist {
 
     public void deletePlaylist(int playlistID) {
         playlistPersistence.deletePlaylist(playlistID);
-    }
-
-    public void insertPlaylistSong(int playlistID, int songID, int position) {
-        playlistPersistence.insertPlaylistSong(playlistID, songID, position);
-    }
-
-    public void deletePlaylistSong(int playlistID, int position) {
-        playlistPersistence.deletePlaylistSong(playlistID, position);
-    }
-
-    public void replaceQueueWithPlaylist(List<Song> songsReplacingQueue,
-                                         List<Song> queueSongs) {
-
-        for(int i = 0; i < queueSongs.size(); i++) {
-            playlistPersistence.deletePlaylistSong(0, 0);
-        }
-
-
-        for(int i = 0; i < songsReplacingQueue.size(); i++) {
-            playlistPersistence.insertPlaylistSong(0, songsReplacingQueue.get(i).getSongID(), i);
-        }
-    }
-
-    public void updateOrder(int playlistID, int fromPosition, int toPosition) {
-        AccessSong accessSong = new AccessSong(Services.getSongPersistence());
-        List<Song> playlistSongs = accessSong.getPlaylistSongs(playlistID);
-        Song songToAdd = playlistSongs.get(fromPosition);
-        int songID = songToAdd.getSongID();
-
-        deletePlaylistSong(playlistID, fromPosition);
-        insertPlaylistSong(playlistID, songID, toPosition);
     }
 }

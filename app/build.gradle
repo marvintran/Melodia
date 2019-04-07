@@ -45,4 +45,5 @@ dependencies {
         exclude module: 'recyclerview-v7'
         exclude module: 'support-annotations'
     }
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '2.+'
 }

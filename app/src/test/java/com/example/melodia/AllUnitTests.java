@@ -16,6 +16,6 @@ import com.example.melodia.business.AccessSongTest;
         AccessPlaylistTest.class,
         AccessSongTest.class
 })
-public class AllTests {
+public class AllUnitTests {
 
 }
