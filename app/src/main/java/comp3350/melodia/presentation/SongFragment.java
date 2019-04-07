@@ -15,7 +15,6 @@ import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 
@@ -99,8 +98,6 @@ public class SongFragment extends Fragment {
                     seekBar.setMax(player.getDuration());
                     updateText();
                 }
-
-
                 }
             });
             buttonPrev.setOnClickListener(new View.OnClickListener() {
@@ -112,8 +109,6 @@ public class SongFragment extends Fragment {
                     seekBar.setMax(player.getDuration());
                     updateText();
                 }
-
-
                 }
             });
             buttonPlay.setOnClickListener(new View.OnClickListener() {
@@ -197,9 +192,6 @@ public class SongFragment extends Fragment {
             if(shuffleSwitch.isChecked()){
                 Random rand = new Random();
                 int randomSong = rand.nextInt(((songList.size()-1) - 0) +1);
-                while(randomSong == currSong){
-                    randomSong = rand.nextInt(((songList.size()-1) - 0) +1);
-                }
                 currSong = randomSong;
             }
             AssetFileDescriptor afd = getContext().getAssets().openFd(
