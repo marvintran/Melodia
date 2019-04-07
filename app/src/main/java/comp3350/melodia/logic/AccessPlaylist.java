@@ -17,13 +17,18 @@ public class AccessPlaylist {
     public List<Playlist> getPlaylists(){
         List<Playlist> allPlaylists = playlistPersistence.getAllPlaylists();
         int count = 0;
-        for(Playlist currentPlaylist: allPlaylists) {
+        boolean sawQueuePlaylist = false;
 
+        while(!sawQueuePlaylist && count < allPlaylists.size())
+        {
+            Playlist currentPlaylist = allPlaylists.get(count);
             if(currentPlaylist.getPlaylistID() == 0) {
+                sawQueuePlaylist = true;
                 allPlaylists.remove(count);
             }
             count++;
         }
+
         return allPlaylists;
     }
 

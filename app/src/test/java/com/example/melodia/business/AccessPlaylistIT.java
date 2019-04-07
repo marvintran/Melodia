@@ -1,6 +1,5 @@
 package com.example.melodia.business;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.After;
@@ -8,13 +7,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 import comp3350.melodia.persistence.PlaylistPersistence;
 import comp3350.melodia.persistence.hsqldb.PlaylistPersistenceHSQLDB;
 import comp3350.melodia.logic.AccessPlaylist;
 import comp3350.melodia.objects.Playlist;
-import comp3350.melodia.objects.Song;
 import com.example.melodia.Util.TestUtil;
 import java.io.File;
 import java.io.IOException;
@@ -31,152 +30,93 @@ public class AccessPlaylistIT {
     }
 
     @Test
-    public void testGetPlaylists() {
-        accessPlaylist.insertPlaylist("playlistName");
-        accessPlaylist.insertPlaylist("name");
-        accessPlaylist.insertPlaylist("test");
+    public void getPlaylistsIT() {
+        final List<Playlist> allPlaylists;
 
-        assertEquals(3, accessPlaylist.getPlaylists().size());
+        System.out.println("\nStarting test getPlaylistsIT");
+        allPlaylists = accessPlaylist.getPlaylists();
+        assertNotNull("The list of playlists should not be null.", allPlaylists);
 
-        System.out.println("Finished test AccessPlaylist");
+        boolean sawQueuePlaylist = false;
+        int count = 0;
+        while(!sawQueuePlaylist && count < allPlaylists.size())
+        {
+            Playlist currentPlaylist = allPlaylists.get(count);
+            if(currentPlaylist.getPlaylistID() == 0) {
+                sawQueuePlaylist = true;
+            }
+            count++;
+        }
+        assertFalse("We should not get the playlist queue when we get all playlists",
+                sawQueuePlaylist);
 
-
+        System.out.println("Finished test getPlaylistsIT");
     }
 
     @Test
-    public void testInsertPlaylist() {
-        final Playlist p = new Playlist(4,"newName", 0 );
-        accessPlaylist.insertPlaylist(p.getPlaylistName());
+    public void getSpecificPlaylistIT() {
+        final Playlist playlistQueue;
+        final Playlist playlistOne;
 
-        assertEquals("newName", accessPlaylist.getSpecificPlaylist(1).getPlaylistName());
+        System.out.println("\nStarting test getSpecificPlaylistIT");
+
+        playlistQueue = accessPlaylist.getSpecificPlaylist(0);
+        assertNotNull("The queue playlist should exist", playlistQueue);
+        assertEquals("queue", playlistQueue.getPlaylistName());
+
+        playlistOne = accessPlaylist.getSpecificPlaylist(1);
+        assertNotNull("Playlist 1 should exist", playlistOne);
+        assertEquals("Playlist 1", playlistOne.getPlaylistName());
+
+        System.out.println("Finished test getSpecificPlaylistIT");
     }
 
     @Test
-    public void testGetSpecificPlaylist() {
-        accessPlaylist.insertPlaylist("playlistName");
+    public void insertPlaylistIT() {
+        List<Playlist> allPlaylists;
+        int sizeBeforeInsert;
+        int sizeAfterInsert;
 
-        assertEquals("playlistName", accessPlaylist.getSpecificPlaylist(1).getPlaylistName());
+        String playlistTwoName = "Playlist 2";
+        String insertedPlaylistName;
+
+        System.out.println("\nStarting test insertPlaylistIT");
+        allPlaylists = accessPlaylist.getPlaylists();
+        sizeBeforeInsert = allPlaylists.size();
+        assertEquals(1, sizeBeforeInsert);
+
+        accessPlaylist.insertPlaylist(playlistTwoName);
+        allPlaylists = accessPlaylist.getPlaylists();
+        sizeAfterInsert = allPlaylists.size();
+        assertEquals("The size of allPlaylists should have increased by 1",
+                sizeBeforeInsert+1, sizeAfterInsert);
+
+        System.out.println("Finished test insertPlaylistIT");
     }
 
     @Test
-    public void testDeletePlaylist() {
-        accessPlaylist.insertPlaylist("newPlaylist");
-        accessPlaylist.insertPlaylist("test");
-        accessPlaylist.insertPlaylist("deletePlaylist");
-        accessPlaylist.deletePlaylist(1);
+    public void deletePlaylistIT() {
+        List<Playlist> allPlaylists;
+        int playlistOneID = 1;
+        int sizeBeforeInsert;
+        int sizeAfterInsert;
 
-        assertEquals(2, accessPlaylist.getPlaylists().size());
-    }
+        System.out.println("\nStarting test deletePlaylistIT");
+        allPlaylists = accessPlaylist.getPlaylists();
+        sizeBeforeInsert = allPlaylists.size();
+        assertEquals(1, sizeBeforeInsert);
 
-    @Test
-    public void testInsertPlaylistSong() {
-        final Playlist p = new Playlist(1,"newName", 0 );
+        accessPlaylist.deletePlaylist(playlistOneID);
+        allPlaylists = accessPlaylist.getPlaylists();
+        sizeAfterInsert = allPlaylists.size();
+        assertEquals("We should have removed the only playlist: Playlist 1",
+                sizeBeforeInsert-1, sizeAfterInsert);
 
-        accessPlaylist.insertPlaylist(p.getPlaylistName());
-        accessPlaylist.insertPlaylistSong(1, 1, 0);
-
-        assertEquals(1,accessPlaylist.getSpecificPlaylist(1).getNumberOfSongs());
-    }
-
-    @Test
-    public void testDeletePlaylistSong() {
-        final Playlist p = new Playlist(1,"newName", 0 );
-
-        accessPlaylist.insertPlaylist(p.getPlaylistName());
-        accessPlaylist.insertPlaylistSong(1, 1, 0);
-        accessPlaylist.deletePlaylistSong(1, 0);
-
-        assertEquals(0,accessPlaylist.getSpecificPlaylist(1).getNumberOfSongs());
-    }
-
-    @Test
-    public void testReplaceQueueWithPlaylist() {
-        List<Song> newQueueSongs = new ArrayList<>();
-        List<Song> queueSongs = new ArrayList<>();
-        final Playlist p = new Playlist(1,"newName", 0 );
-
-
-        newQueueSongs.add(0, new Song.Builder()
-                .withSongID(1)
-                .withSongName("All that")
-                .withSongTime(177)
-                .withAlbumID(1)
-                .withAlbumName("bensound")
-                .withArtistID(1)
-                .withArtistName("Benjamin Tissot")
-                .withTrackNumber(3)
-                .withSongData("bensound_allthat.mp3")
-                .build());
-        newQueueSongs.add(1, new Song.Builder()
-                .withSongID(2)
-                .withSongName("dance")
-                .withSongTime(175)
-                .withAlbumID(1)
-                .withAlbumName("bensound")
-                .withArtistID(1)
-                .withArtistName("Benjamin Tissot")
-                .withTrackNumber(3)
-                .withSongData("bensound_dance.mp3")
-                .build());
-        newQueueSongs.add(2, new Song.Builder()
-                .withSongID(2)
-                .withSongName("dance")
-                .withSongTime(175)
-                .withAlbumID(1)
-                .withAlbumName("bensound")
-                .withArtistID(1)
-                .withArtistName("Benjamin Tissot")
-                .withTrackNumber(3)
-                .withSongData("bensound_dance.mp3")
-                .build());
-
-        queueSongs.add(0, new Song.Builder()
-                .withSongID(2)
-                .withSongName("dance")
-                .withSongTime(175)
-                .withAlbumID(1)
-                .withAlbumName("bensound")
-                .withArtistID(1)
-                .withArtistName("Benjamin Tissot")
-                .withTrackNumber(3)
-                .withSongData("bensound_dance.mp3")
-                .build());
-        queueSongs.add(1, new Song.Builder()
-                .withSongID(1)
-                .withSongName("All that")
-                .withSongTime(177)
-                .withAlbumID(1)
-                .withAlbumName("bensound")
-                .withArtistID(1)
-                .withArtistName("Benjamin Tissot")
-                .withTrackNumber(3)
-                .withSongData("bensound_allthat.mp3")
-                .build());
-
-        accessPlaylist.insertPlaylist(p.getPlaylistName());
-        accessPlaylist.insertPlaylistSong(p.getPlaylistID(),1, 0);
-        accessPlaylist.insertPlaylistSong(p.getPlaylistID(), 2,1);
-        accessPlaylist.replaceQueueWithPlaylist(newQueueSongs, queueSongs);
-
-        assertEquals(2,accessPlaylist.getSpecificPlaylist(p.getPlaylistID()).getNumberOfSongs());
-    }
-
-    @Test
-    public void testUpdateOrder() {
-        final Playlist p = new Playlist(1,"newName", 0 );
-        List<Song> songs = new ArrayList<>();
-
-        accessPlaylist.insertPlaylist(p.getPlaylistName());
-        accessPlaylist.insertPlaylistSong(p.getPlaylistID(), 1, 0);
-        accessPlaylist.insertPlaylistSong(p.getPlaylistID(),2, 1);
-        accessPlaylist.updateOrder(p.getPlaylistID(), 0,1);
-
-        assertNotNull(accessPlaylist.getSpecificPlaylist(1));
+        System.out.println("Finished test deletePlaylistIT");
     }
 
     @After
     public void tearDown() {
-        // resets the database
         this.tempDB.delete();
     }
 
