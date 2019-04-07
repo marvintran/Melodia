@@ -98,6 +98,12 @@ public class SongFragment extends Fragment {
                     seekBar.setMax(player.getDuration());
                     updateText();
                 }
+                else{
+                    currSong = 0;
+                    playSong();
+                    seekBar.setMax(player.getDuration());
+                    updateText();
+                }
                 }
             });
             buttonPrev.setOnClickListener(new View.OnClickListener() {
@@ -105,6 +111,12 @@ public class SongFragment extends Fragment {
                 public void onClick(View v) {
                 if(currSong-1 >= 0){
                     currSong--;
+                    playSong();
+                    seekBar.setMax(player.getDuration());
+                    updateText();
+                }
+                else{
+                    currSong = songList.size()-1;
                     playSong();
                     seekBar.setMax(player.getDuration());
                     updateText();
