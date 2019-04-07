@@ -3,7 +3,6 @@ package comp3350.melodia.presentation;
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -13,10 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.SeekBar;
+import android.widget.Switch;
 import android.widget.TextView;
 
-import java.io.File;
 import java.util.List;
+import java.util.Random;
 
 import comp3350.melodia.R;
 import comp3350.melodia.application.Services;
@@ -180,7 +180,12 @@ public class SongFragment extends Fragment {
         try{
             // Temp song from:
             // https://www.bensound.com/royalty-free-music/track/all-that-chill-hop
-
+            Switch shuffleSwitch = getActivity().findViewById(R.id.switchShuffle);
+            if(shuffleSwitch.isChecked()){
+                Random rand = new Random();
+                int randomSong = rand.nextInt(((songList.size()-1) - 0) +1);
+                currSong = randomSong;
+            }
             AssetFileDescriptor afd = getContext().getAssets().openFd(
                     songList.get(currSong).getSongData().getPath());
 
