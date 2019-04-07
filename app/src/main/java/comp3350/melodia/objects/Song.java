@@ -119,6 +119,13 @@ public class Song {
         return trackNumber;
     }
 
+    public int getHours(){return  (getSongTime() / 3600);}
+
+    public int getMinutes(){return ((getSongTime() % 3600) / 60);}
+
+    public int getSeconds(){return (getSongTime() % 60);}
+
+
     public File getSongData() {
         return songData;
     }

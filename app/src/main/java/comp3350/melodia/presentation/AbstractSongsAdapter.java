@@ -40,19 +40,15 @@ public abstract class AbstractSongsAdapter extends RecyclerView.Adapter<SongView
 
     public abstract SongViewHolder onCreateViewHolder(ViewGroup parent, int position);
 
-    public String getSongTimeString(Song song){
-        int hrs = song.getSongTime() / 3600;
-        int mins = (song.getSongTime() % 3600) / 60;
-        int secs   = song.getSongTime() % 60;
-
-        return String.format("%02d : %02d : %02d ", hrs, mins, secs);
-    }
-
     @Override
     public void onBindViewHolder(final SongViewHolder songViewHolder, final int position) {
         songViewHolder.getSongNameView().setText(songs.get(position).getSongName());
         songViewHolder.getArtistNameView().setText(songs.get(position).getArtistName());
-        songViewHolder.getTrackDurationView().setText(getSongTimeString(songs.get(position)));
+        String songTimeText = String.format("%02d : %02d : %02d ",
+                songs.get(position).getHours(),
+                songs.get(position).getMinutes(),
+                songs.get(position).getSeconds());
+        songViewHolder.getTrackDurationView().setText(songTimeText);
 
         // Implementing onClick() in RecyclerView https://stackoverflow.com/a/38090900
         songViewHolder.getLinearlayout().setOnClickListener(new View.OnClickListener() {

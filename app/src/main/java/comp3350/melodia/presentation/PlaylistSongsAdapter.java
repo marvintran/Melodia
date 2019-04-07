@@ -53,8 +53,11 @@ public class PlaylistSongsAdapter
                 songs.get(position).getSongName());
         songViewHolder.getArtistNameView().setText(
                 songs.get(position).getArtistName());
-        songViewHolder.getTrackDurationView().setText(
-                getSongTimeString(songs.get(position)));
+        String songTimeText = String.format("%02d : %02d : %02d ",
+                songs.get(position).getHours(),
+                songs.get(position).getMinutes(),
+                songs.get(position).getSeconds());
+        songViewHolder.getTrackDurationView().setText(songTimeText);
 
         // Implementing onClick() in RecyclerView.
         // https://stackoverflow.com/a/38090900
