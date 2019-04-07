@@ -144,7 +144,7 @@ public class SongFragment extends Fragment {
             System.out.println("Error:" + e);
         }
     }
-
+    
     private void createSeekbar(final SeekBar seekbar){
         seekbarUpdater = new Runnable() {
             @Override
