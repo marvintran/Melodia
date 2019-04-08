@@ -203,8 +203,6 @@ public class SongFragment extends Fragment {
 
     private void playSong() {
         try{
-            // Temp song from:
-            // https://www.bensound.com/royalty-free-music/track/all-that-chill-hop
             Switch shuffleSwitch = getActivity().findViewById(R.id.switchShuffle);
             if(shuffleSwitch.isChecked()){
                 Random rand = new Random();
@@ -235,6 +233,7 @@ public class SongFragment extends Fragment {
             System.out.println("Error:" + e);
         }
     }
+
     private void updateText() {
         try{
             TextView t1 = getActivity().findViewById(R.id.textSongName);
