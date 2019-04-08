@@ -17,8 +17,6 @@ import comp3350.melodia.R;
 
 public class MainActivity extends AppCompatActivity
                           implements PlaylistFragment.OnPlaylistClickedListener,
-                                     ShareFragment.OnRegisterClickedListener,
-                                     ShareFragment.OnLoginClickedListener,
                                      SongFragment.onQueueButtonClickedListener,
                                      QueueFragment.onPlayerButtonClickedListener,
                                      LibrarySongsFragment.RefreshInterface,
@@ -29,9 +27,7 @@ public class MainActivity extends AppCompatActivity
 
     final Fragment homeNav = LibrarySongsFragment.newInstance();
     final PlaylistFragment playlistNav = PlaylistFragment.newInstance();
-    final Fragment shareNav = ShareFragment.newInstance();
     final Fragment songNav = SongFragment.newInstance();
-    final Fragment radioNav = RadioFragment.newInstance();
     final FragmentManager fm = getSupportFragmentManager();
     Fragment active = homeNav;
 
@@ -52,19 +48,10 @@ public class MainActivity extends AppCompatActivity
                     fm.beginTransaction().hide(active).show(playlistNav).commit();
                     active = playlistNav;
                     return true;
-                case R.id.shareNav:
-                    fm.beginTransaction().hide(active).show(shareNav).commit();
-                    active = shareNav;
-                    return true;
                 case R.id.songNav:
                     fm.beginTransaction().hide(active).show(songNav).commit();
                     active = songNav;
                     return true;
-                case R.id.radioNav:
-                    fm.beginTransaction().hide(active).show(radioNav).commit();
-                    active = radioNav;
-                    return true;
-
             }
             return false;
         }
@@ -79,9 +66,7 @@ public class MainActivity extends AppCompatActivity
         fm.beginTransaction().add(R.id.container, homeNav, "homeNav").commit();
         fm.beginTransaction().add(R.id.container, playlistNav, "playlistNav").hide(
                 playlistNav).commit();
-        fm.beginTransaction().add(R.id.container, shareNav, "shareNav").hide(shareNav).commit();
         fm.beginTransaction().add(R.id.container, songNav, "songNav").hide(songNav).commit();
-        fm.beginTransaction().add(R.id.container, radioNav, "radioNav").hide(radioNav).commit();
 
 
         mTextMessage = findViewById(R.id.message);
@@ -111,21 +96,6 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    @Override
-    public void onRegisterClicked(){
-        Fragment registerFragment = RegisterFragment.newInstance();
-        fm.beginTransaction().hide(active).commit();
-        fm.beginTransaction().add(R.id.container, registerFragment).commit();
-        active = registerFragment;
-    }
-
-    @Override
-    public void onLoginClicked(){
-        Fragment loginFragment = LoginFragment.newInstance();
-        fm.beginTransaction().hide(active).commit();
-        fm.beginTransaction().add(R.id.container, loginFragment).commit();
-        active = loginFragment;
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

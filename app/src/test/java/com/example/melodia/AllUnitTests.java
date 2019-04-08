@@ -12,7 +12,6 @@ import com.example.melodia.business.AccessSongTest;
 @Suite.SuiteClasses({
         PlaylistTest.class,
         SongTest.class,
-        AccountTest.class,
         AccessPlaylistTest.class,
         AccessSongTest.class
 })
