@@ -66,7 +66,7 @@ public class SongFragment extends Fragment {
     }
 
     @Override
-    public void onHiddenChanged(boolean hidden){
+    public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         AccessSong accessSong = new AccessSong(Services.getSongPersistence());
         songList = accessSong.getPlaylistSongs(0);
@@ -170,7 +170,7 @@ public class SongFragment extends Fragment {
         }
     }
     
-    private void createSeekbar(final SeekBar seekbar){
+    private void createSeekbar(final SeekBar seekbar) {
         seekbarUpdater = new Runnable() {
             @Override
             public void run() {
@@ -201,7 +201,7 @@ public class SongFragment extends Fragment {
         });
     }
 
-    private  void playSong(){
+    private void playSong() {
         try{
             // Temp song from:
             // https://www.bensound.com/royalty-free-music/track/all-that-chill-hop
@@ -235,7 +235,7 @@ public class SongFragment extends Fragment {
             System.out.println("Error:" + e);
         }
     }
-    private void updateText(){
+    private void updateText() {
         try{
             TextView t1 = getActivity().findViewById(R.id.textSongName);
             t1.setText(songList.get(currSong).getSongName());
@@ -266,7 +266,7 @@ public class SongFragment extends Fragment {
         }
     }
 
-    private void updateTime(){
+    private void updateTime() {
         int currDuration = player.getCurrentPosition();
         int hrs = (currDuration/1000) / 3600;
         int mins = ((currDuration/1000) % 3600) / 60;

@@ -25,7 +25,6 @@ import comp3350.melodia.logic.AccessSong;
 import comp3350.melodia.objects.Playlist;
 import comp3350.melodia.objects.Song;
 
-// the screen for viewing songs in a playlist
 public class QueueFragment
        extends Fragment
        implements QueueAdapter.OnSongClickedListener,

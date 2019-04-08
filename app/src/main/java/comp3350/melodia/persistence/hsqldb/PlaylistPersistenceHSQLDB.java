@@ -40,7 +40,8 @@ public class PlaylistPersistenceHSQLDB implements PlaylistPersistence {
         try (final Connection c = connection()) {
 
             final Statement st = c.createStatement();
-            final ResultSet rs = st.executeQuery("SELECT * FROM PLAYLIST ORDER BY PLAYLISTNAME ASC");
+            final ResultSet rs = st.executeQuery(
+                    "SELECT * FROM PLAYLIST ORDER BY PLAYLISTNAME ASC");
             while (rs.next())
             {
                 final Playlist playlist = fromResultSet(rs);
@@ -63,7 +64,8 @@ public class PlaylistPersistenceHSQLDB implements PlaylistPersistence {
         try (final Connection c = connection()) {
 
             final Statement st = c.createStatement();
-            final ResultSet rs = st.executeQuery("SELECT * FROM PLAYLIST WHERE PLAYLISTID = "+playlistID);
+            final ResultSet rs = st.executeQuery(
+                    "SELECT * FROM PLAYLIST WHERE PLAYLISTID = "+playlistID);
             rs.next();
             final Playlist playlist = fromResultSet(rs);
 
@@ -82,9 +84,10 @@ public class PlaylistPersistenceHSQLDB implements PlaylistPersistence {
     public void insertPlaylist(String playlistName) {
 
         try (final Connection c = connection()) {
-            final PreparedStatement st = c.prepareStatement("INSERT INTO PLAYLIST (PLAYLISTNAME, NUMSONGS) VALUES(?, ?)");
+            final PreparedStatement st = c.prepareStatement(
+                    "INSERT INTO PLAYLIST (PLAYLISTNAME, NUMSONGS) VALUES(?, ?)");
             st.setString(1, playlistName);
-            st.setInt(2, 0);// A new playlist has 0 songs to start.
+            st.setInt(2, 0);
             st.executeUpdate();
 
         } catch (final SQLException e) {
@@ -96,11 +99,13 @@ public class PlaylistPersistenceHSQLDB implements PlaylistPersistence {
     public void deletePlaylist(int playlistID) {
 
         try (final Connection c = connection()) {
-            final PreparedStatement sc = c.prepareStatement("DELETE FROM PLAYLIST WHERE PLAYLISTID = ?");
+            final PreparedStatement sc = c.prepareStatement(
+                    "DELETE FROM PLAYLIST WHERE PLAYLISTID = ?");
             sc.setInt(1, playlistID);
             sc.executeUpdate();
 
-            final PreparedStatement sc2 = c.prepareStatement("DELETE FROM PLAYLIST_SONGS WHERE PLAYLISTID = ?");
+            final PreparedStatement sc2 = c.prepareStatement(
+                    "DELETE FROM PLAYLIST_SONGS WHERE PLAYLISTID = ?");
             sc2.setInt(1, playlistID);
             sc2.executeUpdate();
 

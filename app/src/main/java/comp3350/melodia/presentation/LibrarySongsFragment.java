@@ -42,7 +42,7 @@ public class LibrarySongsFragment
     private List<Song> songList;
     private Toast toastMessage;
     private Song songClicked;
-    private int positionSongClicked;
+
     private LibrarySongsAdapter myAdapter;
     private AccessPlaylist accessPlaylist;
     private AccessSong accessSong;
@@ -204,9 +204,7 @@ public class LibrarySongsFragment
     // Passing data from Adapter to Fragment.
     // https://developer.android.com/guide/components/fragments.html#EventCallbacks
     // https://stackoverflow.com/a/52830847
-    public void onSongClicked(Song theSong, int position)
-    {
-        positionSongClicked = position;
+    public void onSongClicked(Song theSong, int position) {
         String songTitle = theSong.getSongName();
         String message = String.format("Queued %s", songTitle);
         if(toastMessage != null)
@@ -221,10 +219,8 @@ public class LibrarySongsFragment
         toastMessage.show();
     }
 
-    public void onSongLongClicked(Song theSong, int position)
-    {
+    public void onSongLongClicked(Song theSong, int position) {
         songClicked = theSong;
-        positionSongClicked = position;
     }
 
     private void copyDatabaseToDevice() {

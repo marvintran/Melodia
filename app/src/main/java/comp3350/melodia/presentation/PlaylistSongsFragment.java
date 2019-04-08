@@ -216,8 +216,7 @@ public class PlaylistSongsFragment
     // Passing data from Adapter to Fragment.
     // https://developer.android.com/guide/components/fragments.html#EventCallbacks
     // https://stackoverflow.com/a/52830847
-    public void onSongClicked(Song theSong, int position)
-    {
+    public void onSongClicked(Song theSong, int position) {
         positionSongClicked = position;
         String songTitle = theSong.getSongName();
         String playlistName = thePlaylist.getPlaylistName();
@@ -237,8 +236,7 @@ public class PlaylistSongsFragment
         toastMessage.show();
     }
 
-    public void onSongLongClicked(Song theSong, int position)
-    {
+    public void onSongLongClicked(Song theSong, int position) {
         songClicked = theSong;
         positionSongClicked = position;
         toastMessage = Toast.makeText(getActivity(),
@@ -252,8 +250,7 @@ public class PlaylistSongsFragment
         touchHelper.startDrag(viewHolder);
     }
 
-    public void updateSongList()
-    {
+    public void updateSongList() {
         playlistSongs = accessSong.getPlaylistSongs(thePlaylist.getPlaylistID());
         myAdapter.updateSongList(playlistSongs);
     }

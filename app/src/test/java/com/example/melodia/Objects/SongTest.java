@@ -5,9 +5,9 @@ import static org.junit.Assert.*;
 
 public class SongTest {
     @Test
-    public void SongTest1() {
+    public void songTest() {
 
-        System.out.println("\nStarting SongTest");
+        System.out.println("\nStarting songTest");
 
         Song song = new Song.Builder()
                 .withSongID(1)
@@ -30,7 +30,7 @@ public class SongTest {
         assertEquals("album", song.getAlbumName());
         assertEquals(3,  song.getTrackNumber());
 
-        System.out.println("Finished SongTest");
+        System.out.println("Finished songTest");
 
     }
 }

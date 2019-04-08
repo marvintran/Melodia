@@ -111,7 +111,7 @@ public class PlaylistAdapter
         });
     }
 
-    void updateItems(List<Playlist> allPlaylists){
+    void updateItems(List<Playlist> allPlaylists) {
         playlists = allPlaylists;
         notifyDataSetChanged();
     }

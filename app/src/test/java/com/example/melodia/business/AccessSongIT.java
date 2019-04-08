@@ -1,6 +1,5 @@
 package com.example.melodia.business;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.After;
@@ -9,8 +8,6 @@ import org.junit.Test;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
 
 import comp3350.melodia.persistence.SongPersistence;
 import comp3350.melodia.persistence.hsqldb.SongPersistenceHSQLDB;

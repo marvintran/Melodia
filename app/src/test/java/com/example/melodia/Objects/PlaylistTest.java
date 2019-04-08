@@ -5,10 +5,10 @@ import static org.junit.Assert.*;
 
 public class PlaylistTest{
     @Test
-    public void PlaylistTest1() {
+    public void playlistTest() {
         Playlist playlist;
 
-        System.out.println("\nStarting PlaylistTest");
+        System.out.println("\nStarting playlistTest");
 
         playlist = new Playlist(1, "Playlist5",  8);
 
@@ -17,6 +17,6 @@ public class PlaylistTest{
         assertEquals("Playlist5", (playlist.getPlaylistName()));
         assertEquals(8, playlist.getNumberOfSongs());
 
-        System.out.println("Finished PlaylistTest");
+        System.out.println("Finished playlistTest");
     }
 }
