@@ -36,9 +36,9 @@ public class ViewMusicInfoTest {
 
         // Go to the queue.
         onView(withId(R.id.songNav)).perform(click());
-        onView(withText("QUEUE")).check(matches(isDisplayed()));
+        onView(withId(R.id.queue_button)).check(matches(isDisplayed()));
         onView(withId(R.id.queue_button)).perform(click());
-        onView(withText("BACK TO PLAYER")).check(matches(isDisplayed()));
+        onView(withId(R.id.player)).check(matches(isDisplayed()));
 
         // Check if the song is in the queue.
         onView(withId(R.id.queue_recycler_view))

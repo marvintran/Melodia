@@ -36,9 +36,9 @@ public class PlaySongsTest {
 
         // Go to the queue.
         onView(withId(R.id.songNav)).perform(click());
-        onView(withText("QUEUE")).check(matches(isDisplayed()));
+        onView(withId(R.id.queue_button)).check(matches(isDisplayed()));
         onView(withId(R.id.queue_button)).perform(click());
-        onView(withText("BACK TO PLAYER")).check(matches(isDisplayed()));
+        onView(withId(R.id.player)).check(matches(isDisplayed()));
 
         // Check if the song is in the queue.
         onView(withId(R.id.queue_recycler_view))
@@ -66,7 +66,7 @@ public class PlaySongsTest {
                         hasDescendant(withText("Dance")), click()));
 
         // Verify that we moved to the playing page.
-        onView(withText("QUEUE")).check(matches(isDisplayed()));
+        onView(withId(R.id.queue_button)).check(matches(isDisplayed()));
 
         // Verify that the song we clicked is playing.
         onView(withId(R.id.textSongName)).check(matches(withText("Dance")));
