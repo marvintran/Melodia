@@ -153,8 +153,15 @@ public class SongFragment extends Fragment {
                         currSong++;
                         playSong();
                         seekBar.setMax(player.getDuration());
+                        updateText();
                     }
-                    updateText();
+                    else{
+                        currSong = 0;
+                        playSong();
+                        seekBar.setMax(player.getDuration());
+                        updateText();
+                    }
+
                 }
             });
 
