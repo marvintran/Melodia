@@ -78,7 +78,6 @@ public class AccessPlaylistIT {
         int sizeAfterInsert;
 
         String playlistTwoName = "Playlist 2";
-        String insertedPlaylistName;
 
         System.out.println("\nStarting test insertPlaylistIT");
         allPlaylists = accessPlaylist.getPlaylists();
