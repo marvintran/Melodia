@@ -32,7 +32,7 @@ public class ViewMusicInfoTest {
         onView(withId(R.id.homeNav)).perform(click());
         onView(withId(R.id.library_recycler_view))
                 .perform(RecyclerViewActions.actionOnItem(
-                        hasDescendant(withText("All that")), click()));
+                        hasDescendant(withText("Ghost Dance")), click()));
 
         // Go to the queue.
         onView(withId(R.id.songNav)).perform(click());
@@ -42,17 +42,17 @@ public class ViewMusicInfoTest {
 
         // Check if the song is in the queue.
         onView(withId(R.id.queue_recycler_view))
-                .check(matches(hasDescendant(withText("All that"))));
+                .check(matches(hasDescendant(withText("Ghost Dance"))));
 
         // Play the song.
         onView(withId(R.id.queue_recycler_view))
                 .perform(RecyclerViewActions.actionOnItem(
-                        hasDescendant(withText("All that")), click()));
+                        hasDescendant(withText("Ghost Dance")), click()));
 
         // Check if the song info has been displayed.
         onView(withId(R.id.player)).perform(click());
-        onView(withId(R.id.textSongName)).check(matches(withText("All that")));
-        onView(withId(R.id.textArtist)).check(matches(withText("Benjamin Tissot")));
-        onView(withId(R.id.textSongTime)).check(matches(withText("00:02:55")));
+        onView(withId(R.id.textSongName)).check(matches(withText("Ghost Dance")));
+        onView(withId(R.id.textArtist)).check(matches(withText("Kevin MacLeod")));
+        onView(withId(R.id.textSongTime)).check(matches(withText("00 : 01 : 13")));
     }
 }

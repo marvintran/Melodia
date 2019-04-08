@@ -18,6 +18,7 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withTagValue;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 @RunWith(AndroidJUnit4.class)
@@ -32,7 +33,7 @@ public class PlaySongsTest {
         onView(withId(R.id.homeNav)).perform(click());
         onView(withId(R.id.library_recycler_view))
                 .perform(RecyclerViewActions.actionOnItem(
-                        hasDescendant(withText("All that")), click()));
+                        hasDescendant(withText("Night Owl")), click()));
 
         // Go to the queue.
         onView(withId(R.id.songNav)).perform(click());
@@ -42,20 +43,20 @@ public class PlaySongsTest {
 
         // Check if the song is in the queue.
         onView(withId(R.id.queue_recycler_view))
-                .check(matches(hasDescendant(withText("All that"))));
+                .check(matches(hasDescendant(withText("Night Owl"))));
 
-        // Play the song
+        // Play the song.
         onView(withId(R.id.queue_recycler_view))
                 .perform(RecyclerViewActions.actionOnItem(
-                        hasDescendant(withText("All that")), click()));
+                        hasDescendant(withText("Night Owl")), click()));
 
         // Check if the song is playing on the player screen.
         onView(withId(R.id.player)).perform(click());
-        onView(withId(R.id.textSongName)).check(matches(withText("All that")));
+        onView(withId(R.id.textSongName)).check(matches(withText("Night Owl")));
     }
 
     @Test
-    public void playSongFromPlaylist() {
+    public void playSongsFromPlaylist() {
         // Go a playlist and click on a song.
         onView(withId(R.id.playlistNav)).perform(click());
         onView(withId(R.id.playlist_recycler_view))
@@ -63,12 +64,40 @@ public class PlaySongsTest {
                         hasDescendant(withText("Playlist 1")), click()));
         onView(withId(R.id.playlist_songs_recycler_view))
                 .perform(RecyclerViewActions.actionOnItem(
-                        hasDescendant(withText("All that")), click()));
+                        hasDescendant(withText("Dance")), click()));
 
         // Verify that we moved to the playing page.
         onView(withText("QUEUE")).check(matches(isDisplayed()));
 
         // Verify that the song we clicked is playing.
-        onView(withId(R.id.textSongName)).check(matches(withText("All that")));
+        onView(withId(R.id.textSongName)).check(matches(withText("Dance")));
+    }
+
+    @Test
+    public void playNextPrevSong() {
+        // Go to player screen.
+        onView(withId(R.id.songNav)).perform(click());
+
+        // Play the next song in the queue and verify it's playing.
+        onView(withId(R.id.buttonNext)).perform(click());
+        onView(withId(R.id.textSongName)).check(matches(withText("Night Owl")));
+
+        // Play the previous song in the queue and verify it's playing.
+        onView(withId(R.id.buttonPrev)).perform(click());
+        onView(withId(R.id.textSongName)).check(matches(withText("Dance")));
+        /*
+        // Check to see if a song is paused, then play the song.
+        onView(withId(R.drawable.play)).check(matches(isDisplayed()));
+        onView(withId(R.drawable.play)).perform(click());
+        onView(withId(R.drawable.pause)).check(matches(isDisplayed()));
+
+        // Go to player screen.
+        onView(withId(R.id.songNav)).perform(click());
+
+        // Check to see if a song is playing, then pause the song.
+        onView(withId(R.drawable.pause)).check(matches(isDisplayed()));
+        onView(withId(R.drawable.pause)).perform(click());
+        onView(withId(R.drawable.play)).check(matches(isDisplayed()));
+        */
     }
 }

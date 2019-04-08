@@ -247,7 +247,7 @@ public class SongFragment extends Fragment {
             t2.setText(songList.get(currSong).getArtistName());
 
             TextView t3 = getActivity().findViewById(R.id.textSongTime);
-            String songTimeText = String.format("%02d : %02d : %02d ",
+            String songTimeText = String.format("%02d : %02d : %02d",
                     songList.get(currSong).getHours(),
                     songList.get(currSong).getMinutes(),
                     songList.get(currSong).getSeconds());
@@ -276,7 +276,7 @@ public class SongFragment extends Fragment {
 
         try{
             TextView timePlayed = getActivity().findViewById(R.id.textCurrSongTime);
-            timePlayed.setText(String.format("%02d : %02d : %02d ", hrs, mins, secs));
+            timePlayed.setText(String.format("%02d : %02d : %02d", hrs, mins, secs));
         }catch (Exception e){
             System.out.println("Error: " + e);
         }
