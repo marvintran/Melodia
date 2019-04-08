@@ -18,7 +18,6 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withTagValue;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 @RunWith(AndroidJUnit4.class)
@@ -85,19 +84,6 @@ public class PlaySongsTest {
         // Play the previous song in the queue and verify it's playing.
         onView(withId(R.id.buttonPrev)).perform(click());
         onView(withId(R.id.textSongName)).check(matches(withText("Dance")));
-        /*
-        // Check to see if a song is paused, then play the song.
-        onView(withId(R.drawable.play)).check(matches(isDisplayed()));
-        onView(withId(R.drawable.play)).perform(click());
-        onView(withId(R.drawable.pause)).check(matches(isDisplayed()));
 
-        // Go to player screen.
-        onView(withId(R.id.songNav)).perform(click());
-
-        // Check to see if a song is playing, then pause the song.
-        onView(withId(R.drawable.pause)).check(matches(isDisplayed()));
-        onView(withId(R.drawable.pause)).perform(click());
-        onView(withId(R.drawable.play)).check(matches(isDisplayed()));
-        */
     }
 }
