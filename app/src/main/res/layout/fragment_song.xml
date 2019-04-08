@@ -93,16 +93,14 @@
         android:id="@+id/buttonPlay"
         android:layout_width="70dp"
         android:layout_height="90dp"
-        android:layout_marginStart="180dp"
-        android:layout_marginTop="8dp"
         android:background="@drawable/play"
         android:backgroundTint="?android:attr/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seekBar"
-        app:layout_constraintVertical_bias="0.056" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.843" />
 
 
     <SeekBar
@@ -156,18 +154,15 @@
 
     <Switch
         android:id="@+id/switchShuffle"
-        android:layout_width="51dp"
-        android:layout_height="205dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="508dp"
+        android:layout_width="42dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="56dp"
         android:backgroundTint="?android:attr/colorAccent"
         android:trackTint="?android:attr/colorPrimary"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.054"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/shuffleimage" />
 
     <ImageView
         android:id="@+id/album"
@@ -183,15 +178,13 @@
         android:id="@+id/shuffleimage"
         android:layout_width="47dp"
         android:layout_height="98dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="520dp"
         android:tint="?android:attr/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.054"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="0.829"
         app:srcCompat="@drawable/shuffle" />
 
 </android.support.constraint.ConstraintLayout>
