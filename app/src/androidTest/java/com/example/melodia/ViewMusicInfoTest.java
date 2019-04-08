@@ -22,12 +22,12 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class PlaySongsTest {
+public class ViewMusicInfoTest {
     @Rule
     public ActivityTestRule<MainActivity> activityRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void addToQueuePlaySong() {
+    public void viewMusicInfo() {
         // Go to the library and queue a song.
         onView(withId(R.id.homeNav)).perform(click());
         onView(withId(R.id.library_recycler_view))
@@ -44,31 +44,15 @@ public class PlaySongsTest {
         onView(withId(R.id.queue_recycler_view))
                 .check(matches(hasDescendant(withText("All that"))));
 
-        // Play the song
+        // Play the song.
         onView(withId(R.id.queue_recycler_view))
                 .perform(RecyclerViewActions.actionOnItem(
                         hasDescendant(withText("All that")), click()));
 
-        // Check if the song is playing on the player screen.
+        // Check if the song info has been displayed.
         onView(withId(R.id.player)).perform(click());
         onView(withId(R.id.textSongName)).check(matches(withText("All that")));
-    }
-
-    @Test
-    public void playSongFromPlaylist() {
-        // Go a playlist and click on a song.
-        onView(withId(R.id.playlistNav)).perform(click());
-        onView(withId(R.id.playlist_recycler_view))
-                .perform(RecyclerViewActions.actionOnItem(
-                        hasDescendant(withText("Playlist 1")), click()));
-        onView(withId(R.id.playlist_songs_recycler_view))
-                .perform(RecyclerViewActions.actionOnItem(
-                        hasDescendant(withText("All that")), click()));
-
-        // Verify that we moved to the playing page.
-        onView(withText("QUEUE")).check(matches(isDisplayed()));
-
-        // Verify that the song we clicked is playing.
-        onView(withId(R.id.textSongName)).check(matches(withText("All that")));
+        onView(withId(R.id.textArtist)).check(matches(withText("Benjamin Tissot")));
+        onView(withId(R.id.textSongTime)).check(matches(withText("00:02:55")));
     }
 }
