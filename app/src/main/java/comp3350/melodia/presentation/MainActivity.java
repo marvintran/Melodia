@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity
                                      PlaylistSongsFragment.PlaySongsFromPlaylist{
 
 
-    final Fragment homeNav = LibrarySongsFragment.newInstance();
+    final LibrarySongsFragment homeNav = LibrarySongsFragment.newInstance();
     final PlaylistFragment playlistNav = PlaylistFragment.newInstance();
     final SongFragment songNav = SongFragment.newInstance();
     final FragmentManager fm = getSupportFragmentManager();
