@@ -20,7 +20,6 @@ public class SongTest {
                 .withTrackNumber(3)
                 .build();
 
-        //Assert Tests - testing to see if it there
         assertEquals(1, song.getSongID());
         assertNotNull(song);
         assertEquals("1234", (song.getSongName()));
