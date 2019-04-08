@@ -1,7 +1,9 @@
 package comp3350.melodia.presentation;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -60,8 +62,14 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean switchPref = sharedPref.getBoolean(SettingsActivity.NM_PREF, false);
+        if (switchPref == true) {
+            setTheme(R.style.DarkAppTheme);
+        }
+
+        setContentView(R.layout.activity_main);
 
         fm.beginTransaction().add(R.id.container, homeNav, "homeNav").commit();
         fm.beginTransaction().add(R.id.container, playlistNav, "playlistNav").hide(
@@ -73,6 +81,7 @@ public class MainActivity extends AppCompatActivity
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setSelectedItemId(R.id.homeNav);
+
     }
 
     public void onPlaylistClicked(int playlistIndex) {

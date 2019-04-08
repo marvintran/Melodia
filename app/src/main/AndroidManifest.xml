@@ -11,7 +11,11 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".presentation.SettingsActivity"
-            android:label="@string/title_activity_settings" />
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".presentation.MainActivity"/>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".presentation.MainActivity"/>
         <activity
             android:name=".presentation.MainActivity"
             android:label="@string/app_name" />

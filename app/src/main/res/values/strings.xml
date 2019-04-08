@@ -27,6 +27,8 @@
     <string name="removed_from_playlist">Remove from Playlist</string>
     <string name="remove_from_queue">Remove from Queue</string>
     <string name="play">Play</string>
+    <string name="night_mode">Enable Night Mode</string>
+    <string name="summaryNight">Turn Night Mode On or Off</string>
 
     remove_from_queue
     <!-- Strings related to Settings -->
@@ -87,20 +89,8 @@
         <item>3</item>
     </string-array>
 
-    <string-array name="multi_select_list_preference_default_value" />
 
-    <string name="pref_title_system_sync_settings">System sync settings</string>
 
-    <!-- Example settings for Notifications -->
-    <string name="pref_header_notifications">Notifications</string>
-
-    <string name="pref_title_new_message_notifications">New message notifications</string>
-
-    <string name="pref_title_ringtone">Ringtone</string>
-    <string name="pref_ringtone_silent">Silent</string>
-
-    <string name="pref_title_vibrate">Vibrate</string>
-    <string name="title_activity_main2">Main2Activity</string>
 
 
 </resources>
