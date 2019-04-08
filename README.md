@@ -19,5 +19,5 @@ Then open Melodia in Android Studio. In Android Stuido you can then build the co
 
 [Vision Statement](https://code.cs.umanitoba.ca/comp3350-winter2019/group-7/blob/master/VISION.md)
 
-[Retrospective](TODO)
+[Retrospective](https://code.cs.umanitoba.ca/comp3350-winter2019/group-7/blob/master/RETROSPECTIVE.md)
 
