@@ -187,8 +187,7 @@ public class QueueFragment
     // Passing data from Adapter to Fragment.
     // https://developer.android.com/guide/components/fragments.html#EventCallbacks
     // https://stackoverflow.com/a/52830847
-    public void onSongClicked(Song theSong, int position)
-    {
+    public void onSongClicked(Song theSong, int position) {
         positionSongClicked = position;
         String songTitle = theSong.getSongName();
         String message = "Playing " + songTitle;
@@ -199,8 +198,7 @@ public class QueueFragment
         playSongAtPositionListener.playSongAtPosition(position);
     }
 
-    public void onSongLongClicked(Song theSong, int position)
-    {
+    public void onSongLongClicked(Song theSong, int position) {
         songClicked = theSong;
         positionSongClicked = position;
     }
@@ -219,6 +217,8 @@ public class QueueFragment
 
     private View.OnClickListener shuffleButtonListener = new View.OnClickListener() {
         public void onClick(View v) {
+            accessSong.shuffleQueue();
+            updateSongList();
             toastMessage = Toast.makeText(getActivity(),
                     "Shuffled Songs",
                     Toast.LENGTH_SHORT);
@@ -226,8 +226,7 @@ public class QueueFragment
         }
     };
 
-    public void updateSongList()
-    {
+    public void updateSongList() {
         songList = accessSong.getPlaylistSongs(0);
         myAdapter.updateSongList(songList);
     }

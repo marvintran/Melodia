@@ -1,5 +1,6 @@
 package comp3350.melodia.logic;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -57,5 +58,18 @@ public class AccessSong {
 
         deletePlaylistSong(playlistID, fromPosition);
         insertPlaylistSong(playlistID, songID, toPosition);
+    }
+    public void shuffleQueue() {
+        List<Song> queueSongs = new ArrayList(getPlaylistSongs(0));
+
+        for(int i = 0; i < queueSongs.size(); i++) {
+            deletePlaylistSong(0, 0);
+        }
+
+        Collections.shuffle(queueSongs);
+
+        for(int i = 0; i < queueSongs.size(); i++) {
+            insertPlaylistSong(0, queueSongs.get(i).getSongID(), 0);
+        }
     }
 }

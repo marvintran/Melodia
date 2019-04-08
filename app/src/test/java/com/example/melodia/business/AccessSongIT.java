@@ -208,6 +208,15 @@ public class AccessSongIT {
         System.out.println("Finished test updateOrderIT");
     }
 
+    @Test
+    public void shuffleQueueIT() {
+        List<Song> playlistQueue;
+        System.out.println("\nStarting test shuffleQueueIT");
+
+
+        System.out.println("Finished test shuffleQueueIT");
+    }
+
     @After
     public void tearDown() {
         this.tempDB.delete();
