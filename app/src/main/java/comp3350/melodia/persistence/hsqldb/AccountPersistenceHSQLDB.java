@@ -107,7 +107,6 @@ public class AccountPersistenceHSQLDB implements AccountPersistence {
 
     @Override
     public void deleteFavouritePlaylist(int playlistID, int position){
-        System.out.println("Delete at Position: "+position);
         try (final Connection c = connection()) {
             final PreparedStatement sc = c.prepareStatement("DELETE FROM ACCOUNT_FAVOURITEPLAYLIST WHERE PLAYLISTID = ? AND POSITION = ?");
             sc.setInt(1, playlistID);

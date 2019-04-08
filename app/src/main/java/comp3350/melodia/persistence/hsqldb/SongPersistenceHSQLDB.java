@@ -145,7 +145,6 @@ public class SongPersistenceHSQLDB implements SongPersistence {
 
     @Override
     public void deletePlaylistSong(int playlistID, int position) {
-        System.out.println("Delete at Position: "+position);
         try (final Connection c = connection()) {
             final PreparedStatement sc = c.prepareStatement("DELETE FROM PLAYLIST_SONGS WHERE PLAYLISTID = ? AND POSITION = ?");
             sc.setInt(1, playlistID);
