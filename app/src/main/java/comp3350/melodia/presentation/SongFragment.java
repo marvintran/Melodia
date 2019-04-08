@@ -287,4 +287,11 @@ public class SongFragment extends Fragment {
             queueButtonListener.onShowQueue();
         }
     };
+
+    public void playSongAtPosition(int positionSongClicked) {
+        currSong = positionSongClicked;
+        playSong();
+        updateText();
+        updateTime();
+    }
 }

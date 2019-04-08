@@ -24,13 +24,15 @@ public class MainActivity extends AppCompatActivity
                                      LibrarySongsFragment.RefreshInterface,
                                      QueueFragment.RefreshInterface,
                                      PlaylistSongsFragment.RefreshInterface,
-                                     PlaylistSongsFragment.ShowPlayer{
+                                     PlaylistSongsFragment.ShowPlayer,
+                                     QueueFragment.PlaySongAtPosition,
+                                     PlaylistSongsFragment.PlaySongsFromPlaylist{
 
 
     final Fragment homeNav = LibrarySongsFragment.newInstance();
     final PlaylistFragment playlistNav = PlaylistFragment.newInstance();
     final Fragment shareNav = ShareFragment.newInstance();
-    final Fragment songNav = SongFragment.newInstance();
+    final SongFragment songNav = SongFragment.newInstance();
     final Fragment radioNav = RadioFragment.newInstance();
     final FragmentManager fm = getSupportFragmentManager();
     Fragment active = homeNav;
@@ -150,7 +152,18 @@ public class MainActivity extends AppCompatActivity
         active = songNav;
     }
 
+    @Override
     public void refreshPlaylists() {
         playlistNav.updatePlaylists();
+    }
+
+    @Override
+    public void playSongAtPosition(int positionSongClicked) {
+        songNav.playSongAtPosition(positionSongClicked);
+    }
+
+    @Override
+    public void playSongsFromPlaylist(int positionSongClicked) {
+        songNav.playSongAtPosition(positionSongClicked);
     }
 }

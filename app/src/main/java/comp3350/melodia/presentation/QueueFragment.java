@@ -43,6 +43,7 @@ public class QueueFragment
     private QueueAdapter myAdapter;
     private RefreshInterface listener;
     private onPlayerButtonClickedListener playerButtonListener;
+    private PlaySongAtPosition playSongAtPositionListener;
 
     public interface onPlayerButtonClickedListener {
         public void onShowPlayer();
@@ -52,12 +53,17 @@ public class QueueFragment
         public void refreshPlaylists();
     }
 
+    public interface PlaySongAtPosition{
+        public void playSongAtPosition(int positionSongClicked);
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         try {
             playerButtonListener = (onPlayerButtonClickedListener) context;
             listener = (RefreshInterface) context;
+            playSongAtPositionListener = (PlaySongAtPosition) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(
                     context.toString() + " must implement OnArticleSelectedListener");
@@ -189,6 +195,8 @@ public class QueueFragment
 
         toastMessage = Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT);
         toastMessage.show();
+
+        playSongAtPositionListener.playSongAtPosition(position);
     }
 
     public void onSongLongClicked(Song theSong, int position)
