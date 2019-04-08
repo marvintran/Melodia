@@ -43,6 +43,7 @@ public class QueueFragment
     private QueueAdapter myAdapter;
     private RefreshInterface listener;
     private onPlayerButtonClickedListener playerButtonListener;
+    private PlaySongAtPosition playSongAtPositionListener;
 
     public interface onPlayerButtonClickedListener {
         public void onShowPlayer();
@@ -52,12 +53,17 @@ public class QueueFragment
         public void refreshPlaylists();
     }
 
+    public interface PlaySongAtPosition{
+        public void playSongAtPosition(int positionSongClicked);
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         try {
             playerButtonListener = (onPlayerButtonClickedListener) context;
             listener = (RefreshInterface) context;
+            playSongAtPositionListener = (PlaySongAtPosition) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(
                     context.toString() + " must implement OnArticleSelectedListener");
@@ -181,18 +187,18 @@ public class QueueFragment
     // Passing data from Adapter to Fragment.
     // https://developer.android.com/guide/components/fragments.html#EventCallbacks
     // https://stackoverflow.com/a/52830847
-    public void onSongClicked(Song theSong, int position)
-    {
+    public void onSongClicked(Song theSong, int position) {
         positionSongClicked = position;
         String songTitle = theSong.getSongName();
         String message = "Playing " + songTitle;
 
         toastMessage = Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT);
         toastMessage.show();
+
+        playSongAtPositionListener.playSongAtPosition(position);
     }
 
-    public void onSongLongClicked(Song theSong, int position)
-    {
+    public void onSongLongClicked(Song theSong, int position) {
         songClicked = theSong;
         positionSongClicked = position;
     }
@@ -211,6 +217,8 @@ public class QueueFragment
 
     private View.OnClickListener shuffleButtonListener = new View.OnClickListener() {
         public void onClick(View v) {
+            accessSong.shuffleQueue();
+            updateSongList();
             toastMessage = Toast.makeText(getActivity(),
                     "Shuffled Songs",
                     Toast.LENGTH_SHORT);
@@ -218,8 +226,7 @@ public class QueueFragment
         }
     };
 
-    public void updateSongList()
-    {
+    public void updateSongList() {
         songList = accessSong.getPlaylistSongs(0);
         myAdapter.updateSongList(songList);
     }

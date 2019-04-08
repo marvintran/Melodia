@@ -7,6 +7,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
@@ -32,46 +33,54 @@ public class AccessSongIT {
 
     @Test
     public void getSongsSortedTrackNameIT() {
-        String sortedSongOneName = "All that";
-        String sortedSongTwoName = "dance";
-
         final List<Song> allSongs;
-        String songOneName;
-        String songTwoName;
+
+        String songOrderSmaller;
+        String songOrderLarger;
+        boolean ordered = true;
 
         System.out.println("\nStarting test getSongsSortedTrackNameIT");
         allSongs = accessSong.getSongsSortedTrackName();
 
-        songOneName = allSongs.get(0).getSongName();
-        assertEquals("Song 'All that' should be first",
-                sortedSongOneName, songOneName);
+        for (int i = 1; i < allSongs.size(); i++) {
+            songOrderSmaller = allSongs.get(i-1).getSongName();
+            songOrderLarger = allSongs.get(i).getSongName();
 
-        songTwoName = allSongs.get(1).getSongName();
-        assertEquals("Song 'dance' should be second",
-                sortedSongTwoName, songTwoName);
+            if (songOrderSmaller.compareTo(songOrderLarger) > 0) {
+                ordered = false;
+                System.out.println("Song " + songOrderSmaller +
+                        "came before" + songOrderLarger);
+                break;
+            }
+        }
+        assertTrue("Bad order", ordered);
 
         System.out.println("Finished test getSongsSortedTrackNameIT");
     }
 
     @Test
     public void getSongsSortedArtistIT() {
-        String sortedArtistOneName = "Benjamin Tissot";
-        String sortedArtistTwoName = "Benjamin Tissot";
-
         final List<Song> allSongs;
-        String artistOneName;
-        String artistTwoName;
+
+        String artistOrderSmaller;
+        String artistOrderLarger;
+        boolean ordered = true;
 
         System.out.println("\nStarting test getSongsSortedArtistIT");
         allSongs = accessSong.getSongsSortedArtist();
 
-        artistOneName = allSongs.get(0).getArtistName();
-        assertEquals("Artist 'Benjamin Tissot' should be first",
-                sortedArtistOneName, artistOneName);
+        for (int i = 1; i < allSongs.size(); i++) {
+            artistOrderSmaller = allSongs.get(i-1).getArtistName();
+            artistOrderLarger = allSongs.get(i).getArtistName();
 
-        artistTwoName = allSongs.get(1).getArtistName();
-        assertEquals("Artist 'Benjamin Tissot; should be second",
-                sortedArtistTwoName, artistTwoName);
+            if (artistOrderSmaller.compareTo(artistOrderLarger) > 0) {
+                ordered = false;
+                System.out.println("Artists " + artistOrderSmaller +
+                                   "came before" + artistOrderLarger);
+                break;
+            }
+        }
+        assertTrue("Bad order", ordered);
 
         System.out.println("Finished test getSongsSortedArtistIT");
     }
@@ -79,7 +88,7 @@ public class AccessSongIT {
     @Test
     public void getPlaylistSongsIT() {
         String songPositionOne = "All that";
-        String songPositionTwo = "dance";
+        String songPositionTwo = "Dance";
 
         final List<Song> playlistOneSongs;
         String playlistSongPositionOne;
@@ -93,7 +102,7 @@ public class AccessSongIT {
                 songPositionOne, playlistSongPositionOne);
 
         playlistSongPositionTwo = playlistOneSongs.get(1).getSongName();
-        assertEquals("Song 'dance' should be second",
+        assertEquals("Song 'Dance' should be second",
                 songPositionTwo, playlistSongPositionTwo);
 
         System.out.println("Finished test getPlaylistSongsIT");
@@ -149,7 +158,7 @@ public class AccessSongIT {
         // The song at the last position is at index sizeAfterInsert - 1.
         songNameRemaining = playlistOneSongs.get(sizeAfterDelete - 1).getSongName();
         assertEquals("The song remaining after delete should be 'dance'",
-                songNameRemaining, "dance");
+                songNameRemaining, "Dance");
 
         System.out.println("Finished test deletePlaylistSongIT");
     }
@@ -197,6 +206,44 @@ public class AccessSongIT {
                 playlistOneSongs.get(1).getSongName(), newOrderPlaylistOne.get(0).getSongName());
 
         System.out.println("Finished test updateOrderIT");
+    }
+
+    @Test
+    public void shuffleQueueIT() {
+        accessSong.insertPlaylistSong(0, 1, 0);
+        accessSong.insertPlaylistSong(0, 2, 1);
+        accessSong.insertPlaylistSong(0, 3, 2);
+        accessSong.insertPlaylistSong(0, 4, 3);
+        String songInsertedOne = "A New Beginning";
+        String songInsertedTwo = "All that";
+        String songInsertedThree = "Broke Reality";
+        String songInsertedFour = "Dance";
+
+        boolean orderChanged = false;
+
+        List<Song> playlistQueue = accessSong.getPlaylistSongs(0);
+
+        System.out.println("\nStarting test shuffleQueueIT");
+        assertEquals("The queue should have 4 songs in it",
+                playlistQueue.size(), 4);
+
+        accessSong.shuffleQueue();
+        playlistQueue = accessSong.getPlaylistSongs(0);
+        assertEquals("The queue should still have 4 songs in it",
+                playlistQueue.size(), 4);
+
+        String songOne = playlistQueue.get(0).getSongName();
+        String songTwo = playlistQueue.get(1).getSongName();
+        String songThree = playlistQueue.get(2).getSongName();
+        String songFour = playlistQueue.get(3).getSongName();
+
+        if(!songOne.equals(songInsertedOne) || !songTwo.equals(songInsertedTwo) ||
+           !songThree.equals(songInsertedThree) || !songFour.equals(songInsertedFour))
+            orderChanged = true;
+
+        assertTrue("The order should have changed", orderChanged);
+
+        System.out.println("Finished test shuffleQueueIT");
     }
 
     @After

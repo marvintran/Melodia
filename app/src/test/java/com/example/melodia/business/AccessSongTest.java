@@ -56,10 +56,10 @@ public class AccessSongTest {
     }
 
     @Test
-    public void getSongsSortedTrackName() {
+    public void getSongsSortedTrackNameTest() {
         final List<Song> songs;
 
-        System.out.println("\nStarting test getSongsSortedTrackName");
+        System.out.println("\nStarting test getSongsSortedTrackNameTest");
         when(songPersistence.getSongsSortedTrackName()).thenReturn((mockSongs));
 
         songs = accessSong.getSongsSortedTrackName();
@@ -71,14 +71,14 @@ public class AccessSongTest {
 
         verify(songPersistence).getSongsSortedTrackName();
 
-        System.out.println("Finished test getSongsSortedTrackName");
+        System.out.println("Finished test getSongsSortedTrackNameTest");
     }
 
     @Test
-    public void getSongsSortedArtist() {
+    public void getSongsSortedArtistTest() {
         final List<Song> songs;
 
-        System.out.println("\nStarting test getSongsSortedArtist");
+        System.out.println("\nStarting test getSongsSortedArtistTest");
         when(songPersistence.getSongsSortedArtist()).thenReturn((mockSongs));
 
         songs = accessSong.getSongsSortedArtist();
@@ -90,14 +90,14 @@ public class AccessSongTest {
 
         verify(songPersistence).getSongsSortedArtist();
 
-        System.out.println("Finished test getSongsSortedArtist");
+        System.out.println("Finished test getSongsSortedArtistTest");
     }
 
     @Test
-    public void getPlaylistSongs() {
+    public void getPlaylistSongsTest() {
         final List<Song> songs;
 
-        System.out.println("\nStarting test getPlaylistSongs");
+        System.out.println("\nStarting test getPlaylistSongsTest");
         when(songPersistence.getPlaylistSongs(1)).thenReturn((mockSongs));
 
         songs = accessSong.getPlaylistSongs(1);
@@ -109,6 +109,6 @@ public class AccessSongTest {
 
         verify(songPersistence).getPlaylistSongs(1);
 
-        System.out.println("Finished test getPlaylistSongs");
+        System.out.println("Finished test getPlaylistSongsTest");
     }
 }

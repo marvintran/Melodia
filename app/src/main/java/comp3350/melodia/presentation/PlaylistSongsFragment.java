@@ -44,6 +44,7 @@ public class PlaylistSongsFragment
 
     private RefreshInterface listener;
     private ShowPlayer playerListener;
+    private PlaySongsFromPlaylist playSongsFromPlaylistListener;
 
     public interface RefreshInterface{
         public void refreshPlaylists();
@@ -53,12 +54,17 @@ public class PlaylistSongsFragment
         public void onShowPlayer();
     }
 
+    public interface PlaySongsFromPlaylist{
+        public void playSongsFromPlaylist(int positionSongClicked);
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         try {
             listener = (RefreshInterface) context;
             playerListener = (ShowPlayer) context;
+            playSongsFromPlaylistListener = (PlaySongsFromPlaylist) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(
                     context.toString() + " must implement OnArticleSelectedListener");
@@ -225,6 +231,7 @@ public class PlaylistSongsFragment
         accessSong.replaceQueueWithPlaylist(currPlaylistSongs, queueSongs);
 
         playerListener.onShowPlayer();
+        playSongsFromPlaylistListener.playSongsFromPlaylist(position);
 
         toastMessage = Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT);
         toastMessage.show();

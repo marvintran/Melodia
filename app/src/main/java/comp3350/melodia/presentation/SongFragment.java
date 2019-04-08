@@ -247,7 +247,7 @@ public class SongFragment extends Fragment {
             t2.setText(songList.get(currSong).getArtistName());
 
             TextView t3 = getActivity().findViewById(R.id.textSongTime);
-            String songTimeText = String.format("%02d : %02d : %02d ",
+            String songTimeText = String.format("%02d : %02d : %02d",
                     songList.get(currSong).getHours(),
                     songList.get(currSong).getMinutes(),
                     songList.get(currSong).getSeconds());
@@ -274,8 +274,13 @@ public class SongFragment extends Fragment {
         int mins = ((currDuration/1000) % 3600) / 60;
         int secs   = (currDuration/1000) % 60;
 
-        TextView timePlayed = getActivity().findViewById(R.id.textCurrSongTime);
-        timePlayed.setText(String.format("%02d : %02d : %02d ", hrs, mins, secs));
+        try{
+            TextView timePlayed = getActivity().findViewById(R.id.textCurrSongTime);
+            timePlayed.setText(String.format("%02d : %02d : %02d", hrs, mins, secs));
+        }catch (Exception e){
+            System.out.println("Error: " + e);
+        }
+
     }
 
     public static SongFragment newInstance() {
@@ -294,4 +299,11 @@ public class SongFragment extends Fragment {
             queueButtonListener.onShowQueue();
         }
     };
+
+    public void playSongAtPosition(int positionSongClicked) {
+        currSong = positionSongClicked;
+        playSong();
+        updateText();
+        updateTime();
+    }
 }

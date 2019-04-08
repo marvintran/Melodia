@@ -24,7 +24,9 @@ public class MainActivity extends AppCompatActivity
                                      LibrarySongsFragment.RefreshInterface,
                                      QueueFragment.RefreshInterface,
                                      PlaylistSongsFragment.RefreshInterface,
-                                     PlaylistSongsFragment.ShowPlayer{
+                                     PlaylistSongsFragment.ShowPlayer,
+                                     QueueFragment.PlaySongAtPosition,
+                                     PlaylistSongsFragment.PlaySongsFromPlaylist{
 
 
     final Fragment homeNav = LibrarySongsFragment.newInstance();
@@ -129,7 +131,18 @@ public class MainActivity extends AppCompatActivity
         active = songNav;
     }
 
+    @Override
     public void refreshPlaylists() {
         playlistNav.updatePlaylists();
+    }
+
+    @Override
+    public void playSongAtPosition(int positionSongClicked) {
+        songNav.playSongAtPosition(positionSongClicked);
+    }
+
+    @Override
+    public void playSongsFromPlaylist(int positionSongClicked) {
+        songNav.playSongAtPosition(positionSongClicked);
     }
 }
