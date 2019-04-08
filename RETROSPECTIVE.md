@@ -24,15 +24,6 @@ In fact, because there was not enough communication, we didn't even know one of 
 
 ## Moving Forward
 
-To fix the database issues,
-To fix the communication issues
+To fix the database issues, we have decided to have multiple people work on the database. As a measurement of success, all the HSQLDB implementations needed for our code should be working by the end of the 3rd iteration.
 
-## Measuring Success
-
-One unit of measurement is to finish all the HSQLDB implementations needed for our code and have it working by the end of the 3rd iteration.
-
-Another form of measurement is to have weekly updates on the progress of the code they are implementing, so that others can see where they are it. This will allow for better communication, so everyone can see how everyone is doing and could possibly provide help if there are obstacles. 
-
-
-
-
+To fix the communication issues we have decided to conduct weekly Discord meetings every Monday on the progress of our code. This will allow us to uncover problems earlier with the added benefit of giving everyone a general idea about the state of the project. With more empasis on communication and finding out problems earlier, as a measurement of success, if we are able to receive less code smells than the combined average of Iteration 1 and Iteration 2, this change will be a success.
