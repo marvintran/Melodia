@@ -210,9 +210,38 @@ public class AccessSongIT {
 
     @Test
     public void shuffleQueueIT() {
-        List<Song> playlistQueue;
-        System.out.println("\nStarting test shuffleQueueIT");
+        accessSong.insertPlaylistSong(0, 1, 0);
+        accessSong.insertPlaylistSong(0, 2, 1);
+        accessSong.insertPlaylistSong(0, 3, 2);
+        accessSong.insertPlaylistSong(0, 4, 3);
+        String songInsertedOne = "A New Beginning";
+        String songInsertedTwo = "All that";
+        String songInsertedThree = "Broke Reality";
+        String songInsertedFour = "Dance";
 
+        boolean orderChanged = false;
+
+        List<Song> playlistQueue = accessSong.getPlaylistSongs(0);
+
+        System.out.println("\nStarting test shuffleQueueIT");
+        assertEquals("The queue should have 4 songs in it",
+                playlistQueue.size(), 4);
+
+        accessSong.shuffleQueue();
+        playlistQueue = accessSong.getPlaylistSongs(0);
+        assertEquals("The queue should still have 4 songs in it",
+                playlistQueue.size(), 4);
+
+        String songOne = playlistQueue.get(0).getSongName();
+        String songTwo = playlistQueue.get(1).getSongName();
+        String songThree = playlistQueue.get(2).getSongName();
+        String songFour = playlistQueue.get(3).getSongName();
+
+        if(!songOne.equals(songInsertedOne) || !songTwo.equals(songInsertedTwo) ||
+           !songThree.equals(songInsertedThree) || !songFour.equals(songInsertedFour))
+            orderChanged = true;
+
+        assertTrue("The order should have changed", orderChanged);
 
         System.out.println("Finished test shuffleQueueIT");
     }
