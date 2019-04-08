@@ -2,9 +2,7 @@ package comp3350.melodia.logic;
 
 import java.util.List;
 
-import comp3350.melodia.application.Services;
 import comp3350.melodia.objects.Playlist;
-import comp3350.melodia.objects.Song;
 import comp3350.melodia.persistence.PlaylistPersistence;
 
 public class AccessPlaylist {
