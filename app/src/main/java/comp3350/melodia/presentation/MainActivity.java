@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity
 
     final Fragment homeNav = LibrarySongsFragment.newInstance();
     final PlaylistFragment playlistNav = PlaylistFragment.newInstance();
-    final Fragment songNav = SongFragment.newInstance();
+    final SongFragment songNav = SongFragment.newInstance();
     final FragmentManager fm = getSupportFragmentManager();
     Fragment active = homeNav;
 
