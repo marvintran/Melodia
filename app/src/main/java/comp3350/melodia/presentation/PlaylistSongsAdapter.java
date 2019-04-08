@@ -5,11 +5,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.Collections;
 import java.util.List;
 
 import comp3350.melodia.R;
-import comp3350.melodia.objects.Playlist;
 import comp3350.melodia.objects.Song;
 
 public class PlaylistSongsAdapter

@@ -10,10 +10,8 @@ public class PlaylistTest{
 
         System.out.println("\nStarting PlaylistTest");
 
-        //hardcoded a playlist for testing
         playlist = new Playlist(1, "Playlist5",  8);
 
-        //asserts
         assertNotNull(playlist);
         assertNotNull(playlist.getPlaylistID());
         assertEquals("Playlist5", (playlist.getPlaylistName()));
