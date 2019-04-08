@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:key="nightmode"
+        android:title="@string/night_mode"
+        android:summary="@string/summaryNight"/>
+</PreferenceScreen>
