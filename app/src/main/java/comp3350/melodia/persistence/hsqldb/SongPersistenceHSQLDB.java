@@ -170,55 +170,5 @@ public class SongPersistenceHSQLDB implements SongPersistence {
         }
     }
 
-    @Override
-    public Song insertSong(Song currentSong) {
-
-        try (final Connection c = connection()) {
-            final PreparedStatement st = c.prepareStatement("INSERT INTO SONG VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
-            st.setInt(1, currentSong.getSongID());
-            st.setString(2, currentSong.getSongName());
-            st.setInt(3, currentSong.getSongTime());
-            st.setInt(4, currentSong.getAlbumID());
-            st.setString(5, currentSong.getAlbumName());
-            st.setInt(6, currentSong.getArtistID());
-            st.setString(7, currentSong.getArtistName());
-            st.setInt(8, currentSong.getTrackNumber());
-
-            st.executeUpdate();
-
-            return currentSong;
-        } catch (final SQLException e) {
-            throw new PersistenceException(e);
-        }
-    }
-
-    @Override
-    public Song updateSong(Song currentSong) {
-
-        try (final Connection c = connection()) {
-            final PreparedStatement st = c.prepareStatement("UPDATE SONG SET name = ? WHERE SONGID = ?");
-            st.setString(1, currentSong.getSongName());
-            st.setInt(2, currentSong.getSongID());
-
-            st.executeUpdate();
-
-            return currentSong;
-        } catch (final SQLException e) {
-            throw new PersistenceException(e);
-        }
-    }
-
-    @Override
-    public void deleteSong(Song currentSong) {
-
-        try (final Connection c = connection()) {
-            final PreparedStatement sc = c.prepareStatement("DELETE FROM SONG WHERE SONGID = ?");
-            sc.setInt(1, currentSong.getSongID());
-            sc.executeUpdate();
-        } catch (final SQLException e) {
-            throw new PersistenceException(e);
-        }
-    }
-
 }
 

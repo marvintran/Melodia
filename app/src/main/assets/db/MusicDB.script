@@ -26,4 +26,3 @@ INSERT INTO PLAYLIST VALUES(0, 'queue', 0)
 INSERT INTO PLAYLIST VALUES(1, 'Playlist 1', 2)
 INSERT INTO PLAYLIST_SONGS VALUES(1, 1, 0)
 INSERT INTO PLAYLIST_SONGS VALUES(1, 2, 1)
-INSERT INTO ACCOUNT(346,"Someone Name","some_uersname","bfffa30fc7290bae", "1f916a67afe3e8ff132b2790e87d5394", "someone@example.com") -- Adding user info with password="password"
