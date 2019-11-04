@@ -15,9 +15,9 @@ Using android studio, clone this project using https://code.cs.umanitoba.ca/comp
 Then open Melodia in Android Studio. In Android Stuido you can then build the code and run it on your phone or emulator running on Marshamllow.
 
 ## Links
-[Architecture](https://code.cs.umanitoba.ca/comp3350-winter2019/group-7/blob/master/Architecture.jpg)
+[Architecture](https://github.com/marvintran/Melodia-Music-Player/blob/master/Architecture.jpg)
 
-[Vision Statement](https://code.cs.umanitoba.ca/comp3350-winter2019/group-7/blob/master/VISION.md)
+[Vision Statement](https://github.com/marvintran/Melodia-Music-Player/blob/master/VISION.md)
 
-[Retrospective](https://code.cs.umanitoba.ca/comp3350-winter2019/group-7/blob/master/RETROSPECTIVE.md)
+[Retrospective](https://github.com/marvintran/Melodia-Music-Player/blob/master/RETROSPECTIVE.md)
 
